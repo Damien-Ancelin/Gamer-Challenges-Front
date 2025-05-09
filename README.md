@@ -1,54 +1,57 @@
-# React + TypeScript + Vite
+# 🎮 Gamer Challenges
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🏆 Description
 
-Currently, two official plugins are available:
+**Gamer Challenges** est une plateforme dédiée aux joueurs souhaitant repousser leurs limites et prolonger l’expérience des jeux qu’ils aiment.
+Créez ou relevez des défis de tous niveaux, dans de nombreuses catégories, et explorez de nouvelles façons de jouer !
+Que vous soyez passionné, avide de dépassement de soi, ou simplement curieux de découvrir de nouveaux horizons, rejoignez notre communauté et allez au-delà de ce que les jeux ont à vous offrir !
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Package
 
-## Expanding the ESLint configuration
+- ⚡ Environnement Vite
+- ⚛️ React
+- 🛣️ React-router
+- 🧪 Biome
+- ⚡ Vitest
+- 📝 TypeScript
+- 😎 Sass
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Installation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. Clonez le dépôt :
+   ```bash
+   git clone
+   ```
+2. Accédez au répertoire du projet :
+   ```bash
+   cd Gamer-Challenges-Front
+   ```
+3. Créer et remplir le fichier `.env` à partir du fichier `.env.example` :
+   ```bash
+   VITE_API_URL=adresse_de_l_api
+   ```
+4. Installez les dépendances :
+   ```bash
+   npm install
+   ```
+5. Lancez le projet :
+   ```bash
+   npm run dev
+   ```
+6. Ouvrez votre navigateur et accédez à `http://localhost:5173` pour voir l'application en action.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛫 Lancer en mode production
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Pour lancer le projet en mode production, suivez ces étapes :
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. Builder le projet :
+
+   ```bash
+   npm run build
+   ```
+
+2. Lancer le projet :
+   ```bash
+   npm run preview
+   ```
+3. L'application sera accessible à l'adresse `http://localhost:4173`.
