@@ -3,7 +3,7 @@
 .button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  padding: .3rem 2rem;
+  padding: .3rem 1rem;
   border: 3px solid transparent;
   border-radius: 8px;
 }
@@ -18,6 +18,12 @@
   background:
     linear-gradient(v.$blue, v.$blue) padding-box,
     linear-gradient(180deg, v.$blue 10%, v.$neon-blue) border-box;
+}
+
+.button--yellow-border{
+  background:
+  linear-gradient(v.$yellow, v.$yellow) padding-box,
+  linear-gradient(180deg, v.$yellow 10%, v.$flame-orange) border-box;
 }
 
 .button--orange-border{

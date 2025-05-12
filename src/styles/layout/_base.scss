@@ -10,13 +10,16 @@ $xxl: 3rem;
 $xxxl: 4rem;
 */
 
-main {
+.main-content {
   /* * main side margin */
-  padding: 0 v.$l;
+  padding: 0 v.$xl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 section {
   margin: v.$l 0;
-  padding: v.$m;
 }
 
