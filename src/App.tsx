@@ -1,8 +1,14 @@
-import { useRoutes } from 'react-router';
-import { routes } from './Routes/Routes';
+import { useRoutes } from "react-router";
+import { routes } from "./Routes/Routes";
+import Header from "./components/Header";
 
 export default function App() {
   const routing = useRoutes(routes);
 
-  return <main className="main-content">{routing}</main>;
+  return (
+    <>
+      <Header />
+      <main className="main-content">{routing}</main>
+    </>
+  );
 }

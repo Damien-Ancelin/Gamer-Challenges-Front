@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.header {
+  @include m.flex-row;
+  margin: v.$m;
+  padding: v.$m;
+  border-bottom: 2px solid v.$neon-blue;
+
+  &__nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+}
