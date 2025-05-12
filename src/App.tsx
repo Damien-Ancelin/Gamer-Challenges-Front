@@ -1,9 +1,8 @@
-import Homepage from './pages/Homepage';
+import { useRoutes } from 'react-router';
+import { routes } from './Routes/Routes';
 
 export default function App() {
-  return (
-    <main className="main-content">
-      <Homepage />
-    </main>
-  );
+  const routing = useRoutes(routes);
+
+  return <main className="main-content">{routing}</main>;
 }
