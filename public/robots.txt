@@ -1,0 +1,16 @@
+# Autoriser tous les moteurs de recherche à explorer le site
+User-agent: *
+Allow: /
+
+# Bloquer l'accès aux fichiers sensibles ou inutiles pour l'indexation
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /node_modules/
+
+# Bloquer les fichiers spécifiques
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# Indiquer l'emplacement du sitemap
+Sitemap: https://www.gamerchallenges.com/sitemap.xml

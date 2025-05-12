@@ -1,5 +1,5 @@
-import HeroBanner from "../../components/HeroBanner";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
+import HeroBanner from '../../components/HeroBanner';
 export default function Homepage() {
   return (
     <>
