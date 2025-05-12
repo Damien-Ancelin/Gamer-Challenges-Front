@@ -1,5 +1,5 @@
-import heroBannerImg250 from "@/assets/images/hero-banner_250px.webp";
-import heroBannerImg300 from "@/assets/images/hero-banner_300px.webp";
+import heroBannerImg250 from '@/assets/images/hero-banner_250px.webp';
+import heroBannerImg300 from '@/assets/images/hero-banner_300px.webp';
 
 export default function HeroBanner() {
   return (
@@ -18,7 +18,7 @@ export default function HeroBanner() {
         />
         <div className="hero-banner__text-button-container">
           <p className="hero-banner__text">
-            Bienvenue sur{" "}
+            Bienvenue sur{' '}
             <strong className="hero-banner__strong">GamerChallenges</strong>, la
             plateforme où chaque joueur peut relever des défis, poster ses
             meilleures actions en vidéo, et grimper dans les classements grâce
