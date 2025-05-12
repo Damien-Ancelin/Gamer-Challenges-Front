@@ -1,0 +1,15 @@
+@use '../abstracts/variables' as v;
+
+.input {
+  border: 3px solid transparent;
+  padding: .7rem;
+}
+
+.input--border {
+  outline: none;
+  background-image:
+    linear-gradient(#020024, #020024),
+    linear-gradient(90deg, #00CFFF, #3A91FF);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}

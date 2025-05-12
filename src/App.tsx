@@ -1,10 +1,8 @@
-import './App.css';
-
 function App() {
   return (
-    <>
-      <p>Salut</p>
-    </>
+    <main>
+      <h1>Gamer Challenges</h1>
+    </main>
   );
 }
 

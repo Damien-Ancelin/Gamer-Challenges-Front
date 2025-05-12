@@ -1,0 +1,46 @@
+@use '../abstracts/variables' as v;
+
+.blue-border {
+  background:
+    linear-gradient(v.$main-background, v.$main-background) padding-box,
+    linear-gradient(90deg, v.$neon-blue, v.$blue) border-box;
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+.purple-border {
+  background:
+    linear-gradient(v.$main-background, v.$main-background) padding-box,
+    linear-gradient(90deg, v.$blue, v.$neon-purple) border-box;
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+.pink-border {
+  background:
+    linear-gradient(v.$main-background, v.$main-background) padding-box,
+    linear-gradient(90deg, v.$neon-purple, v.$neon-pink) border-box;
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+.yellow-border {
+  background:
+    linear-gradient(v.$main-background, v.$main-background) padding-box,
+    linear-gradient(90deg, v.$neon-pink, v.$yellow) border-box;
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+.orange-border {
+  background:
+    linear-gradient(v.$main-background, v.$main-background) padding-box,
+    linear-gradient(90deg, v.$yellow, v.$flame-orange) border-box;
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}

@@ -1,0 +1,22 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+/*
+$s: 0.5rem;
+$m: 1rem;
+$l: 1.5rem;
+$xl: 2rem;
+$xxl: 3rem;
+$xxxl: 4rem;
+*/
+
+main {
+  /* * main side margin */
+  padding: 0 v.$l;
+}
+
+section {
+  margin: v.$l 0;
+  padding: v.$m;
+}
+
