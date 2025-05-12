@@ -1,7 +1,7 @@
-import { AiOutlineMenu } from "react-icons/ai";
-import { LuCircleUser } from "react-icons/lu";
-import { NavLink } from "react-router";
-import logo from "../assets/svg/logo.svg";
+import { AiOutlineMenu } from 'react-icons/ai';
+import { LuCircleUser } from 'react-icons/lu';
+import { NavLink } from 'react-router';
+import logo from '../assets/svg/logo.svg';
 
 export default function Header() {
   return (

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router';
 //import { useAuth } from '../contexts/AuthContext'
 
 export default function AuthGuard() {
@@ -9,7 +9,7 @@ export default function AuthGuard() {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/authentification/connexion");
+      navigate('/authentification/connexion');
     }
   }, [navigate]);
 
