@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import HeroBanner from '../components/HeroBanner';
 export default function Homepage() {
   return (
