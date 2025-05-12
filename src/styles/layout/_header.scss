@@ -5,7 +5,11 @@
   @include m.flex-row;
   margin: v.$m;
   padding: v.$m;
-  border-bottom: 2px solid v.$neon-blue;
+  border-bottom: 1px solid v.$neon-blue;
+  background-color: v.$main-background;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   &__nav {
     width: 100%;

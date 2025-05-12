@@ -1,0 +1,11 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.footer {
+  @include m.flex-row;
+  margin: v.$m;
+  padding: v.$s;
+  border-top: 1px solid v.$neon-blue;
+  position: relative;
+  bottom: 0;
+}
