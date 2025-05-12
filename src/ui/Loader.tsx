@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function Loader() {
   const [visiblePaths, setVisiblePaths] = useState<number>(0);
 
-  const colors = ["#3A91FF", "#8A00FF", "#FF2DCB", "#FFAD33", "#FF6A00"];
+  const colors = ['#3A91FF', '#8A00FF', '#FF2DCB', '#FFAD33', '#FF6A00'];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,7 +60,7 @@ export default function Loader() {
               <stop
                 offset="1"
                 stopColor={
-                  visiblePaths === index + 1 ? color : "rgba(0, 0, 0, 0.1)"
+                  visiblePaths === index + 1 ? color : 'rgba(0, 0, 0, 0.1)'
                 }
               />
             </linearGradient>
