@@ -1,9 +1,9 @@
-function App() {
+import Homepage from './pages/Homepage';
+
+export default function App() {
   return (
-    <main>
-      <h1>Gamer Challenges</h1>
+    <main className="main-content">
+      <Homepage />
     </main>
   );
 }
-
-export default App;

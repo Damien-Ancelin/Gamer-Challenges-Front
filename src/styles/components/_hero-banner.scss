@@ -1,0 +1,64 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.hero-banner {
+  text-align: center;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__content {
+    @include m.flex-column;
+    
+  max-width: 700px;
+  }
+
+  &__image {
+    width: 250px;
+    height: 250px;
+  }
+
+  &__text-button-container {
+    @include m.flex-column;
+    gap: v.$s;
+  }
+
+  &__strong {
+    color: v.$neon-pink;
+  }
+
+  &__button-container {
+    @include m.flex-column;
+    margin-top: v.$m;
+    gap: v.$s;
+  }
+
+  @media screen and (min-width: 768px) {
+    @include m.flex-column;
+
+    &__title {
+      font-size: 2rem;
+    }
+    
+    &__content {
+      @include m.flex-row;
+      flex-direction: row-reverse;
+    }
+
+    &__image {
+      width: 300px;
+      height: 300px;
+    }
+
+    &__text-button-container {
+      gap: v.$l;
+    }
+    &__button-container {
+      @include m.flex-row;
+      gap: v.$m;
+    }
+    
+  }
+}
