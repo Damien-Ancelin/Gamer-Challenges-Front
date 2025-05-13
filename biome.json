@@ -32,7 +32,6 @@
       "suspicious": {
         "noShadowRestrictedNames": "off",
         "noDuplicateParameters": "off",
-        "noConsole": "warn",
         "noDebugger": "error"
       },
       "correctness": {
