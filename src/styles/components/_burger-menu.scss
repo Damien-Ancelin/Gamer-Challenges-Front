@@ -1,9 +1,10 @@
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
+@use "sass:color";
 
 .burger-menu {
 
-  background-color: lighten(v.$main-background, 5%);
+  background-color: color.adjust(v.$main-background, $lightness: 5%);
   position: absolute;
   left: 0;
   top: 84px;
