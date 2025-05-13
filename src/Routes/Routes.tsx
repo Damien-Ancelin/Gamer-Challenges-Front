@@ -4,6 +4,7 @@ import { authRoutes } from './AuthRoutes';
 import { challengeRoutes } from './ChallengeRoutes';
 import { gameRoutes } from './GameRoutes';
 import { homeRoutes } from './HomeRoutes';
+import { leaderboardRoutes } from './LeaderboardRoutes';
 import { participationRoutes } from './ParticipationRoutes';
 
 export const routes: RouteObject[] = [
@@ -13,4 +14,5 @@ export const routes: RouteObject[] = [
   ...authRoutes,
   ...accountRoutes,
   ...participationRoutes,
+  ...leaderboardRoutes,
 ];
