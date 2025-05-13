@@ -19,6 +19,7 @@ a {
   @include m.flex-column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 section {

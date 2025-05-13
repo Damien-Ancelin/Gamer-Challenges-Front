@@ -1,21 +1,28 @@
 import logo from '@/assets/svg/logo.svg';
-import { GoTrophy } from 'react-icons/go';
+import { GoHome, GoTrophy } from 'react-icons/go';
 import { LuCircleUser, LuJoystick } from 'react-icons/lu';
 import { MdOutlineLeaderboard } from 'react-icons/md';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 
 export default function HeaderDesktop() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
     <header className="header-desktop">
       <NavLink to="/" className="header-desktop__logo-container">
         <img src={logo} alt="Trophé avec dégradé de couleurs" />
-        <h1 className="header-desktop__title">gamer challenges</h1>
+        {isHomePage ? (
+          <h1 className="header-desktop__title">gamer challenges</h1>
+        ) : (
+          <h2 className="header-desktop__title">gamer challenges</h2>
+        )}
       </NavLink>
       <nav className="header-desktop__nav" aria-label="Navigation ordinateur">
         <ul className="header-desktop__nav-list">
           <li className="header-desktop__nav-list__item">
             <NavLink to="/">
-              <LuCircleUser
+              <GoHome
                 aria-label="Retour à l'accueil"
                 size={32}
                 color="#00CFFF"
