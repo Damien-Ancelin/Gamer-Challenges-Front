@@ -3,9 +3,16 @@
 
 .footer {
   @include m.flex-row;
+  justify-content: center;
+  align-items: center;
   margin: v.$m;
   padding: v.$s;
   border-top: 1px solid v.$neon-blue;
   position: relative;
   bottom: 0;
+
+  @media screen and (min-width: 1024px) {
+    margin: v.$l;
+    padding: v.$l;
+  }
 }

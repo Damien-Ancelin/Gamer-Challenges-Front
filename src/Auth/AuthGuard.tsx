@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router';
 export default function AuthGuard() {
   const navigate = useNavigate();
   //const { isAuthenticated } = useAuth()
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   useEffect(() => {
     if (!isAuthenticated) {
