@@ -59,6 +59,9 @@
         font-weight: 500;
         font-size: 1.1rem;
         text-transform: capitalize;
+        &:hover {
+          color: v.$neon-blue;
+        }
       }
       &__item--noActive .active {
         border: none;

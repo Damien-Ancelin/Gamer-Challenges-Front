@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function FooterMobile() {
   const year = new Date().getFullYear();
   return (
     <footer className="footer">

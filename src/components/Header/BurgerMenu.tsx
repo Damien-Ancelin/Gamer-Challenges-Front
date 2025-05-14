@@ -13,6 +13,7 @@ interface BurgerMenuProps {
 export default function BurgerMenu({ closeMenu }: BurgerMenuProps) {
   // 1. create a ref with initial value "null"
   const burgerMenuRef = useRef<HTMLDivElement>(null);
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -177,7 +178,7 @@ export default function BurgerMenu({ closeMenu }: BurgerMenuProps) {
             />
           </div>
           <p className="burger-menu__footer__copyright">
-            © 2025 Gamer Challenges
+            © {year} Gamer Challenges
           </p>
         </div>
       </nav>

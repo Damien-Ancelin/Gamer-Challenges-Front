@@ -12,7 +12,90 @@
   bottom: 0;
 
   @media screen and (min-width: 1024px) {
-    margin: v.$l;
-    padding: v.$l;
+    display: none;
+  }
+}
+
+.footer-desktop {
+  @include m.flex-column;
+  margin: v.$m;
+  position: relative;
+  bottom: 0;
+  display: none;
+
+  &__top-container {
+    @include m.flex-row;
+    justify-content: space-between;
+    align-items: center;
+    padding: v.$xl;
+  }
+
+  &__logo {
+    &__image {
+      margin: v.$s;
+    }
+    &__title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-variant: small-caps;
+    }
+    &__tagline {
+      color: v.$yellow;
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
+
+  &__legal {
+    @include m.flex-row;
+    gap: v.$xl;
+    &__container {
+      @include m.flex-column;
+    }
+    &__title {
+      color: v.$yellow;
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      margin-bottom: v.$s;
+    }
+    &__list {
+      @include m.flex-column;
+      gap: v.$s;
+      list-style-type: none;
+      padding: 0;
+      
+      &__item-span {
+        color: v.$tertiary-font-color;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        text-transform: capitalize;
+        &:hover {
+          color: v.$neon-blue;
+        }
+      }
+    }
+  }
+
+  &__infos {
+    @include m.flex-row;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: v.$m;
+    border-top: 1px solid v.$neon-blue;
+    &__social-media {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$m;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    display: flex;
   }
 }
