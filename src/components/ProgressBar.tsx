@@ -26,10 +26,17 @@ export default function ProgressBar({ rating }: ProgressBarProps) {
   return (
     <div className="progress-bar">
       <img
-        className="progress-bar__image"
+        className="progress-bar__image-mobile"
         src={progressBarImage?.image}
         alt="Progression du défi"
         loading="lazy"
+      />
+      <img
+        className="progress-bar__image-desktop"
+        src={progressBarImage?.image}
+        alt="Progression du défi"
+        loading="lazy"
+        style={{ width: '151px', height: '47px' }}
       />
     </div>
   );

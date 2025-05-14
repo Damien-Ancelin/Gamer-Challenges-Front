@@ -4,13 +4,18 @@ import ProgressBar from './ProgressBar';
 
 export function ChallengeCard() {
   // tab which contains the class names for the border
-  // const borderClass = [
-  //   "blue-border",
-  //   "purple-border",
-  //   "pink-border",
-  //   "yellow-border",
-  //   "orange-border",
+  // const borderClasses = [
+  //   { max: 20, border: "challenge-card blue-border" },
+  //   { max: 40, border: "challenge-card purple-border" },
+  //   { max: 60, border: "challenge-card pink-border" },
+  //   { max: 80, border: "challenge-card yellow-border" },
+  //   { max: 100, border: "challenge-card orange-border" },
   // ];
+
+  // const borderClass = borderClasses.find(
+  //   (border) => rating <= border.max
+  // );
+
   return (
     <article className="challenge-card yellow-border">
       <div className="challenge-card__content">
@@ -50,9 +55,9 @@ export function ChallengeCard() {
                 className="challenge-card__content__details__rating"
                 aria-label="note en pourcentage du challenge"
               >
-                78%
+                45%
               </p>
-              <ProgressBar rating={78} />
+              <ProgressBar rating={45} />
             </div>
             <p className="challenge-card__content__details__participations">
               42 participations
