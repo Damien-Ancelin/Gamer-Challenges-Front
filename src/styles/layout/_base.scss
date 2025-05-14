@@ -1,22 +1,25 @@
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
 
-/*
-$s: 0.5rem;
-$m: 1rem;
-$l: 1.5rem;
-$xl: 2rem;
-$xxl: 3rem;
-$xxxl: 4rem;
-*/
+a {
+  text-decoration: none;
+  color: v.$main-font-color;
+}
+
+.app-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .main-content {
   /* * main side margin */
+  flex:1;
   padding: 0 v.$l;
-  display: flex;
-  flex-direction: column;
+  @include m.flex-column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 section {

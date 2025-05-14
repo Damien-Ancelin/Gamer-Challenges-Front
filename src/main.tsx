@@ -6,13 +6,16 @@ import { BrowserRouter } from 'react-router';
 
 import './styles/main.scss';
 import App from './App.tsx';
+import BurgerMenuProvider from './contexts/BurgerMenuContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <BurgerMenuProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </BurgerMenuProvider>
     </HelmetProvider>
   </StrictMode>,
 );

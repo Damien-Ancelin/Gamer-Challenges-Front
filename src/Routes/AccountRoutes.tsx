@@ -1,9 +1,10 @@
 import type { RouteObject } from 'react-router';
+import AuthGuard from '../Auth/AuthGuard';
 
 export const accountRoutes: RouteObject[] = [
   {
     path: 'compte',
-    //element: <AuthGuard />,
+    element: <AuthGuard />,
     children: [
       { index: true, element: <h1>Dashboard</h1> },
       { path: 'modifier-compte', element: <h1>Modifier compte</h1> },

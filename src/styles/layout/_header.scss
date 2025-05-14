@@ -1,0 +1,103 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+/* Mobile header */
+.header-mobile {
+  @include m.flex-row;
+  justify-content: center;
+  align-items: center;
+  margin: v.$m;
+  padding: v.$m;
+  border-bottom: 1px solid v.$neon-blue;
+  background-color: v.$main-background;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  &__nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}
+
+/* Desktop header */
+.header-desktop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: v.$m;
+  padding: v.$m;
+  border-bottom: 1px solid v.$neon-blue;
+  background-color: v.$main-background;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: none;
+
+  &__nav {
+    a {
+      display: flex;
+      gap: v.$s;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    &-list {
+      @include m.flex-row;
+      list-style-type: none;
+      padding: 0;
+      gap: v.$l;
+      &__item-span {
+        color: v.$tertiary-font-color;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 500;
+        font-size: 1.1rem;
+        text-transform: capitalize;
+        &:hover {
+          color: v.$neon-blue;
+        }
+      }
+      &__item--noActive .active {
+        border: none;
+      }
+    }
+  }
+  
+  &__logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-variant: small-caps;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: flex;
+  }
+}
+
+/* Confif for active link */
+.active span{
+  border-bottom: 2px groove v.$neon-blue;
+  color: v.$secondary-font-color;
+}
+.pending span{
+  border-bottom: 2px groove v.$neon-purple;
+}
+
+/* diabled active navlink */
+.no-active span{
+  border-bottom: none;
+}
