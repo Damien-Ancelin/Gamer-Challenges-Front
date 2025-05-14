@@ -5,19 +5,20 @@
   &__content {
     @include m.flex-column;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: v.$l;
+    padding: 0 v.$l;
     &__item {
       @include m.flex-column;
       justify-content: center;
       align-items: center;
       gap: v.$m;
-      width: 100%;
       padding: v.$xl;
+      flex: 1;
       &__title {
         font-size: 0.938rem;
         font-family: "Orbitron", sans-serif;
-        font-weight: 500;
+        font-weight: 400;
         text-transform: uppercase;
         text-align: center;
         margin: 0;
@@ -45,6 +46,35 @@
         color: white;
         border: 1px solid transparent;
         border-radius: 8px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      @include m.flex-row;
+      gap: v.$l;
+      padding: 0 v.$s;
+      &__item {
+        gap: v.$m;
+        padding: v.$l;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    &__content {
+      @include m.flex-row;
+      gap: v.$l;
+      &__item {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        gap: v.$m;
+        padding: v.$l;
+        &__title {
+          font-size: 1.5rem;
+        }
       }
     }
   }
