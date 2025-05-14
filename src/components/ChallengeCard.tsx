@@ -3,19 +3,6 @@ import StatusLabel from '../ui/StatusLabel';
 import ProgressBar from './ProgressBar';
 
 export function ChallengeCard() {
-  // tab which contains the class names for the border
-  // const borderClasses = [
-  //   { max: 20, border: "challenge-card blue-border" },
-  //   { max: 40, border: "challenge-card purple-border" },
-  //   { max: 60, border: "challenge-card pink-border" },
-  //   { max: 80, border: "challenge-card yellow-border" },
-  //   { max: 100, border: "challenge-card orange-border" },
-  // ];
-
-  // const borderClass = borderClasses.find(
-  //   (border) => rating <= border.max
-  // );
-
   return (
     <article className="challenge-card yellow-border">
       <div className="challenge-card__content">

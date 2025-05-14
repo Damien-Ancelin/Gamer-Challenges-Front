@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import HeroBanner from '../components/HeroBanner';
-import { PopularChallenges } from '../components/PopularChallenges';
+import { Explain } from '../components/HomePage/Explain';
+import HeroBanner from '../components/HomePage/HeroBanner';
+import { PopularChallenges } from '../components/HomePage/PopularChallenges';
 export default function Homepage() {
   return (
     <>
@@ -39,10 +40,8 @@ export default function Homepage() {
       </Helmet>
       <HeroBanner />
       <PopularChallenges />
+      <Explain />
 
-      <section className="how-it-works">
-        <h2>comment participer ?</h2>
-      </section>
       <section className="last-participations">
         <h2>les dernières participations</h2>
       </section>

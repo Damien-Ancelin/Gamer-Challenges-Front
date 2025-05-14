@@ -1,4 +1,4 @@
-import { ChallengeCard } from './ChallengeCard';
+import { ChallengeCard } from '../ChallengeCard';
 
 export function PopularChallenges() {
   return (
