@@ -140,8 +140,10 @@
           font-family: Orbitron;
           font-size: 2.5rem;
           color: v.$yellow;
+          &-container {
+            justify-content: space-evenly;
+          }
         }
-
         &__participations {
           font-size: 1.2rem;
         }

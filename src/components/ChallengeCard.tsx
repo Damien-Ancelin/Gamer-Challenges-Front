@@ -1,7 +1,16 @@
 import altImg100 from '../assets/images/alt-100px.webp';
 import StatusLabel from '../ui/StatusLabel';
+import ProgressBar from './ProgressBar';
 
 export function ChallengeCard() {
+  // tab which contains the class names for the border
+  // const borderClass = [
+  //   "blue-border",
+  //   "purple-border",
+  //   "pink-border",
+  //   "yellow-border",
+  //   "orange-border",
+  // ];
   return (
     <article className="challenge-card yellow-border">
       <div className="challenge-card__content">
@@ -37,8 +46,13 @@ export function ChallengeCard() {
 
           <footer className="challenge-card__content__details__footer">
             <div className="challenge-card__content__details__rating-container">
-              <p className="challenge-card__content__details__rating">78%</p>
-              {/* IMG */}
+              <p
+                className="challenge-card__content__details__rating"
+                aria-label="note en pourcentage du challenge"
+              >
+                78%
+              </p>
+              <ProgressBar rating={78} />
             </div>
             <p className="challenge-card__content__details__participations">
               42 participations
