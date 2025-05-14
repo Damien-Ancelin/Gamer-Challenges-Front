@@ -3,14 +3,14 @@ interface StatusLabelProps {
 }
 
 export default function StatusLabel({ status }: StatusLabelProps) {
-  status === 'closed' ? 'label label--closed' : 'label label--open';
+  const labelClass =
+    status === 'closed'
+      ? 'label status-label--closed'
+      : 'label status-label--open';
+
   return (
-    <p
-      className={
-        status === 'closed' ? 'label label--closed' : 'label label--open'
-      }
-    >
-      status === "closed" ? "fermé" : "ouvert";
-    </p>
+    <span className={labelClass}>
+      {status === 'closed' ? 'fermé' : 'ouvert'}
+    </span>
   );
 }

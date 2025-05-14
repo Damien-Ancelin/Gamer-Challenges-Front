@@ -1,21 +1,12 @@
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
 
-.status-label {
-  @include m.flex-row;
-  justify-content: center;
-  align-items: center;
-  width: 69px;
-  height: 17px;
-  padding: 2px 3px;
-}
-
-.label--open{
+.status-label--open {
   border-radius: 8px;
   border: 1px solid v.$neon-green;
 }
-
-.label--closed{
+.status-label--closed {
   border-radius: 8px;
   border: 1px solid v.$neon-red;
 }
+
