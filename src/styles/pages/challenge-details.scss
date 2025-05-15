@@ -115,8 +115,7 @@
     align-items: center;
     gap: v.$m;
     border-top: 1px solid v.$neon-blue;
-    border-bottom: 1px solid v.$neon-blue;
-    padding: v.$l 0;
+    padding-top: v.$l;
   }
   &__vote__rating {
     @include m.flex-column;
@@ -150,6 +149,7 @@
     }
     &__vote-container {
       padding: v.$xl 0;
+      border-bottom: 1px solid v.$neon-blue;
     }
   }
 }

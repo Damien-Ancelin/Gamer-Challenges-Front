@@ -1,8 +1,10 @@
-import { useState } from 'react';
+interface RatingBarProps {
+  rating: number;
+  setRating: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export default function RatingBar() {
+export default function RatingBar({ rating, setRating }: RatingBarProps) {
   const colors = ['#3A91FF', '#8A00FF', '#FF2DCB', '#FFAD33', '#FF6A00'];
-  const [rating, setRating] = useState<number>(1);
 
   const handleRatingMoins = () => {
     setRating((prevRating) => {

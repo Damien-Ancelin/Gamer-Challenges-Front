@@ -1,11 +1,23 @@
 import { Helmet } from 'react-helmet-async';
 
 import altImg240 from '@/assets/images/alt-240px.webp';
+import { useState } from 'react';
 import ProgressBar from '../components/ProgressBar';
 import RatingBar from '../components/RatingBar';
 import StatusLabel from '../ui/StatusLabel';
 
+// ! Reste les boutons si owner / authenticated / ou aucun des deux
+
 export default function ChallengesDetails() {
+  const [rating, setRating] = useState<number>(1);
+  const [isVoted, setIsVoted] = useState<boolean>(false);
+
+  const handleRatingChallenge = (rating: number) => {
+    const purifyRating = Number(rating);
+    setIsVoted(true);
+    console.log('Rating submitted:', purifyRating);
+  };
+
   return (
     <>
       <Helmet>
@@ -150,17 +162,23 @@ export default function ChallengesDetails() {
           </div>
         </div>
 
-        <div className="challenge-details-page__vote-container">
-          <h3 className="challenge-details-page__vote__title">
-            Votez pour ce challenge
-          </h3>
-          <div className="challenge-details-page__vote__rating">
-            <RatingBar />
-            <button className="button button--purple-border" type="button">
-              Envoyer ma note
-            </button>
+        {!isVoted && (
+          <div className="challenge-details-page__vote-container">
+            <h3 className="challenge-details-page__vote__title">
+              Votez pour ce challenge
+            </h3>
+            <div className="challenge-details-page__vote__rating">
+              <RatingBar rating={rating} setRating={setRating} />
+              <button
+                className="button button--purple-border"
+                type="button"
+                onClick={() => handleRatingChallenge(rating)}
+              >
+                Envoyer ma note
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );
