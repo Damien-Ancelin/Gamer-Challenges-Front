@@ -10,9 +10,13 @@
     justify-content: center;
     align-items: center;
     gap: v.$l;
+    margin-bottom: v.$m;
   }
   &__title {
     margin: 0;
+  }
+  &__sub-title {
+    margin-bottom: v.$xl;
   }
   &__aside {
     @include m.flex-column;
@@ -78,9 +82,11 @@
     justify-content: center;
     align-items: center;
     padding: v.$m;
+    &__title {
+      font-size: 1.5rem;
+    }
   }
   &__button-container {
-    margin-top: v.$l;
     @include m.flex-column;
     justify-content: center;
     align-items: center;
@@ -91,14 +97,59 @@
     justify-content: center;
     align-items: center;
   }
+  &__vote__title {
+    margin: 0;
+  }
+
+  &__participations {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$l;
+  }
+  &__vote-container {
+    margin-top: v.$l;
+    width: 100%;
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    border-top: 1px solid v.$neon-blue;
+    border-bottom: 1px solid v.$neon-blue;
+    padding: v.$l 0;
+  }
+  &__vote__rating {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
 
   @media screen and (min-width: 768px) {
     &__content {
       @include m.flex-row;
     }
+    &__participations {
+      align-self: flex-end;
+    }
     &__button-container {
-      margin-top: v.$l;
       @include m.flex-row;
+    }
+    &__aside {
+      &__rating {
+        font-family: Orbitron;
+        font-size: 1.5rem;
+        color: v.$yellow;
+        &-container {
+          justify-content: space-evenly;
+        }
+      }
+      &__participations {
+        font-size: 1.1rem;
+      }
+    }
+    &__vote-container {
+      padding: v.$xl 0;
     }
   }
 }

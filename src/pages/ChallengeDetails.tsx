@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import altImg240 from '@/assets/images/alt-240px.webp';
 import ProgressBar from '../components/ProgressBar';
+import RatingBar from '../components/RatingBar';
 import StatusLabel from '../ui/StatusLabel';
 
 export default function ChallengesDetails() {
@@ -138,16 +139,27 @@ export default function ChallengesDetails() {
           </div>
         </div>
 
-        <div className="challenge-details-page__button-container">
-          <button type="button" className="button button--orange-border">
-            participer
-          </button>
-          <button type="button" className="button button--blue-border">
-            voir les participations
-          </button>
+        <div className="challenge-details-page__participations">
+          <div className="challenge-details-page__button-container">
+            <button type="button" className="button button--orange-border">
+              participer
+            </button>
+            <button type="button" className="button button--blue-border">
+              voir les participations
+            </button>
+          </div>
         </div>
+
         <div className="challenge-details-page__vote-container">
-          <p>VOTE COMPONENTS</p>
+          <h3 className="challenge-details-page__vote__title">
+            Votez pour ce challenge
+          </h3>
+          <div className="challenge-details-page__vote__rating">
+            <RatingBar />
+            <button className="button button--purple-border" type="button">
+              Envoyer ma note
+            </button>
+          </div>
         </div>
       </section>
     </>
