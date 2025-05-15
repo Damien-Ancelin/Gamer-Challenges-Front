@@ -1,0 +1,104 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenge-details-page {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  &__content {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$l;
+  }
+  &__title {
+    margin: 0;
+  }
+  &__aside {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    &__image {
+      width: 240px;
+      height: 240px;
+    }
+    &__infos {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-family: Orbitron;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      &-game {
+        color: v.$neon-blue;
+      }
+      &-category {
+        color: v.$yellow;
+      }
+      &-level {
+        color: v.$flame-orange;
+      }
+    }
+    &__rating-container {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+    }
+    &__rating {
+      font-family: Orbitron;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-transform: uppercase;
+      text-align: center;
+      color: v.$yellow;
+    }
+    &__participations {
+      font-family: Orbitron;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+  &__articles {
+    flex: 1;
+  }
+  &__article {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    padding: v.$m;
+  }
+  &__button-container {
+    margin-top: v.$l;
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
+  &__vote-container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      @include m.flex-row;
+    }
+    &__button-container {
+      margin-top: v.$l;
+      @include m.flex-row;
+    }
+  }
+}

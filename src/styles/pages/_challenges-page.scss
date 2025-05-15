@@ -1,0 +1,8 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenges-page {
+  @include m.flex-column;
+  gap: v.$m;
+  width: 100%;
+}
