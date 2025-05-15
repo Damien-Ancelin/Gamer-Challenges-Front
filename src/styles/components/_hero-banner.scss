@@ -13,13 +13,14 @@
     @include m.flex-column;
     justify-content: center;
     align-items: center;
-    
-  max-width: 700px;
+
+    max-width: 700px;
   }
 
   &__image {
     width: 250px;
     height: 250px;
+    object-fit: cover;
   }
 
   &__text-button-container {
@@ -49,7 +50,7 @@
     &__title {
       font-size: 2rem;
     }
-    
+
     &__content {
       @include m.flex-row;
       justify-content: center;
@@ -71,6 +72,5 @@
       align-items: center;
       gap: v.$m;
     }
-    
   }
 }

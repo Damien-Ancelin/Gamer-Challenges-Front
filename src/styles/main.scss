@@ -1,16 +1,22 @@
-@use './base/fonts';
-@use './base/typography';
-@use './base/utilities';
+@use "./base/fonts";
+@use "./base/typography";
+@use "./base/utilities";
 
-@use './components/buttons';
-@use './components/inputs';
-@use './components/loader';
-@use './components/labels';
-@use './components/hero-banner';
-@use './components/burger-menu';
+@use "./components/buttons";
+@use "./components/inputs";
+@use "./components/loader";
+@use "./components/status-labels";
+@use "./components/hero-banner";
+@use "./components/burger-menu";
+@use "./components/challenge-card";
+@use "./components/progress-bar";
+@use "./components/how-it-works";
+@use "./components/participation-card";
 
-@use './layout/base';
-@use './layout/header';
-@use './layout/footer';
+@use "./layout/base";
+@use "./layout/header";
+@use "./layout/footer";
+@use "./layout/popular-challenges";
+@use "./layout/last_participations";
 
-@use './vendors/reset';
+@use "./vendors/reset";

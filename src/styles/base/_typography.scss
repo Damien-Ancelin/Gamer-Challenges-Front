@@ -1,6 +1,6 @@
-@use '../abstracts/variables' as v;
-@use '../abstracts/mixins' as m;
-@use '../base/fonts';
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+@use "../base/fonts";
 
 :root {
   background-color: v.$main-background;
@@ -12,6 +12,7 @@ h1 {
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
+  text-align: center;
 }
 
 h2 {
@@ -19,6 +20,7 @@ h2 {
   font-family: "Orbitron", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
+  text-align: center;
 }
 
 h3 {
@@ -26,6 +28,7 @@ h3 {
   font-family: "Orbitron", sans-serif;
   font-weight: 500;
   text-transform: uppercase;
+  text-align: center;
 }
 
 h4 {
@@ -33,6 +36,7 @@ h4 {
   font-family: "Orbitron", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
+  text-align: center;
 }
 
 p {
@@ -48,19 +52,13 @@ p.secondary {
   font-weight: 400;
 }
 
-p.label {
+.label {
   color: v.$tertiary-font-color;
   font-family: "Rajdhani", sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   text-transform: uppercase;
-}
-
-.status-label {
-  color: v.$main-font-color;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 0.9375rem;
+  line-height: normal;
 }
 
 .button {
@@ -102,16 +100,15 @@ p.label {
   p.secondary {
     font-size: 0.9375rem;
   }
-  p.label {
-    font-size: 0.9375rem;
+  .label {
+    font-size: 1.125rem;
+    text-transform: uppercase;
   }
-  .status-label {
-    font-size: 0.9375rem;
-  }
-  
   .button {
     font-weight: 600;
     font-size: 1.125rem;
   }
-  
+  .input {
+    font-size: 1rem;
+  }
 }

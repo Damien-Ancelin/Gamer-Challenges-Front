@@ -1,12 +1,21 @@
-@use '../abstracts/variables' as v;
-@use '../abstracts/mixins' as m;
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: v.$m;
+}
 
 a {
   text-decoration: none;
   color: v.$main-font-color;
 }
 
-.app-container{
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -14,7 +23,7 @@ a {
 
 .main-content {
   /* * main side margin */
-  flex:1;
+  flex: 1;
   padding: 0 v.$l;
   @include m.flex-column;
   align-items: center;
@@ -24,6 +33,14 @@ a {
 
 section {
   margin: v.$l 0;
+}
+
+.label {
+  @include m.flex-row;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 20px;
 }
 
 @media screen and (min-width: 768px) {
@@ -46,5 +63,9 @@ section {
   section {
     margin: v.$xl 0;
   }
-}
 
+  .label {
+    width: 90px;
+    height: 29px;
+  }
+}

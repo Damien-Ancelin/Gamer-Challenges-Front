@@ -1,0 +1,81 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.how-it-works {
+  &__content {
+    @include m.flex-column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: v.$l;
+    padding: 0 v.$l;
+    &__item {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: v.$m;
+      padding: v.$xl;
+      flex: 1;
+      &__title {
+        font-size: 0.938rem;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 0;
+      }
+      &--purple-border {
+        background: linear-gradient(v.$main-background, v.$main-background)
+            padding-box,
+          linear-gradient(180deg, v.$neon-purple, v.$neon-pink) border-box;
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 8px;
+      }
+      &--orange-border {
+        background: linear-gradient(v.$main-background, v.$main-background)
+            padding-box,
+          linear-gradient(180deg, v.$flame-orange, v.$yellow) border-box;
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 8px;
+      }
+      &--blue-border {
+        background: linear-gradient(v.$main-background, v.$main-background)
+            padding-box,
+          linear-gradient(180deg, v.$blue, v.$neon-blue) border-box;
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      @include m.flex-row;
+      gap: v.$l;
+      padding: 0 v.$s;
+      &__item {
+        gap: v.$m;
+        padding: v.$l;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    &__content {
+      @include m.flex-row;
+      gap: v.$l;
+      &__item {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        gap: v.$m;
+        padding: v.$l;
+        &__title {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

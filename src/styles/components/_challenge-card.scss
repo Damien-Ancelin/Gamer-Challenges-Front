@@ -1,0 +1,153 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenge-card {
+  padding: v.$m;
+  &__content {
+    @include m.flex-row;
+    justify-content: space-between;
+    &__image {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      &-main {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
+    &__details {
+      &-container {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        gap: v.$s;
+      }
+      &__header {
+        @include m.flex-column;
+        gap: v.$s;
+        &-container {
+          @include m.flex-column;
+          justify-content: center;
+          align-items: center;
+        }
+        &-title {
+          font-size: 0.938rem;
+          font-family: "Orbitron", sans-serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          text-align: center;
+          margin: 0;
+        }
+      }
+      &__infos {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-family: Orbitron;
+          font-size: 0.625rem;
+          font-style: normal;
+          font-weight: 400;
+          text-transform: uppercase;
+          text-align: center;
+        }
+        &-game {
+          color: v.$neon-blue;
+        }
+        &-category {
+          color: v.$yellow;
+        }
+        &-level {
+          color: v.$flame-orange;
+        }
+      }
+      &__footer {
+        @include m.flex-column;
+        gap: v.$s;
+      }
+      &__rating-container {
+        @include m.flex-row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &__rating {
+        font-family: Orbitron;
+        font-size: 1.125rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-transform: uppercase;
+        text-align: center;
+        color: v.$yellow;
+      }
+
+      &__participations {
+        font-family: Orbitron;
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-transform: uppercase;
+        text-align: center;
+      }
+    }
+  }
+
+  @media screen and (min-width: 500px) {
+    &__content {
+      gap: v.$m;
+      &__details {
+        &-container {
+          width: 100%;
+          @include m.flex-row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      gap: v.$m;
+      &__details {
+        &__header {
+          &-title {
+            font-size: 1.5rem;
+            text-align: left;
+          }
+        }
+        &__infos {
+          align-items: flex-start;
+          p {
+            font-size: 0.9rem;
+            text-align: left;
+          }
+          &-game {
+            color: v.$neon-blue;
+          }
+          &-category {
+            color: v.$yellow;
+          }
+          &-level {
+            color: v.$flame-orange;
+          }
+        }
+        &__rating {
+          font-family: Orbitron;
+          font-size: 2.5rem;
+          color: v.$yellow;
+          &-container {
+            justify-content: space-evenly;
+          }
+        }
+        &__participations {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

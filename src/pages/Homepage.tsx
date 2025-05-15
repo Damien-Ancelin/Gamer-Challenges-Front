@@ -1,5 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import HeroBanner from '../components/HeroBanner';
+import Explain from '../components/HomePage/Explain';
+import HeroBanner from '../components/HomePage/HeroBanner';
+import LastParticipatons from '../components/HomePage/LastParticipations';
+import PopularChallenges from '../components/HomePage/PopularChallenges';
 export default function Homepage() {
   return (
     <>
@@ -22,6 +25,7 @@ export default function Homepage() {
           property="og:image"
           content="/assets/images/hero-banner_250px.webp"
         />
+        <meta property="og:image" content="/assets/images/alt-100px.webp" />
         <link
           rel="preload"
           as="image"
@@ -36,6 +40,9 @@ export default function Homepage() {
         />
       </Helmet>
       <HeroBanner />
+      <PopularChallenges />
+      <Explain />
+      <LastParticipatons />
     </>
   );
 }

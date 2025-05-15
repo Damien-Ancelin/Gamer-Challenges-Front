@@ -1,0 +1,14 @@
+.progress-bar {
+  &__image-desktop {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__image-mobile {
+      display: none;
+    }
+    &__image-desktop {
+      display: block;
+    }
+  }
+}

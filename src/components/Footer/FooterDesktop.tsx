@@ -30,14 +30,14 @@ export default function FooterDesktop() {
               <h3 className="footer-desktop__legal__title">à propos</h3>
               <ul className="footer-desktop__legal__list">
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link to="/" aria-label="contact">
                     <span className="footer-desktop__legal__list__item-span">
                       infos et contacts
                     </span>
                   </Link>
                 </li>
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link to="/" aria-label="politique de confidentialité">
                     <span className="footer-desktop__legal__list__item-span">
                       politique de cookies
                     </span>
@@ -51,28 +51,34 @@ export default function FooterDesktop() {
               </h3>
               <ul className="footer-desktop__legal__list">
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link to="/" aria-label="Mentions légales">
                     <span className="footer-desktop__legal__list__item-span">
                       Mentions légales
                     </span>
                   </Link>
                 </li>
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link to="/" aria-label="conditions générales d'utilisation">
                     <span className="footer-desktop__legal__list__item-span">
                       Conditions Générales
                     </span>
                   </Link>
                 </li>
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link
+                    to="/"
+                    aria-label="règlement général de protection des données"
+                  >
                     <span className="footer-desktop__legal__list__item-span">
                       RGPD
                     </span>
                   </Link>
                 </li>
                 <li className="footer-desktop__legal__list__item">
-                  <Link to="/">
+                  <Link
+                    to="/"
+                    aria-label="Déclaration d'accessibilité : non conforme"
+                  >
                     <span className="footer-desktop__legal__list__item-span">
                       Accessibilité: non conforme
                     </span>

@@ -1,0 +1,105 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.participation-card {
+  overflow: hidden;
+  padding: v.$m;
+  &__content {
+    @include m.flex-row;
+    justify-content: space-evenly;
+    align-items: center;
+    &__image {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+      &-main {
+        width: 125px;
+        height: 70px;
+        object-fit: scale-down;
+        aspect-ratio: 16/9;
+        border-radius: 8px;
+      }
+      &-button {
+        padding: 0.2rem 0.5rem;
+      }
+    }
+    &__details {
+      &__header {
+        @include m.flex-column;
+        gap: v.$s;
+        &-container {
+          @include m.flex-column;
+          gap: v.$s;
+          justify-content: center;
+          align-items: center;
+        }
+        &-title {
+          font-size: 0.938rem;
+          font-family: "Orbitron", sans-serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          text-align: center;
+          margin: 0;
+        }
+        &-owner {
+          font-weight: 600;
+        }
+      }
+      &__infos {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-family: Roboto;
+          font-size: 0.938rem;
+          font-style: normal;
+          font-weight: 400;
+          text-transform: capitalize;
+          text-align: center;
+        }
+        &-game {
+          color: v.$neon-blue;
+        }
+        &-category {
+          color: v.$yellow;
+        }
+        &-level {
+          color: v.$flame-orange;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      gap: v.$m;
+      &__image {
+        gap: v.$m;
+      }
+      &__details {
+        &__header {
+          &-title {
+            font-size: 1.5rem;
+          }
+        }
+        &__infos {
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    &__content {
+      &__image {
+        &-main {
+          width: 320px;
+          height: 180px;
+          object-fit: scale-down;
+        }
+      }
+    }
+  }
+}
