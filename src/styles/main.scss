@@ -11,10 +11,12 @@
 @use "./components/challenge-card";
 @use "./components/progress-bar";
 @use "./components/how-it-works";
+@use "./components/participation-card";
 
 @use "./layout/base";
 @use "./layout/header";
 @use "./layout/footer";
 @use "./layout/popular-challenges";
+@use "./layout/last_participations";
 
 @use "./vendors/reset";

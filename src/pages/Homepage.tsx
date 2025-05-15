@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Explain } from '../components/HomePage/Explain';
 import HeroBanner from '../components/HomePage/HeroBanner';
+import { LastParticipatons } from '../components/HomePage/LastParticipations';
 import { PopularChallenges } from '../components/HomePage/PopularChallenges';
 export default function Homepage() {
   return (
@@ -41,10 +42,7 @@ export default function Homepage() {
       <HeroBanner />
       <PopularChallenges />
       <Explain />
-
-      <section className="last-participations">
-        <h2>les dernières participations</h2>
-      </section>
+      <LastParticipatons />
     </>
   );
 }

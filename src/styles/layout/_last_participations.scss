@@ -1,0 +1,30 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.last-participations {
+  &__container {
+    display: grid;
+    grid-template-areas:
+      "part1"
+      "part2"
+      "part3"
+      "part4"
+      "part5"
+      "part6";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: v.$s;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__container {
+      grid-template-areas:
+        "part1 part2"
+        "part3 part4"
+        "part5 part6";
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: v.$m;
+    }
+  }
+}
