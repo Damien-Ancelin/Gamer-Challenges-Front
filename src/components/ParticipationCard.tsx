@@ -1,4 +1,4 @@
-export function ParticipationCard() {
+export default function ParticipationCard() {
   const youtubeURL = 'https://www.youtube.com/watch?v=q7iKIz1SXpU';
   const youtubeVideoId = youtubeURL.split('v=')[1];
   // const youtubeEmbedURL = `https://www.youtube.com/embed/${youtubeVideoId}`;

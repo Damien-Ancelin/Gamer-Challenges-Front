@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Explain } from '../components/HomePage/Explain';
+import Explain from '../components/HomePage/Explain';
 import HeroBanner from '../components/HomePage/HeroBanner';
-import { LastParticipatons } from '../components/HomePage/LastParticipations';
-import { PopularChallenges } from '../components/HomePage/PopularChallenges';
+import LastParticipatons from '../components/HomePage/LastParticipations';
+import PopularChallenges from '../components/HomePage/PopularChallenges';
 export default function Homepage() {
   return (
     <>

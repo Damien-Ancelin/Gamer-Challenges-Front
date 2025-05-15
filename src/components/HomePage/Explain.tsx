@@ -1,4 +1,4 @@
-export function Explain() {
+export default function Explain() {
   return (
     <section className="how-it-works">
       <h2>comment participer ?</h2>

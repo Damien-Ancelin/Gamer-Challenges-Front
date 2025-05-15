@@ -1,6 +1,6 @@
-import { ChallengeCard } from '../ChallengeCard';
+import ChallengeCard from '../ChallengeCard';
 
-export function PopularChallenges() {
+export default function PopularChallenges() {
   return (
     <section className="popular-challenges">
       <h2>challenges populaires</h2>

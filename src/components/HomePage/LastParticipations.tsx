@@ -1,6 +1,6 @@
-import { ParticipationCard } from '../ParticipationCard';
+import ParticipationCard from '../ParticipationCard';
 
-export function LastParticipatons() {
+export default function LastParticipatons() {
   return (
     <section className="last-participations">
       <h2>les dernières participations</h2>

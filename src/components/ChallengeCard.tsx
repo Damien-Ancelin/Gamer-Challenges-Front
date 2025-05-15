@@ -2,7 +2,7 @@ import altImg100 from '../assets/images/alt-100px.webp';
 import StatusLabel from '../ui/StatusLabel';
 import ProgressBar from './ProgressBar';
 
-export function ChallengeCard() {
+export default function ChallengeCard() {
   return (
     <article className="challenge-card yellow-border">
       <div className="challenge-card__content">
