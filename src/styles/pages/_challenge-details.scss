@@ -5,6 +5,7 @@
   @include m.flex-column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   &__content {
     @include m.flex-column;
     justify-content: center;
@@ -147,9 +148,10 @@
         font-size: 1.1rem;
       }
     }
-    &__vote-container {
-      padding: v.$xl 0;
-      border-bottom: 1px solid v.$neon-blue;
-    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: v.$xl 0;
+    border-bottom: 1px solid v.$neon-blue;
   }
 }

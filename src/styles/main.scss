@@ -3,7 +3,7 @@
 @use "./base/utilities";
 
 @use "./components/buttons";
-@use "./components/inputs";
+@use "./components/forms";
 @use "./components/loader";
 @use "./components/rating-bar";
 @use "./components/status-labels";
@@ -23,5 +23,6 @@
 @use "./pages/challenges-page";
 @use "./pages/challenge-details";
 @use "./pages/challenge-participations-page.scss";
+@use "./pages/challenge-user-participation-page";
 
 @use "./vendors/reset";

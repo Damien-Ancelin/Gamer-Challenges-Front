@@ -1,0 +1,56 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.form {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  gap: v.$m;
+  margin-top: v.$m;
+  &--label {
+    font-family: Roboto;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  &--button-container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+    &__inner {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$m;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &--button-container {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$l;
+    }
+  }
+}
+
+.input {
+  border: 3px solid transparent;
+  padding: 0.5rem 1rem;
+  &--video {
+    width: 250px;
+  }
+  &--border {
+    outline: none;
+    background-image: linear-gradient(#020024, #020024),
+      linear-gradient(90deg, #00cfff, #3a91ff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+  &::placeholder {
+    color: rgb(104, 104, 104);
+    font-family: Roboto;
+    font-size: 0.8rem;
+  }
+}
