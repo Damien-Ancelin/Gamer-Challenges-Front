@@ -3,19 +3,17 @@ import { Helmet } from 'react-helmet-async';
 import altImg240 from '@/assets/images/alt-240px.webp';
 import { useState } from 'react';
 import ProgressBar from '../../components/ProgressBar';
+import { useAuth } from '../../contexts/AuthContext';
 import StatusLabel from '../../ui/StatusLabel';
 import HandleParticipation from './HandleParticipation';
 import VoteChallenge from './VoteChallenge';
-
-// ! Reste les boutons si owner / authenticated / ou aucun des deux
 
 export default function ChallengesDetails() {
   const [rating, setRating] = useState<number>(1);
   const [isVoted, setIsVoted] = useState<boolean>(false);
 
   // ! Mockdata pour les données reçu de l'API par la suite
-  //const { isAuthenticated } = useAuth()
-  const isAuthenticated = true;
+  const { isAuthenticated } = useAuth();
   const isOwner = false;
 
   return (
