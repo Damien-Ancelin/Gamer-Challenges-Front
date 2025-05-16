@@ -14,7 +14,10 @@ export const challengeRoutes: RouteObject[] = [
           { index: true, element: <ChallengesDetails /> },
           {
             path: 'participations',
-            element: <ChallengeParticipationsPage />,
+            children: [
+              { index: true, element: <ChallengeParticipationsPage /> },
+              { path: ':id', element: <h1>Une participation</h1> },
+            ],
           },
           {
             path: 'participer',
