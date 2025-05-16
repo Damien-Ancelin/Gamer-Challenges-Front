@@ -17,7 +17,7 @@ export const challengeRoutes: RouteObject[] = [
           },
           {
             path: 'participer',
-            element: <h1>Lien lançant la participation</h1>,
+            element: <h1>Déclenche la participation sur l'API</h1>,
           },
         ],
       },

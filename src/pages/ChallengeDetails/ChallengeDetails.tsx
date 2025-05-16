@@ -15,6 +15,7 @@ export default function ChallengesDetails() {
   // ! Mockdata pour les données reçu de l'API par la suite
   const { isAuthenticated } = useAuth();
   const isOwner = false;
+  const isAlreadyParticipating = false;
 
   return (
     <>
@@ -148,9 +149,12 @@ export default function ChallengesDetails() {
             </article>
           </div>
         </div>
-
-        {isAuthenticated && <HandleParticipation isOwner={isOwner} />}
-
+        {isAuthenticated && (
+          <HandleParticipation
+            isOwner={isOwner}
+            isAlreadyParticipating={isAlreadyParticipating}
+          />
+        )}
         {!isVoted && isAuthenticated && !isOwner && (
           <VoteChallenge
             rating={rating}
