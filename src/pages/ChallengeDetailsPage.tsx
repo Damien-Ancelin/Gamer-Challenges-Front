@@ -2,13 +2,13 @@ import { Helmet } from 'react-helmet-async';
 
 import altImg240 from '@/assets/images/alt-240px.webp';
 import { useState } from 'react';
-import ProgressBar from '../../components/ProgressBar';
-import { useAuth } from '../../contexts/AuthContext';
-import StatusLabel from '../../ui/StatusLabel';
-import HandleParticipation from './HandleParticipation';
-import VoteChallenge from './VoteChallenge';
+import HandleParticipation from '../components/ChallengeDetailsPage/HandleParticipation';
+import VoteChallenge from '../components/ChallengeDetailsPage/VoteChallenge';
+import ProgressBar from '../components/ProgressBar';
+import { useAuth } from '../contexts/AuthContext';
+import StatusLabel from '../ui/StatusLabel';
 
-export default function ChallengesDetails() {
+export default function ChallengesDetailsPage() {
   const [rating, setRating] = useState<number>(1);
   const [isVoted, setIsVoted] = useState<boolean>(false);
 

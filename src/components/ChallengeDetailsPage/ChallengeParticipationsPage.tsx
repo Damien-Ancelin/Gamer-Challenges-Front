@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import ParticipationCard from '../../components/ParticipationCard';
+import ParticipationCard from '../ParticipationCard';
 
 export default function ChallengeParticipationsPage() {
   return (

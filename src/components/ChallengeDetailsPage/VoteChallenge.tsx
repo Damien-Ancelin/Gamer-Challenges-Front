@@ -1,4 +1,4 @@
-import RatingBar from '../../components/RatingBar';
+import RatingBar from '../RatingBar';
 
 interface VoteChallengeProps {
   rating: number;
