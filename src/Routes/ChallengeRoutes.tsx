@@ -1,5 +1,6 @@
 import type { RouteObject } from 'react-router';
 import ChallengesDetails from '../pages/ChallengeDetails/ChallengeDetails';
+import ChallengeParticipationsPage from '../pages/ChallengeDetails/ChallengeParticipationsPage';
 import ChallengesPage from '../pages/ChallengesPage';
 
 export const challengeRoutes: RouteObject[] = [
@@ -13,7 +14,7 @@ export const challengeRoutes: RouteObject[] = [
           { index: true, element: <ChallengesDetails /> },
           {
             path: 'participations',
-            element: <h1>Participations d'un challenge</h1>,
+            element: <ChallengeParticipationsPage />,
           },
           {
             path: 'participer',

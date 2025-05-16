@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 interface HandleParticipationProps {
   isOwner: boolean;
   isAlreadyParticipating: boolean;
@@ -28,9 +30,11 @@ export default function HandleParticipation({
           </button>
         )}
 
-        <button type="button" className="button button--orange-border">
-          voir les participations
-        </button>
+        <Link to="/challenges/1/participations">
+          <button type="button" className="button button--orange-border">
+            voir les participations
+          </button>
+        </Link>
       </div>
     </div>
   );

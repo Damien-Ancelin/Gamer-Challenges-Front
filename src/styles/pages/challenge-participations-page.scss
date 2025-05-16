@@ -2,6 +2,12 @@
 @use "../abstracts/mixins" as m;
 
 .challenge-participations {
+  &__title {
+    margin: 0;
+  }
+  &__sub-title {
+    margin-bottom: v.$xl;
+  }
   &__container {
     display: grid;
     grid-template-areas:
