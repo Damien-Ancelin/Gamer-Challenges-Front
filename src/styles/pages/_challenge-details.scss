@@ -1,0 +1,157 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenge-details-page {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &__content {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$l;
+    margin-bottom: v.$m;
+  }
+  &__title {
+    margin: 0;
+  }
+  &__sub-title {
+    margin-bottom: v.$xl;
+  }
+  &__aside {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    &__image {
+      width: 240px;
+      height: 240px;
+    }
+    &__infos {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-family: Orbitron;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      &-game {
+        color: v.$neon-blue;
+      }
+      &-category {
+        color: v.$yellow;
+      }
+      &-level {
+        color: v.$flame-orange;
+      }
+    }
+    &__rating-container {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+    }
+    &__rating {
+      font-family: Orbitron;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-transform: uppercase;
+      text-align: center;
+      color: v.$yellow;
+    }
+    &__participations {
+      font-family: Orbitron;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  }
+  &__articles {
+    flex: 1;
+  }
+  &__article {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    padding: v.$m;
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+  &__button-container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
+  &__vote-container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__vote__title {
+    margin: 0;
+  }
+
+  &__participations {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$l;
+  }
+  &__vote-container {
+    margin-top: v.$l;
+    width: 100%;
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    border-top: 1px solid v.$neon-blue;
+    padding-top: v.$l;
+  }
+  &__vote__rating {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      @include m.flex-row;
+    }
+    &__participations {
+      align-self: flex-end;
+    }
+    &__button-container {
+      @include m.flex-row;
+    }
+    &__aside {
+      &__rating {
+        font-family: Orbitron;
+        font-size: 1.5rem;
+        color: v.$yellow;
+        &-container {
+          justify-content: space-evenly;
+        }
+      }
+      &__participations {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: v.$xl 0;
+    border-bottom: 1px solid v.$neon-blue;
+  }
+}

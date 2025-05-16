@@ -1,21 +1,28 @@
 import type { RouteObject } from 'react-router';
+import ChallengesDetailsPage from '../pages/ChallengeDetailsPage';
+import ChallengeParticipationsPage from '../pages/ChallengeParticipationsPage';
+import ChallengeUserParticipationPage from '../pages/ChallengeUserParticipationPage';
+import ChallengesPage from '../pages/ChallengesPage';
 
 export const challengeRoutes: RouteObject[] = [
   {
     path: 'challenges',
     children: [
-      { index: true, element: <h1>Les Challenges</h1> },
+      { index: true, element: <ChallengesPage /> },
       {
         path: ':id',
         children: [
-          { index: true, element: <h1>Un challenge</h1> },
+          { index: true, element: <ChallengesDetailsPage /> },
           {
             path: 'participations',
-            element: <h1>Participations d'un challenge</h1>,
+            children: [
+              { index: true, element: <ChallengeParticipationsPage /> },
+              { path: ':id', element: <ChallengeUserParticipationPage /> },
+            ],
           },
           {
             path: 'participer',
-            element: <h1>Lien lançant la participation</h1>,
+            element: <h1>Déclenche la participation sur l'API</h1>,
           },
         ],
       },

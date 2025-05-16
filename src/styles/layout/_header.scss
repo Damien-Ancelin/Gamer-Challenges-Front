@@ -68,7 +68,7 @@
       }
     }
   }
-  
+
   &__logo-container {
     display: flex;
     justify-content: center;
@@ -81,6 +81,7 @@
     font-weight: 600;
     text-transform: capitalize;
     font-variant: small-caps;
+    margin: 0;
   }
 
   @media screen and (min-width: 1024px) {
@@ -89,15 +90,15 @@
 }
 
 /* Confif for active link */
-.active span{
+.active span {
   border-bottom: 2px groove v.$neon-blue;
   color: v.$secondary-font-color;
 }
-.pending span{
+.pending span {
   border-bottom: 2px groove v.$neon-purple;
 }
 
 /* diabled active navlink */
-.no-active span{
+.no-active span {
   border-bottom: none;
 }

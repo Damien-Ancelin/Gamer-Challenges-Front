@@ -1,0 +1,46 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.rating-bar {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  gap: v.$l;
+  &__content {
+    @include m.flex-row;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+  }
+  &__svg-container {
+    width: 150px;
+    height: auto;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.btn {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: v.$main-background;
+  color: v.$main-font-color;
+  font-family: Orbitron;
+  font-size: 1.5rem;
+  &--blue {
+    transition: all 0.3s ease-in-out;
+    padding: 0 v.$s;
+    border: 3px solid v.$neon-blue;
+    border-radius: 8px;
+  }
+  &--orange {
+    transition: all 0.3s ease-in-out;
+    padding: 0 v.$s;
+    border: 3px solid v.$flame-orange;
+    border-radius: 8px;
+  }
+}

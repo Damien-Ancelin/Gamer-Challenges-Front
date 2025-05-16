@@ -1,10 +1,10 @@
+import { Link } from 'react-router';
+
 export default function ParticipationCard() {
   const youtubeURL = 'https://www.youtube.com/watch?v=q7iKIz1SXpU';
   const youtubeVideoId = youtubeURL.split('v=')[1];
-  // const youtubeEmbedURL = `https://www.youtube.com/embed/${youtubeVideoId}`;
   const youtubeThumbnailURL120x90 = `https://img.youtube.com/vi/${youtubeVideoId}/default.jpg`;
   const youtubeThumbnailURL320x180 = `https://img.youtube.com/vi/${youtubeVideoId}/mqdefault.jpg`;
-  // const youtubeThumbnailURL480x360 = `https://img.youtube.com/vi/${youtubeVideoId}/hqdefault.jpg`;
 
   return (
     <article className="participation-card yellow-border">
@@ -18,14 +18,16 @@ export default function ParticipationCard() {
             alt="Illustration du défi CELESTE ANY %"
             loading="lazy"
           />
-          <button
-            className="participation-card__content__image-button button button--purple-border"
-            type="button"
-          >
-            voir la vidéo
-          </button>
-        </div>
 
+          <Link to="/challenges/1/participations/12">
+            <button
+              className="participation-card__content__image-button button button--purple-border"
+              type="button"
+            >
+              voir la vidéo
+            </button>
+          </Link>
+        </div>
         <div className="participation-card__content__details-container">
           <div className="participation-card__content__details__header">
             <header className="participation-card__content__details__header-container">

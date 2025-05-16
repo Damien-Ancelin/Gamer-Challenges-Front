@@ -1,0 +1,97 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenge-user-participation-page {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &__title {
+    margin: 0;
+  }
+  &__sub-title {
+    margin-bottom: v.$xl;
+  }
+  &__content {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
+  &__video-container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+  }
+  &__video {
+    width: 340px;
+    height: 191.25px;
+  }
+
+  &__rating {
+    font-family: Orbitron;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+    text-align: center;
+    color: v.$yellow;
+    &-container {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$m;
+      justify-content: space-evenly;
+      margin-bottom: 1rem;
+    }
+  }
+  &__form__container {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+  }
+  &__vote-container {
+    margin-top: v.$l;
+    width: 100%;
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    border-top: 1px solid v.$neon-blue;
+    padding-top: v.$l;
+  }
+  &__vote__rating {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+  }
+
+  @media screen and (min-width: 500px) {
+    &__content {
+      &__video {
+        width: 400px;
+        height: 225px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      &__video {
+        width: 480px;
+        height: 270px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    &__vote-container {
+      padding: v.$xl 0;
+      border-bottom: 1px solid v.$neon-blue;
+    }
+  }
+}

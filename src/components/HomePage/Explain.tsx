@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 export default function Explain() {
   return (
     <section className="how-it-works">
@@ -7,14 +9,21 @@ export default function Explain() {
           <h3 className="how-it-works__content__item__title">
             choisis ton challenge
           </h3>
-          <button className="button button--purple-border" type="button">
-            voir les challenges
-          </button>
+          <Link to="/challenges">
+            <button
+              className="button button--purple-border"
+              aria-label="Voir les défis disponibles"
+              type="button"
+            >
+              voir les challenges
+            </button>
+          </Link>
         </article>
         <article className="how-it-works__content__item how-it-works__content__item--orange-border">
           <h3 className="how-it-works__content__item__title">
             partage ta vidéo pour le valider
           </h3>
+
           <button className="button button--orange-border" type="button">
             voir les participations
           </button>
