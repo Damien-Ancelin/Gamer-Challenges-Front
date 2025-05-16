@@ -1,6 +1,7 @@
 import type { RouteObject } from 'react-router';
 import AuthGuard from '../Auth/AuthGuard';
 import UserChallengesPage from '../pages/AccountPages/UserChallengesPage';
+import ChallengeUserParticipationPage from '../pages/ChallengeUserParticipationPage';
 
 export const accountRoutes: RouteObject[] = [
   {
@@ -25,7 +26,7 @@ export const accountRoutes: RouteObject[] = [
             path: 'annuler-participation',
             element: <h1>Supprimer participation</h1>,
           },
-          { path: ':id', element: <h1>Modif participations</h1> },
+          { path: ':id', element: <ChallengeUserParticipationPage /> },
         ],
       },
     ],
