@@ -13,6 +13,29 @@ const gamerChallengesApi = axios.create({
   withCredentials: true,
 });
 
+// interceptor refresh token api/auth/refresh-token
+gamerChallengesApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const response = await gamerChallengesApi.get('api/auth/refresh-token');
+        if (response.status === 200) {
+          return gamerChallengesApi(originalRequest);
+        }
+      } catch (err) {
+        errorHandlerAxios(err);
+        throw err;
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 export const api = {
   async authLogin(email: string, password: string) {
     try {
