@@ -1,0 +1,42 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.login-page {
+  @include m.flex-column;
+  align-items: center;
+  justify-content: center;
+  gap: v.$m;
+  &_image {
+    width: 150px;
+    height: 150px;
+  }
+  &__link-forgotten-password {
+    color: v.$main-font-color;
+    font-size: 0.9375rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+  &__register {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    &__text {
+      color: v.$tertiary-font-color;
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      text-transform: uppercase;
+      line-height: normal;
+    }
+    &__link {
+      color: v.$tertiary-font-color;
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      text-decoration: underline;
+      line-height: normal;
+    }
+  }
+}

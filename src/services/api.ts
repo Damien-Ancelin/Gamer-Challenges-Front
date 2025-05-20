@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import errorHandlerAxios from './errorHandler';
 const API_URL = import.meta.env.VITE_API_URL;
 // Check if the API_URL is defined
 if (!API_URL) {
@@ -11,15 +13,18 @@ const gamerChallengesApi = axios.create({
   withCredentials: true,
 });
 
-// ! Test
-export async function getTestGamer() {
-  try {
-    const response = await gamerChallengesApi.get('/test');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching test gamer:', error);
-    throw error;
-  }
-}
-
-export default gamerChallengesApi;
+export const api = {
+  async authLogin(email: string, password: string) {
+    try {
+      const response = await gamerChallengesApi.post('api/auth/login', {
+        email,
+        password,
+      });
+      toast.success(response.data.message);
+      return response.data;
+    } catch (error) {
+      errorHandlerAxios(error);
+      throw error;
+    }
+  },
+};

@@ -5,8 +5,15 @@
   @include m.flex-column;
   justify-content: center;
   align-items: center;
-  gap: v.$m;
+  gap: v.$s;
   margin-top: v.$m;
+  &__entry {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$s;
+    margin-bottom: v.$s;
+  }
   &--label {
     font-family: Roboto;
     text-transform: capitalize;
@@ -52,5 +59,9 @@
     color: rgb(104, 104, 104);
     font-family: Roboto;
     font-size: 0.8rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 300px;
   }
 }

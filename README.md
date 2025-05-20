@@ -29,6 +29,7 @@ Que vous soyez passionné, avide de dépassement de soi, ou simplement curieux d
 3. Créer et remplir le fichier `.env` à partir du fichier `.env.example` :
    ```bash
    VITE_API_URL=adresse_de_l_api
+   VITE_ENV=development
    ```
 4. Installez les dépendances :
    ```bash
