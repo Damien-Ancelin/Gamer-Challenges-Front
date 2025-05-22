@@ -1,16 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { BiLogoTwitch } from 'react-icons/bi';
+import { CgLogOut } from 'react-icons/cg';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { GoHome, GoTrophy } from 'react-icons/go';
 import { LuCircleUser, LuJoystick } from 'react-icons/lu';
 import { MdOutlineLeaderboard } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface BurgerMenuProps {
   closeMenu: () => void;
 }
 
 export default function BurgerMenu({ closeMenu }: BurgerMenuProps) {
+  const { isAuthenticated } = useAuth();
   // 1. create a ref with initial value "null"
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   const year = new Date().getFullYear();
@@ -95,10 +98,28 @@ export default function BurgerMenu({ closeMenu }: BurgerMenuProps) {
                 color="#DDAD33"
               />
               <span className="burger-menu__nav-list__item-span">
-                connexion
+                {isAuthenticated ? 'mon compte' : 'connexion'}
               </span>
             </NavLink>
           </li>
+          {isAuthenticated && (
+            <li className="burger-menu__nav-list__item">
+              <NavLink
+                to="/authentification/logout"
+                className="no-active"
+                onClick={closeMenu}
+              >
+                <CgLogOut
+                  aria-label="Se déconnecter"
+                  size={32}
+                  color="#FF6A00"
+                />
+                <span className="burger-menu__nav-list__item-span">
+                  Se déconnecter
+                </span>
+              </NavLink>
+            </li>
+          )}
         </ul>
 
         <div className="burger-menu__footer" aria-label="Informations légales">

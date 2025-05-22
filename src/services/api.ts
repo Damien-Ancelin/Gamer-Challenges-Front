@@ -1,53 +1,117 @@
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import errorHandlerAxios from './errorHandler';
+import { errorHandler } from './errorHandler';
+
 const API_URL = import.meta.env.VITE_API_URL;
+const isProduction = import.meta.env.VITE_ENV === 'production';
+
 // Check if the API_URL is defined
 if (!API_URL) {
   throw new Error('VITE_API_URL is not defined in the environment variables');
 }
 
-// Create an axios instance with the base URL and credentials
-const gamerChallengesApi = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-});
-
-// interceptor refresh token api/auth/refresh-token
-gamerChallengesApi.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const response = await gamerChallengesApi.get('api/auth/refresh-token');
-        if (response.status === 200) {
-          return gamerChallengesApi(originalRequest);
-        }
-      } catch (err) {
-        errorHandlerAxios(err);
-        throw err;
-      }
-    }
-    return Promise.reject(error);
-  },
-);
-
 export const api = {
+  // * Login
   async authLogin(email: string, password: string) {
-    try {
-      const response = await gamerChallengesApi.post('api/auth/login', {
-        email,
-        password,
-      });
-      toast.success(response.data.message);
-      return response.data;
-    } catch (error) {
-      errorHandlerAxios(error);
-      throw error;
+    const response = await fetch(`${API_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
     }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Register
+  async authRegister(
+    lastname: string,
+    firstname: string,
+    email: string,
+    username: string,
+    password: string,
+  ) {
+    const response = await fetch(`${API_URL}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ lastname, firstname, email, username, password }),
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Logout
+  async authLogout() {
+    const response = await fetch(`${API_URL}/api/auth/logout`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Refresh Token
+  async authRefreshToken() {
+    const response = await fetch(`${API_URL}/api/auth/refresh-token`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
   },
 };

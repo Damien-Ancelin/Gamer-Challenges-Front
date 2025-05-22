@@ -3,9 +3,11 @@ import { GoHome, GoTrophy } from 'react-icons/go';
 import { LuCircleUser, LuJoystick } from 'react-icons/lu';
 import { MdOutlineLeaderboard } from 'react-icons/md';
 import { NavLink, useLocation } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function HeaderDesktop() {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   const isHomePage = location.pathname === '/';
 
   return (
@@ -80,7 +82,7 @@ export default function HeaderDesktop() {
               />
 
               <span className="header-desktop__nav-list__item-span">
-                connexion
+                {isAuthenticated ? 'mon compte' : 'connexion'}
               </span>
             </NavLink>
           </li>

@@ -1,5 +1,6 @@
 import type { RouteObject } from 'react-router';
 import LoginPage from '../pages/AuthPages/LoginPage';
+import Logout from '../pages/AuthPages/Logout';
 
 export const authRoutes: RouteObject[] = [
   {
@@ -7,7 +8,7 @@ export const authRoutes: RouteObject[] = [
     children: [
       { path: 'connexion', element: <LoginPage /> },
       { path: 'inscription', element: <h1>Register</h1> },
-      { path: 'logout', element: <h1>Logout</h1> },
+      { path: 'logout', element: <Logout /> },
     ],
   },
 ];

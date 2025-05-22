@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 
 import LoginImage250px from '@/assets/images/alt-240px.webp';
 import LoginImage150px from '@/assets/images/log-register-150px.webp';
+import { toast } from 'react-toastify';
+import { useErrorHandler } from '../../components/ErrorHandlerComponent';
 import Loader from '../../ui/Loader';
 
 export default function LoginPage() {
-  const { setIsAuthenticated } = useAuth();
+  const handleError = useErrorHandler();
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,8 +37,12 @@ export default function LoginPage() {
       const data = await api.authLogin(email, password);
       if (data) {
         setIsAuthenticated(true);
+        toast.success(data.message);
       }
-    } catch (_error) {
+    } catch (error) {
+      if (error instanceof Error) {
+        await handleError(error);
+      }
     } finally {
       setLoading(false);
     }
