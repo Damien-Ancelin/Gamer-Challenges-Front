@@ -13,6 +13,7 @@
 @use "./components/progress-bar";
 @use "./components/how-it-works";
 @use "./components/participation-card";
+@use "./components/leaderboard-card";
 
 @use "./layout/base";
 @use "./layout/header";
@@ -26,5 +27,6 @@
 @use "./pages/challenge-user-participation-page";
 @use "./pages/login-page";
 @use "./pages/register-page";
+@use "./pages/leaderboard-page";
 
 @use "./vendors/reset";

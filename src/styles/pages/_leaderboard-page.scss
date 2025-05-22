@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.leaderboard-page {
+  @include m.flex-column;
+  gap: v.$l;
+  width: 100%;
+  h1 {
+    font-family: "Press Start 2P";
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  @media screen and (min-width: 768px) {
+    gap: v.$xxl;
+  }
+}

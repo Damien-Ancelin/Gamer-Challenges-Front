@@ -1,0 +1,105 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.leaderboard-card {
+  @include m.flex-column;
+  align-items: center;
+  justify-content: center;
+  gap: v.$s;
+  &__rank-user-container {
+    @include m.flex-column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__rank {
+    font-family: "Press Start 2P";
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+  &__username {
+    font-family: "Press Start 2P";
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+  &__score {
+    font-family: "Press Start 2P";
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: v.$secondary-font-color;
+  }
+
+  @media screen and (min-width: 500px) {
+    &__username {
+      max-width: 400px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    @include m.flex-row;
+    justify-content: space-between;
+    &__rank-user-container {
+      @include m.flex-row;
+      align-items: center;
+      justify-content: center;
+      gap: v.$xxl;
+    }
+    &__rank {
+      font-size: 1.5rem;
+    }
+    &__username {
+      font-size: 1.1rem;
+      max-width: 350px;
+    }
+    &__score {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    &__rank {
+      font-size: 1.7rem;
+    }
+    &__username {
+      font-size: 1.2rem;
+      max-width: 500px;
+    }
+    &__score {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    &__username {
+      font-size: 1.4rem;
+      max-width: 900px;
+    }
+    &__score {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+// Leaderboard card rank styles
+.leaderboard-card:nth-of-type(1) .leaderboard-card__rank {
+  color: v.$flame-orange;
+}
+.leaderboard-card:nth-of-type(2) .leaderboard-card__rank {
+  color: v.$yellow;
+}
+.leaderboard-card:nth-of-type(3) .leaderboard-card__rank {
+  color: v.$neon-pink;
+}
+.leaderboard-card:nth-of-type(4) .leaderboard-card__rank {
+  color: v.$neon-purple;
+}
+.leaderboard-card:nth-of-type(5) .leaderboard-card__rank {
+  color: v.$neon-blue;
+}
+
+// Leaderboard card 10th place styles
+.leaderboard-card:last-of-type .leaderboard-card__rank-user-container {
+  gap: v.$l;
+}

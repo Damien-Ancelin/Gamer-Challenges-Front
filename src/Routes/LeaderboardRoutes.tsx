@@ -1,8 +1,9 @@
 import type { RouteObject } from 'react-router';
+import LeaderBoardPage from '../pages/LeaderBoardPage';
 
 export const leaderboardRoutes: RouteObject[] = [
   {
     path: 'leaderboard',
-    element: <h1>leaderboard</h1>,
+    element: <LeaderBoardPage />,
   },
 ];
