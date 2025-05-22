@@ -3,28 +3,30 @@ import { Link } from 'react-router';
 interface HandleParticipationProps {
   isOwner: boolean;
   isAlreadyParticipating: boolean;
+  isAuthenticated: boolean;
 }
 
 export default function HandleParticipation({
   isOwner,
   isAlreadyParticipating,
+  isAuthenticated,
 }: HandleParticipationProps) {
   return (
     <div className="challenge-details-page__participations">
       <div className="challenge-details-page__button-container">
-        {isOwner && (
+        {isOwner && isAuthenticated && (
           <button type="button" className="button button--blue-border">
             modifier le challenge
           </button>
         )}
 
-        {!isOwner && !isAlreadyParticipating && (
+        {!isOwner && !isAlreadyParticipating && isAuthenticated && (
           <button type="button" className="button button--blue-border">
             participer
           </button>
         )}
 
-        {!isOwner && isAlreadyParticipating && (
+        {!isOwner && isAlreadyParticipating && isAuthenticated && (
           <button type="button" className="button button--alert-border">
             annuler la participation
           </button>

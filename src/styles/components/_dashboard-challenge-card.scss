@@ -133,4 +133,20 @@
       }
     }
   }
+
+  @media screen and (min-width: 1440px) {
+    &__content {
+      @include m.flex-column;
+      justify-content: space-between;
+      &__details {
+        &__rating {
+          font-size: 1.5rem;
+        }
+
+        &__participations {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
 }

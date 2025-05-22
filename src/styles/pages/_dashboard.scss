@@ -4,25 +4,11 @@
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.25fr 0.25fr 0.25fr 1fr 1fr 1fr 1fr 0.25fr 1fr 1fr 1fr;
   gap: 1rem;
-  grid-template-areas:
-    "Title"
-    "Profil"
-    "Challenges"
-    "Challenges"
-    "Challenges"
-    "Challenges"
-    "Challenges"
-    "Participations"
-    "Participations"
-    "Participations"
-    "Participations";
   &__title {
-    grid-area: Title;
+    margin-bottom: 0;
   }
   &__challenges {
-    grid-area: Challenges;
     border: 1px solid v.$neon-blue;
     border-radius: 8px;
     padding: 1rem;
@@ -34,15 +20,19 @@
     }
   }
   &__profil {
-    grid-area: Profil;
     border: 1px solid v.$flame-orange;
     padding: 1rem;
   }
   &__participations {
-    grid-area: Participations;
     border: 1px solid v.$yellow;
     border-radius: 8px;
     padding: 1rem;
+    &__button-container {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+    }
   }
 
   @media screen and (min-width: 768px) {
@@ -52,23 +42,34 @@
     grid-template-areas:
       "Title Title Title Title"
       "Challenges Challenges Profil Profil"
-      "Challenges Challenges Participations Participations"
+      "Challenges Challenges Profil Profil"
       "Challenges Challenges Participations Participations"
       "Challenges Challenges Participations Participations"
       "Challenges Challenges Participations Participations"
       "Challenges Challenges Participations Participations";
-  }
-
-  @media screen and (min-width: 1024px) {
+    &__title {
+      grid-area: Title;
+    }
     &__challenges {
-      &__button-container {
-        @include m.flex-row;
-        gap: v.$m;
+      grid-area: Challenges;
+    }
+    &__profil {
+      grid-area: Profil;
+    }
+    &__participations {
+      grid-area: Participations;
+    }
+
+    @media screen and (min-width: 1024px) {
+      &__challenges {
+        &__button-container {
+          @include m.flex-row;
+          gap: v.$m;
+        }
       }
     }
   }
 }
-
 .dashboard section {
   margin: 0;
 }
