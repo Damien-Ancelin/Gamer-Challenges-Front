@@ -14,6 +14,7 @@
 @use "./components/how-it-works";
 @use "./components/participation-card";
 @use "./components/leaderboard-card";
+@use "./components/dashboard-challenge-card";
 
 @use "./layout/base";
 @use "./layout/header";
@@ -28,5 +29,6 @@
 @use "./pages/login-page";
 @use "./pages/register-page";
 @use "./pages/leaderboard-page";
+@use "./pages/dashboard";
 
 @use "./vendors/reset";

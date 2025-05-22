@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import LeaderBoardCard from '../components/LeaderBoardCard';
 
 export default function LeaderBoardPage() {
@@ -15,6 +16,18 @@ export default function LeaderBoardPage() {
   ];
   return (
     <>
+      <Helmet>
+        <title>Leaderboard | Gamer Challenges</title>
+        <meta
+          name="description"
+          content="Découvrez les 10 meilleurs gamers sur GamerChallenges. Qui dominera le classement cette semaine ?"
+        />
+        <meta property="og:title" content="Leaderboard | Gamer Challenges" />
+        <meta
+          property="og:description"
+          content="Découvrez les 10 meilleurs gamers sur GamerChallenges. Qui dominera le classement cette semaine ?"
+        />
+      </Helmet>
       <section className="leaderboard-page">
         <h1 className="leaderboard-page__title">leaderboard</h1>
         {rankTab.map((rank, index, rankTab) => (
