@@ -1,12 +1,26 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import DashBoardParticipationCard from '../../components/DashBoard/DashBoardParticipationCard';
+import DashBoardProfileCard from '../../components/DashBoard/DashBoardProfileCard';
 import DashboardChallengeCard from '../../components/DashBoard/DashboardChallengeCard';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function DashBoard() {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <section className="dashboard">
       <h1 className="dashboard__title">Dashboard</h1>
       <section className="dashboard__profil">
         <h2 className="dashboard__profil__title">Mon profil</h2>
+        <DashBoardProfileCard />
       </section>
       <section className="dashboard__challenges">
         <h2 className="dashboard__challenges__title">Mes challenges</h2>
