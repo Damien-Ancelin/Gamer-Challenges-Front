@@ -18,18 +18,18 @@ export default function DeleteButton({
   const handleError = useErrorHandler();
   const navigate = useNavigate();
   const { setIsAuthenticated } = useAuth();
-  const [isloading, setisLoading] = useState(false);
-  const [heIsSure, setHeIsSure] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleClickDeleteAccount = async () => {
-    setisLoading(true);
+    setIsLoading(true);
     try {
       const data = await api.deleteUserAccount();
       if (data.success) {
         toast.success(data.message);
         setIsAuthenticated(false);
-        setHeIsSure(false);
+        setIsConfirmed(false);
         setIsActivatedDelete(false);
         navigate('/');
       }
@@ -38,7 +38,7 @@ export default function DeleteButton({
         await handleError(error);
       }
     } finally {
-      setisLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -46,7 +46,7 @@ export default function DeleteButton({
     setIsDisabled(true);
     setTimeout(() => {
       setIsDisabled(false);
-      setHeIsSure(true);
+      setIsConfirmed(true);
     }, 3000);
   };
 
@@ -64,7 +64,7 @@ export default function DeleteButton({
         </button>
       )}
 
-      {isActivatedDelete && !heIsSure && (
+      {isActivatedDelete && !isConfirmed && (
         <button
           type="button"
           className={
@@ -81,14 +81,14 @@ export default function DeleteButton({
         </button>
       )}
 
-      {heIsSure && !isloading && (
+      {isConfirmed && !isLoading && (
         <button
           type="button"
           className="button button--alert-border"
           title="Confirmer la suppression de votre compte"
           aria-label="Confirmer la suppression de mon compte"
           onMouseLeave={() => {
-            setHeIsSure(false);
+            setIsConfirmed(false);
             setIsActivatedDelete(false);
           }}
           onClick={handleClickDeleteAccount}
@@ -97,7 +97,7 @@ export default function DeleteButton({
         </button>
       )}
 
-      {isloading && <Loader />}
+      {isLoading && <Loader />}
     </>
   );
 }
