@@ -179,7 +179,7 @@ export default function RegisterPage() {
           </div>
           {!loading ? (
             <button type="submit" className="button button--blue-border">
-              se connecter
+              s'inscrire
             </button>
           ) : (
             <Loader />

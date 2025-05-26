@@ -25,12 +25,14 @@ export default function DashBoardProfileCard() {
         </div>
       </div>
       <div className="dashboard-profile-card__button-container">
-        <button
-          className="dashboard-profile-card__button button button--orange-border"
-          type="button"
-        >
-          modifier
-        </button>
+        <Link to="modifier-compte">
+          <button
+            className="dashboard-profile-card__button button button--orange-border"
+            type="button"
+          >
+            modifier
+          </button>
+        </Link>
         <Link to="/authentification/logout">
           <button
             className="dashboard-profile-card__button button button--alert-border"

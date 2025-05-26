@@ -114,4 +114,69 @@ export const api = {
     const data = await response.json();
     return data;
   },
+
+  // * Get User Data
+  async getUserData() {
+    const response = await fetch(`${API_URL}/api/account/user`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Update User Data
+  async updateUserData(
+    lastname: string,
+    firstname: string,
+    email: string,
+    username: string,
+    password: string,
+    avatar: File | null,
+  ) {
+    const formData = new FormData();
+    formData.append('lastname', lastname);
+    formData.append('firstname', firstname);
+    formData.append('email', email);
+    formData.append('username', username);
+    formData.append('password', password);
+
+    if (avatar) {
+      formData.append('avatar', avatar);
+    }
+
+    const response = await fetch(`${API_URL}/api/account/update`, {
+      method: 'PATCH',
+      credentials: 'include',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
 };

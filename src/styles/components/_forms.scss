@@ -48,6 +48,23 @@
   &--video {
     width: 250px;
   }
+  &--file {
+    cursor: pointer;
+    &::file-selector-button {
+      color: v.$tertiary-font-color;
+      font-family: "Rajdhani", sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      background: linear-gradient(v.$blue, v.$blue) padding-box,
+        linear-gradient(180deg, v.$blue 10%, v.$neon-blue) border-box;
+      border-radius: 8px;
+      padding: 0.5rem 0.5rem;
+      border: 3px solid transparent;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+  }
   &--border {
     outline: none;
     background-image: linear-gradient(#020024, #020024),

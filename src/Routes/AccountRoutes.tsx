@@ -1,6 +1,7 @@
 import type { RouteObject } from 'react-router';
 import AuthGuard from '../Auth/AuthGuard';
 import DashBoard from '../pages/AccountPages/DashBoard';
+import UpdateUserPage from '../pages/AccountPages/UpdateUserPage';
 import UserChallengesPage from '../pages/AccountPages/UserChallengesPage';
 import ChallengeUserParticipationPage from '../pages/ChallengeUserParticipationPage';
 
@@ -10,7 +11,7 @@ export const accountRoutes: RouteObject[] = [
     element: <AuthGuard />,
     children: [
       { index: true, element: <DashBoard /> },
-      { path: 'modifier-compte', element: <h1>Modifier compte</h1> },
+      { path: 'modifier-compte', element: <UpdateUserPage /> },
       {
         path: 'challenges-by-me',
         children: [
