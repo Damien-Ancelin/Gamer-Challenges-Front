@@ -22,6 +22,7 @@ export function useErrorHandler() {
             if (data.success) {
               toast.success('Vous avez été reconnecté, merci de recommencer');
               setIsAuthenticated(true);
+              navigate(0);
               return;
             }
           } catch (error) {

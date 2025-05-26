@@ -5,7 +5,6 @@ import DashBoardParticipationCard from '../../components/DashBoard/DashBoardPart
 import DashBoardProfileCard from '../../components/DashBoard/DashBoardProfileCard';
 import DashboardChallengeCard from '../../components/DashBoard/DashboardChallengeCard';
 import { useAuth } from '../../contexts/AuthContext';
-
 export default function DashBoard() {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();

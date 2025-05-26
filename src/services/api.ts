@@ -179,4 +179,37 @@ export const api = {
     const data = await response.json();
     return data;
   },
+
+  // * Delete User Account
+  async deleteUserAccount() {
+    const response = await fetch(`${API_URL}/api/account/delete`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorMessage = errorHandler({
+        status,
+        errorData: { sucess: true, message: 'Account deleted successfully' },
+      });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = {
+      success: true,
+      message: 'Votre compte à été supprimé avec succès.',
+    };
+
+    if (!isProduction) {
+      console.log('Success: Compte utilisateur supprimé avec succès');
+    }
+
+    return data;
+  },
 };

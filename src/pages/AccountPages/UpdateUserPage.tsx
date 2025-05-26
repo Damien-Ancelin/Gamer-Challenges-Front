@@ -51,7 +51,6 @@ export default function UpdateUserPage() {
           });
           setAvatar(data.user.avatar);
           setDataUserIsLoading(false);
-          console.log(data);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -105,7 +104,7 @@ export default function UpdateUserPage() {
           password: '',
         });
         setAvatar(data.user.avatar);
-        console.log(data);
+        navigate('/compte');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -276,7 +275,7 @@ export default function UpdateUserPage() {
                       placeholder="********"
                       className="input input--file"
                       type="file"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/webp"
                       onChange={(event) => {
                         const file = event.target.files?.[0] || null;
                         setFileAvatar(file);
