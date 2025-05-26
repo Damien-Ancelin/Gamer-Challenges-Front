@@ -2,7 +2,7 @@ import altImg240 from '@/assets/images/alt-240px.webp';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router';
-import DeleteButton from '../../components/DeleteButton';
+import DeleteAccountButton from '../../components/DeleteAccountButton/DeleteAccountButton';
 import { useErrorHandler } from '../../components/ErrorHandlerComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
@@ -17,7 +17,6 @@ export default function UpdateUserPage() {
   // State
   const [isloading, setisLoading] = useState(false);
   const [dataUserIsloading, setDataUserIsLoading] = useState(false);
-  const [isActivatedDelete, setIsActivatedDelete] = useState(false);
 
   // Form state
   const [fileAvatar, setFileAvatar] = useState<File | null>(null);
@@ -295,10 +294,7 @@ export default function UpdateUserPage() {
                     >
                       envoyer
                     </button>
-                    <DeleteButton
-                      isActivatedDelete={isActivatedDelete}
-                      setIsActivatedDelete={setIsActivatedDelete}
-                    />
+                    <DeleteAccountButton />
                   </>
                 ) : (
                   <Loader />
