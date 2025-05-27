@@ -1,12 +1,27 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
-  height: 25%;
-
+  width: 60%;
+  height: 60%;
+  text-align: center;
 
   .loader-svg {
     display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .loader {
+    width: 30%;
+    height: 30%;
   }
 }

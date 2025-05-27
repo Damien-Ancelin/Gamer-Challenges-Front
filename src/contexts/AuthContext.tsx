@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -12,7 +12,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    localStorage.getItem('isAuthenticated') === 'true',
+  );
+
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', String(isAuthenticated));
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

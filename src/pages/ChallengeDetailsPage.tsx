@@ -149,12 +149,11 @@ export default function ChallengesDetailsPage() {
             </article>
           </div>
         </div>
-        {isAuthenticated && (
-          <HandleParticipation
-            isOwner={isOwner}
-            isAlreadyParticipating={isAlreadyParticipating}
-          />
-        )}
+        <HandleParticipation
+          isOwner={isOwner}
+          isAlreadyParticipating={isAlreadyParticipating}
+          isAuthenticated={isAuthenticated}
+        />
         {!isVoted && isAuthenticated && !isOwner && (
           <VoteChallenge
             rating={rating}

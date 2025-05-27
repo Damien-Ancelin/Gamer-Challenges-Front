@@ -14,6 +14,9 @@
 @use "./components/how-it-works";
 @use "./components/participation-card";
 @use "./components/leaderboard-card";
+@use "./components/dashboard-challenge-card";
+@use "./components/dashboard-participation-card";
+@use "./components/dashboard-profile-card";
 
 @use "./layout/base";
 @use "./layout/header";
@@ -28,5 +31,8 @@
 @use "./pages/login-page";
 @use "./pages/register-page";
 @use "./pages/leaderboard-page";
+@use "./pages/dashboard";
+@use "./pages/update-user-page";
+@use "./pages/create-challenge-page";
 
 @use "./vendors/reset";

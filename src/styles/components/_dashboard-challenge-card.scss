@@ -1,22 +1,12 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/mixins" as m;
 
-.challenge-card {
+.dashboard-challenge-card {
   padding: v.$m;
+  margin-bottom: 1rem;
   &__content {
-    @include m.flex-row;
+    @include m.flex-column;
     justify-content: space-between;
-    &__image {
-      @include m.flex-column;
-      justify-content: center;
-      align-items: center;
-      &-main {
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-      }
-    }
     &__details {
       &-container {
         @include m.flex-column;
@@ -28,40 +18,22 @@
         @include m.flex-column;
         gap: v.$s;
         &-container {
-          @include m.flex-column;
+          @include m.flex-row;
           justify-content: center;
           align-items: center;
+          gap: v.$s;
         }
         &-title {
           font-size: 0.938rem;
           font-family: "Orbitron", sans-serif;
-          font-weight: 500;
+          font-weight: 400;
           text-transform: uppercase;
-          text-align: left;
+          text-align: center;
           margin: 0;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 175px;
-
-          @media screen and (min-width: 768px) {
-            max-width: 250px;
-          }
-          @media screen and (min-width: 800px) {
-            max-width: 300px;
-          }
-          @media screen and (min-width: 900px) {
-            max-width: 350px;
-          }
-          @media screen and (min-width: 1024px) {
-            max-width: 450px;
-          }
-          @media screen and (min-width: 1200px) {
-            max-width: 600px;
-          }
-          @media screen and (min-width: 1440px) {
-            max-width: 900px;
-          }
+          max-width: 170px;
         }
       }
       &__infos {
@@ -87,7 +59,7 @@
         }
       }
       &__footer {
-        @include m.flex-column;
+        @include m.flex-row;
         gap: v.$s;
       }
       &__rating-container {
@@ -119,59 +91,60 @@
     }
   }
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 1200px) {
     &__content {
-      gap: v.$m;
       &__details {
         &-container {
-          width: 100%;
           @include m.flex-row;
           justify-content: space-between;
-          align-items: center;
+        }
+        &__header {
+          @include m.flex-column;
+          gap: v.$s;
+          &-title {
+            font-size: 0.938rem;
+            font-family: "Orbitron", sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+          }
+        }
+        &__infos {
+          @include m.flex-column;
+          justify-content: center;
+          align-items: flex-start;
+          p {
+            font-family: Orbitron;
+            font-size: 0.7rem;
+            font-style: normal;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: left;
+          }
+        }
+        &__footer {
+          @include m.flex-column;
         }
       }
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 1440px) {
     &__content {
-      gap: v.$m;
+      @include m.flex-column;
+      justify-content: space-between;
       &__details {
-        &__header {
-          &-container {
-            align-items: flex-start;
-          }
-          &-title {
-            font-size: 1.5rem;
-            text-align: left;
-          }
-        }
-        &__infos {
-          align-items: flex-start;
-          p {
-            font-size: 0.9rem;
-            text-align: left;
-          }
-          &-game {
-            color: v.$neon-blue;
-          }
-          &-category {
-            color: v.$yellow;
-          }
-          &-level {
-            color: v.$flame-orange;
-          }
-        }
         &__rating {
-          font-family: Orbitron;
-          font-size: 2.5rem;
-          color: v.$yellow;
-          &-container {
-            justify-content: space-evenly;
-          }
+          font-size: 1.5rem;
         }
+
         &__participations {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
       }
     }

@@ -6,12 +6,14 @@ import ProgressBar from '../components/ProgressBar';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function ChallengeUserParticipationPage() {
-  const [rating, setRating] = useState<number>(1);
-  const [isVoted, setIsVoted] = useState<boolean>(false);
-  const [isAlreadyValidated, setIsAlreadyValidated] = useState<boolean>(false);
+  const { isAuthenticated } = useAuth();
+  const [rating, setRating] = useState<number>(1); // Rating for the video
+  const [isVoted, setIsVoted] = useState<boolean>(false); // Check if user has already voted
+  const [isAlreadyValidated, setIsAlreadyValidated] = useState<boolean>(false); // Check if user has already submitted a video
 
   // ! Mockdata pour les données reçu de l'API par la suite
-  const { isAuthenticated } = useAuth();
+  const videolink = true; // Check if user has already submitted a video
+  const isValidated = true; // Check if the video is validated
   const isOwner = true;
 
   const youtubeURL = 'https://www.youtube.com/watch?v=q7iKIz1SXpU';
@@ -42,31 +44,33 @@ export default function ChallengeUserParticipationPage() {
         <h2 className="challenge-user-participation-page__sub-title">
           de JoeMaker95
         </h2>
-        <div className="challenge-user-participation-page__content">
-          <article className="challenge-user-participation-page__video-container">
-            <iframe
-              className="challenge-user-participation-page__content__video purple-border"
-              src={youtubeEmbedURL}
-              title="YouTube video player du challenge Celeste Any%"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            />
-            <p className="challenge-user-participation-page__content__video-description secondary">
-              Vidéo de gameplay du challenge <strong>Celeste Any %</strong>{' '}
-              réalisée par JoeMaker95.
-            </p>
-          </article>
-          <div className="challenge-user-participation-page__rating-container">
-            <p
-              className="challenge-user-participation-page__rating"
-              aria-label="note en pourcentage du challenge"
-            >
-              45%
-            </p>
-            <ProgressBar rating={45} />
+        {videolink && (
+          <div className="challenge-user-participation-page__content">
+            <article className="challenge-user-participation-page__video-container">
+              <iframe
+                className="challenge-user-participation-page__content__video purple-border"
+                src={youtubeEmbedURL}
+                title="YouTube video player du challenge Celeste Any%"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+              <p className="challenge-user-participation-page__content__video-description secondary">
+                Vidéo de gameplay du challenge <strong>Celeste Any %</strong>{' '}
+                réalisée par JoeMaker95.
+              </p>
+            </article>
+            <div className="challenge-user-participation-page__rating-container">
+              <p
+                className="challenge-user-participation-page__rating"
+                aria-label="note en pourcentage du challenge"
+              >
+                45%
+              </p>
+              <ProgressBar rating={45} />
+            </div>
           </div>
-        </div>
+        )}
 
         {isOwner && isAuthenticated && (
           <HandleActions
@@ -75,7 +79,7 @@ export default function ChallengeUserParticipationPage() {
           />
         )}
 
-        {!isVoted && isAuthenticated && !isOwner && (
+        {!isVoted && isAuthenticated && !isOwner && isValidated && (
           <VoteParticipation
             rating={rating}
             setRating={setRating}

@@ -1,39 +1,39 @@
-@use '../abstracts/variables' as v;
+@use "../abstracts/variables" as v;
 
 .button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  padding: .3rem 1rem;
+  padding: 0.3rem 1rem;
   border: 3px solid transparent;
   border-radius: 8px;
 }
 
-.button--purple-border{
-  background:
-    linear-gradient(v.$neon-purple, v.$neon-purple) padding-box,
+.button--purple-border {
+  background: linear-gradient(v.$neon-purple, v.$neon-purple) padding-box,
     linear-gradient(180deg, v.$neon-purple 10%, v.$neon-pink) border-box;
 }
 
-.button--blue-border{
-  background:
-    linear-gradient(v.$blue, v.$blue) padding-box,
+.button--blue-border {
+  background: linear-gradient(v.$blue, v.$blue) padding-box,
     linear-gradient(180deg, v.$blue 10%, v.$neon-blue) border-box;
 }
 
-.button--yellow-border{
-  background:
-  linear-gradient(v.$yellow, v.$yellow) padding-box,
-  linear-gradient(180deg, v.$yellow 10%, v.$flame-orange) border-box;
+.button--yellow-border {
+  background: linear-gradient(v.$yellow, v.$yellow) padding-box,
+    linear-gradient(180deg, v.$yellow 10%, v.$flame-orange) border-box;
 }
 
-.button--orange-border{
-  background:
-    linear-gradient(v.$flame-orange, v.$flame-orange) padding-box,
+.button--orange-border {
+  background: linear-gradient(v.$flame-orange, v.$flame-orange) padding-box,
     linear-gradient(180deg, v.$flame-orange 10%, v.$yellow) border-box;
 }
 
-.button--alert-border{
-  background:
-    linear-gradient(v.$neon-red, v.$neon-red) padding-box,
+.button--alert-border {
+  background: linear-gradient(v.$neon-red, v.$neon-red) padding-box,
     linear-gradient(180deg, v.$neon-red 10%, v.$flame-orange) border-box;
+}
+
+.button--success-border {
+  background: linear-gradient(v.$blue, v.$blue) padding-box,
+    linear-gradient(180deg, v.$blue 10%, v.$neon-green) border-box;
 }

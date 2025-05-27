@@ -1,0 +1,75 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  &__title {
+    margin-bottom: 0;
+  }
+  &__challenges {
+    border: 1px solid v.$neon-blue;
+    border-radius: 8px;
+    padding: 1rem;
+    &__button-container {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+    }
+  }
+  &__profil {
+    border: 1px solid v.$flame-orange;
+    padding: 1rem;
+  }
+  &__participations {
+    border: 1px solid v.$yellow;
+    border-radius: 8px;
+    padding: 1rem;
+    &__button-container {
+      @include m.flex-column;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.25fr 0.25fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+    gap: 1rem 2rem;
+    grid-template-areas:
+      "Title Title Title Title"
+      "Challenges Challenges Profil Profil"
+      "Challenges Challenges Profil Profil"
+      "Challenges Challenges Participations Participations"
+      "Challenges Challenges Participations Participations"
+      "Challenges Challenges Participations Participations"
+      "Challenges Challenges Participations Participations";
+    &__title {
+      grid-area: Title;
+    }
+    &__challenges {
+      grid-area: Challenges;
+    }
+    &__profil {
+      grid-area: Profil;
+    }
+    &__participations {
+      grid-area: Participations;
+    }
+
+    @media screen and (min-width: 1024px) {
+      &__challenges {
+        &__button-container {
+          @include m.flex-row;
+          gap: v.$m;
+        }
+      }
+    }
+  }
+}
+.dashboard section {
+  margin: 0;
+}

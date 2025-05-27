@@ -114,4 +114,131 @@ export const api = {
     const data = await response.json();
     return data;
   },
+
+  // * Get User Data
+  async getUserData() {
+    const response = await fetch(`${API_URL}/api/account/user`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Update User Data
+  async updateUserData(formData: FormData) {
+    const response = await fetch(`${API_URL}/api/account/update`, {
+      method: 'PATCH',
+      credentials: 'include',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Delete User Account
+  async deleteUserAccount() {
+    const response = await fetch(`${API_URL}/api/account/delete`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorMessage = errorHandler({
+        status,
+        errorData: { sucess: true, message: 'Account deleted successfully' },
+      });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = {
+      success: true,
+      message: 'Votre compte à été supprimé avec succès.',
+    };
+
+    if (!isProduction) {
+      console.log('Success: Compte utilisateur supprimé avec succès');
+    }
+
+    return data;
+  },
+
+  // * Get Create Challenge Data
+  async getCreateChallengeData() {
+    const response = await fetch(`${API_URL}/api/challenges/create`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Post Create Challenge
+  async createChallenge(formData: FormData) {
+    const response = await fetch(`${API_URL}/api/challenges/create`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
 };

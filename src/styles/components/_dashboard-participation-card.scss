@@ -1,0 +1,88 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.dashboard-participation-card {
+  padding: v.$m;
+  margin-bottom: 1rem;
+  &__content {
+    @include m.flex-column;
+    justify-content: center;
+    align-items: center;
+    gap: v.$m;
+    &__details {
+      &__header {
+        @include m.flex-column;
+        gap: v.$s;
+        &-container {
+          @include m.flex-row;
+          gap: v.$s;
+          justify-content: center;
+          align-items: center;
+        }
+        &-title {
+          font-size: 0.938rem;
+          font-family: "Orbitron", sans-serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          text-align: left;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 170px;
+        }
+      }
+      &__infos {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-family: Roboto;
+          font-size: 0.938rem;
+          font-style: normal;
+          font-weight: 400;
+          text-transform: capitalize;
+          text-align: center;
+        }
+        &-game {
+          color: v.$neon-blue;
+        }
+        &-category {
+          color: v.$yellow;
+        }
+        &-level {
+          color: v.$flame-orange;
+        }
+      }
+    }
+    &__button-container {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    &__content {
+      @include m.flex-row;
+      justify-content: space-between;
+      align-items: center;
+      &__details {
+        &__header {
+          &-title {
+            max-width: 200px;
+          }
+        }
+        &__infos {
+          @include m.flex-column;
+          justify-content: center;
+          align-items: flex-start;
+        }
+      }
+      &__button-container {
+        @include m.flex-column;
+      }
+    }
+  }
+}
