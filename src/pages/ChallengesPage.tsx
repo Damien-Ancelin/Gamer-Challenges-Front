@@ -1,7 +1,51 @@
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import ChallengeCard from '../components/ChallengeCard';
+import type { ChallengeCard as TChallengeCard } from '../@types';
+
+import { useErrorHandler } from '../components/ErrorHandlerComponent';
+import { api } from '../services/api';
+
+import ChallengeCard from '../components/ChallengeCard/ChallengeCard';
+import Loader from '../ui/Loader';
 
 export default function ChallengesPage() {
+  // Hooks
+  const handleError = useErrorHandler();
+
+  // State
+  const [challenges, setChallenges] = useState<TChallengeCard[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 0,
+    limit: 10,
+  });
+
+  console.log(pagination);
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const data = await api.getChallenges(10, 1, 'createdAt', 'desc');
+        if (data) {
+          setChallenges(data.challenges);
+          setPagination({
+            currentPage: data.pagination.currentPage,
+            totalPages: data.pagination.totalPages,
+            limit: data.pagination.limit,
+          });
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchChallenges();
+  }, [handleError]);
+
   return (
     <>
       <Helmet>
@@ -59,14 +103,13 @@ export default function ChallengesPage() {
       </Helmet>
       <section className="challenges-page">
         <h1 className="challenges-page__title">Challenges</h1>
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
+        {!isLoading ? (
+          challenges?.map((challenge) => (
+            <ChallengeCard key={challenge.id} challenge={challenge} />
+          ))
+        ) : (
+          <Loader />
+        )}
       </section>
     </>
   );

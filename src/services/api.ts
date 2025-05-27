@@ -241,4 +241,84 @@ export const api = {
     const data = await response.json();
     return data;
   },
+
+  // * Get Challenges
+  async getChallenges(
+    limit: number,
+    currentPage: number,
+    order: string,
+    direction: string,
+  ) {
+    const response = await fetch(
+      `${API_URL}/api/challenges?limit=${limit}&page=${currentPage}&order=${order}&direction=${direction}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Get Challenge reviews by challenge_id
+  async getChallengeReviewsById(id: number) {
+    const response = await fetch(`${API_URL}/api/challenges/${id}/review`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Get Participation Count by Challenge ID
+  async getParticipationCountByChallengeId(challenge_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/participations/${challenge_id}/review`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
 };

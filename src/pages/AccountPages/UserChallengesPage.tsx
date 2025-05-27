@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import ChallengeCard from '../../components/ChallengeCard';
+import ChallengeCard from '../../components/ChallengeCard/ChallengeCard';
 
 export default function UserChallengesPage() {
   const username = 'JoeMaker';

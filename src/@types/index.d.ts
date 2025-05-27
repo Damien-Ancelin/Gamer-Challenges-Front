@@ -5,3 +5,56 @@ export interface User {
   avatar?: string | File;
   username: string;
 }
+
+export interface Challenge {
+  id: number;
+  name: string;
+  description: string;
+  rules: string;
+  isOpen: boolean;
+  challengeImage: string | File;
+  userId: string;
+  gameId: string;
+  categoryId: string;
+  levelId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}
+
+export interface Game {
+  id: number;
+  name: string;
+  description: string;
+  gameImage: string | File;
+  developer: string;
+  publisher: string;
+  releaseDate: string;
+  genre: string;
+  pegi: string;
+}
+
+export interface Level {
+  id: number;
+  name: string;
+  levelColor: string;
+}
+
+export interface ChallengeCard extends Challenge {
+  category: Category;
+  game: Game;
+  level: Level;
+}
+
+export interface ChallengeReview {
+  ratingCounts: number;
+  averageRating: number;
+}
+
+export interface ParticipationReview {
+  participationCounts: number;
+}

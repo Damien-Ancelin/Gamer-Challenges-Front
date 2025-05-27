@@ -10,6 +10,8 @@
       @include m.flex-column;
       justify-content: center;
       align-items: center;
+      aspect-ratio: 1 / 1;
+      gap: v.$s;
       &-main {
         border-radius: 50%;
         width: 100px;
