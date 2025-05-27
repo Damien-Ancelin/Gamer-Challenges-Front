@@ -40,6 +40,8 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
                 className="challenge-card__content__image-main"
                 src={currentChallenge.challengeImage as string}
                 alt={`Illustration du défi ${currentChallenge.name}`}
+                width="100px"
+                height="100px"
                 loading="lazy"
               />
             ) : (
@@ -47,6 +49,8 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
                 className="challenge-card__content__image-main"
                 src={altImg100}
                 alt="Illustration de défi alternatif"
+                width="100px"
+                height="100px"
                 loading="lazy"
               />
             )}

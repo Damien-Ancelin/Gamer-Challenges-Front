@@ -111,7 +111,7 @@ export default function ChallengesDetailsPage() {
             <p className="challenge-details-page__aside__participations">
               42 participations
             </p>
-            <StatusLabel status="open" />
+            <StatusLabel status={true} />
           </aside>
           <div className="challenge-details-page__articles">
             <article className="challenge-details-page__article">

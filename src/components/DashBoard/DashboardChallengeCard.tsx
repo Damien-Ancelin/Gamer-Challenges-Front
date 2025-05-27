@@ -13,7 +13,7 @@ export default function DashboardChallengeCard() {
                 <h3 className="dashboard-challenge-card__content__details__header-title">
                   God of War No Hit
                 </h3>
-                <StatusLabel status="open" />
+                <StatusLabel status={true} />
               </header>
               <div className="dashboard-challenge-card__content__details__infos">
                 <p className="dashboard-challenge-card__content__details__infos-game">

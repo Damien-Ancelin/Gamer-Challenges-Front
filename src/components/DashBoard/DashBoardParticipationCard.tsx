@@ -12,7 +12,7 @@ export default function DashBoardParticipationCard() {
               <h3 className="dashboard-participation-card__content__details__header-title">
                 celest any %
               </h3>
-              <StatusLabel status="open" />
+              <StatusLabel status={true} />
             </header>
             <div className="dashboard-participation-card__content__details__infos">
               <p className="dashboard-participation-card__content__details__infos-game">

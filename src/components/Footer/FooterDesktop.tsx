@@ -13,7 +13,10 @@ export default function FooterDesktop() {
             <img
               className="footer-desktop__logo__image"
               src={logo}
+              width="51px"
+              height="54px"
               alt="Trophé avec dégradé de couleurs"
+              loading="lazy"
             />
             <h2 className="footer-desktop__logo__title">gamer challenges</h2>
             <p className="footer-desktop__logo__tagline">Relevez des défis.</p>
