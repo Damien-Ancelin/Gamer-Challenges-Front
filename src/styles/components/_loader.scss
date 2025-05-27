@@ -18,3 +18,10 @@
     display: block;
   }
 }
+
+@media (min-width: 768px) {
+  .loader {
+    width: 30%;
+    height: 30%;
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import DashBoardParticipationCard from '../../components/DashBoard/DashBoardParticipationCard';
 import DashBoardProfileCard from '../../components/DashBoard/DashBoardProfileCard';
 import DashboardChallengeCard from '../../components/DashBoard/DashboardChallengeCard';
@@ -54,9 +54,11 @@ export default function DashBoard() {
           <DashboardChallengeCard />
           <DashboardChallengeCard />
           <div className="dashboard__challenges__button-container">
-            <button type="button" className="button button--blue-border">
-              créer un challenge
-            </button>
+            <Link to="/compte/challenges-by-me/creer-challenge">
+              <button type="button" className="button button--blue-border">
+                créer un challenge
+              </button>
+            </Link>
             <button type="button" className="button button--blue-border">
               voir tous mes challenges
             </button>

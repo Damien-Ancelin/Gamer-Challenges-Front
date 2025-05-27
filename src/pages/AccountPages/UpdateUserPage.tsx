@@ -1,11 +1,14 @@
-import altImg240 from '@/assets/images/alt-240px.webp';
+import DOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+
 import { useNavigate } from 'react-router';
-import DeleteAccountButton from '../../components/DeleteAccountButton/DeleteAccountButton';
 import { useErrorHandler } from '../../components/ErrorHandlerComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
+
+import altImg240 from '@/assets/images/alt-240px.webp';
+import DeleteAccountButton from '../../components/DeleteAccountButton/DeleteAccountButton';
 import Loader from '../../ui/Loader';
 
 export default function UpdateUserPage() {
@@ -21,7 +24,7 @@ export default function UpdateUserPage() {
   // Form state
   const [fileAvatar, setFileAvatar] = useState<File | null>(null);
   const [avatar, setAvatar] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
+  const [formUserData, setFormUserData] = useState({
     lastname: '',
     firstname: '',
     email: '',
@@ -41,7 +44,7 @@ export default function UpdateUserPage() {
       try {
         const data = await api.getUserData();
         if (data) {
-          setFormData({
+          setFormUserData({
             lastname: data.user.lastname,
             firstname: data.user.firstname,
             email: data.user.email,
@@ -72,8 +75,8 @@ export default function UpdateUserPage() {
     const firstname = formData.get('firstname');
     const email = formData.get('email');
     const username = formData.get('username');
-    const password = formData.get('password') && '';
-    const avatar = fileAvatar;
+    const password = formData.get('password');
+    const avatar = fileAvatar || null;
 
     if (
       typeof lastname !== 'string' ||
@@ -83,19 +86,34 @@ export default function UpdateUserPage() {
       typeof password !== 'string' ||
       (avatar !== null && !(avatar instanceof File))
     ) {
+      await handleError(
+        new Error('Invalid form data. Please check your input values.'),
+      );
+      setisLoading(false);
       return;
     }
+
+    const sanitizedLastname = DOMPurify.sanitize(lastname.trim());
+    const sanitizedFirstname = DOMPurify.sanitize(firstname.trim());
+    const sanitizedEmail = DOMPurify.sanitize(email.trim());
+    const sanitizedUsername = DOMPurify.sanitize(username.trim());
+    const sanitizedPassword = DOMPurify.sanitize(password.trim());
+
+    const sanitizedFormData = new FormData();
+    sanitizedFormData.append('lastname', sanitizedLastname);
+    sanitizedFormData.append('firstname', sanitizedFirstname);
+    sanitizedFormData.append('email', sanitizedEmail);
+    sanitizedFormData.append('username', sanitizedUsername);
+    sanitizedFormData.append('password', sanitizedPassword);
+
+    if (avatar) {
+      sanitizedFormData.append('avatar', avatar);
+    }
+
     try {
-      const data = await api.updateUserData(
-        lastname,
-        firstname,
-        email,
-        username,
-        password,
-        avatar,
-      );
+      const data = await api.updateUserData(sanitizedFormData);
       if (data) {
-        setFormData({
+        setFormUserData({
           lastname: data.user.lastname,
           firstname: data.user.firstname,
           email: data.user.email,
@@ -172,10 +190,10 @@ export default function UpdateUserPage() {
                       placeholder="Doe"
                       className="input input--border"
                       type="text"
-                      value={formData.lastname}
+                      value={formUserData.lastname}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setFormUserData({
+                          ...formUserData,
                           lastname: e.target.value,
                         })
                       }
@@ -192,10 +210,10 @@ export default function UpdateUserPage() {
                       placeholder="John"
                       className="input input--border"
                       type="text"
-                      value={formData.firstname}
+                      value={formUserData.firstname}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setFormUserData({
+                          ...formUserData,
                           firstname: e.target.value,
                         })
                       }
@@ -212,10 +230,10 @@ export default function UpdateUserPage() {
                       placeholder="monemail@mail.io"
                       className="input input--border"
                       type="email"
-                      value={formData.email}
+                      value={formUserData.email}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setFormUserData({
+                          ...formUserData,
                           email: e.target.value,
                         })
                       }
@@ -234,10 +252,10 @@ export default function UpdateUserPage() {
                       placeholder="John_Doe215"
                       className="input input--border"
                       type="text"
-                      value={formData.username}
+                      value={formUserData.username}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setFormUserData({
+                          ...formUserData,
                           username: e.target.value,
                         })
                       }
@@ -254,10 +272,10 @@ export default function UpdateUserPage() {
                       placeholder="********"
                       className="input input--border"
                       type="password"
-                      value={formData.password}
+                      value={formUserData.password}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setFormUserData({
+                          ...formUserData,
                           password: e.target.value,
                         })
                       }
