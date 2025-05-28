@@ -14,7 +14,6 @@ interface ChallengeCardProps {
 
 export default function ChallengeCard({ challenge }: ChallengeCardProps) {
   // State
-
   const [borderClassArticle, setBorderClassArticle] = useState<string>('');
 
   // Valeurs alternatives

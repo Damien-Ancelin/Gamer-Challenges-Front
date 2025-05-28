@@ -1,16 +1,22 @@
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 interface HandleParticipationProps {
   isOwner: boolean;
-  isAlreadyParticipating: boolean;
   isAuthenticated: boolean;
 }
 
 export default function HandleParticipation({
   isOwner,
-  isAlreadyParticipating,
   isAuthenticated,
 }: HandleParticipationProps) {
+  // States
+
+  const [isAlreadyParticipating, setIsAlreadyParticipating] =
+    useState<boolean>(false);
+
+  console.log('isAlreadyParticipating', setIsAlreadyParticipating);
+
   return (
     <div className="challenge-details-page__participations">
       <div className="challenge-details-page__button-container">

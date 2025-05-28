@@ -116,10 +116,7 @@ export default function CreateChallengePage() {
     try {
       const data = await api.createChallenge(formData);
       if (data) {
-        console.log('Challenge created successfully:', data);
-        console.log('Challenge ID:', data.challengeId);
-        // ! Activated when page is activated
-        // navigate(`/challenges/${data.challengeId}`);
+        navigate(`/challenges/${data.challengeId}`);
       }
     } catch (error) {
       if (error instanceof Error) {

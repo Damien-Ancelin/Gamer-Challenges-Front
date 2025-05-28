@@ -273,6 +273,48 @@ export const api = {
     return data;
   },
 
+  // * Get Challenge by ID
+  async getChallengeById(id: string) {
+    const response = await fetch(`${API_URL}/api/challenges/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
+  // * Post Challenge Owner by ID
+  async getChallengeOwner(challenge_id: number) {
+    const response = await fetch(`${API_URL}/api/challenges/owner`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ challenge_id }),
+    });
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Challenge reviews by challenge_id
   async getChallengeReviewsById(id: number) {
     const response = await fetch(`${API_URL}/api/challenges/${id}/review`, {

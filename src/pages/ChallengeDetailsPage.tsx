@@ -1,42 +1,97 @@
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import type { ChallengeCard as TChallengeCard } from '../@types';
+
+import { useParams } from 'react-router';
+import { useErrorHandler } from '../components/ErrorHandlerComponent';
+import { useAuth } from '../contexts/AuthContext';
+
+import { api } from '../services/api';
 
 import altImg240 from '@/assets/images/alt-240px.webp';
-import { useState } from 'react';
 import HandleParticipation from '../components/ChallengeDetailsPage/HandleParticipation';
 import VoteChallenge from '../components/ChallengeDetailsPage/VoteChallenge';
 import ProgressBar from '../components/ProgressBar';
-import { useAuth } from '../contexts/AuthContext';
+import Loader from '../ui/Loader';
 import StatusLabel from '../ui/StatusLabel';
 
 export default function ChallengesDetailsPage() {
-  const [rating, setRating] = useState<number>(1);
-  const [isVoted, setIsVoted] = useState<boolean>(false);
-
-  // ! Mockdata pour les données reçu de l'API par la suite
+  // Hooks
+  const { challengeId } = useParams();
   const { isAuthenticated } = useAuth();
-  const isOwner = false;
-  const isAlreadyParticipating = false;
+  const handleError = useErrorHandler();
+
+  // States
+  const [challenge, setChallenge] = useState<TChallengeCard | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
+
+  // ! Mockdata
+  const defaultChallenge = {
+    id: 0,
+    name: 'Défi en cours de création',
+    description: 'Description du défi en cours de création.',
+    rules: 'Règles du défi en cours de création.',
+    challengeImage: altImg240,
+    isOpen: false,
+    game: { name: 'Jeu inconnu' },
+    category: { name: 'Catégorie inconnue' },
+    level: { name: 'Niveau inconnu' },
+  };
+
+  const currentChallenge = challenge || defaultChallenge;
+
+  useEffect(() => {
+    setIsLoading(true);
+    const Authenticated = isAuthenticated || false;
+    const challenge_id = challengeId || '0';
+
+    const fetchChallenge = async () => {
+      try {
+        const data = await api.getChallengeById(challenge_id);
+        if (data) {
+          setChallenge(data.challenge);
+        }
+        if (Authenticated) {
+          const dataOwner = await api.getChallengeOwner(Number(challenge_id));
+          if (dataOwner) {
+            setIsOwner(dataOwner.isOwner);
+          }
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchChallenge();
+  }, [handleError, challengeId, isAuthenticated]);
 
   return (
     <>
       <Helmet>
-        <title>Détails du Challenge God of War No Hit | Gamer Challenges</title>
+        <title>
+          Détails du Challenge {currentChallenge.name} | Gamer Challenges
+        </title>
         <meta
           name="description"
-          content="Explorez les détails du challenge God of War, relevez le défi et partagez vos exploits avec la communauté sur Gamer Challenges."
+          content={`Explorez les détails du challenge ${currentChallenge.name}, relevez le défi et partagez vos exploits avec la communauté sur Gamer Challenges.`}
         />
         <meta
           property="og:title"
-          content="Détails du Challenge | Gamer Challenges"
+          content={`Détails du Challenge ${currentChallenge.name} | Gamer Challenges`}
         />
         <meta
           property="og:description"
-          content="Découvrez les règles, les participants et les vidéos du challenge God of War. Participez et gagnez en popularité grâce aux votes de la communauté."
+          content={`Découvrez les règles, les participants et les vidéos du challenge ${currentChallenge.name}. Participez et gagnez en popularité grâce aux votes de la communauté.`}
         />
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.gamerchallenges.com/challenges/1"
+          content={`https://www.gamerchallenges.com/challenges/${currentChallenge.id}`}
         />
         <link
           rel="preload"
@@ -77,89 +132,76 @@ export default function ChallengesDetailsPage() {
       </Helmet>
       {/* Section de la page */}
       <section className="challenge-details-page">
-        <h1 className="challenge-details-page__title">Challenge</h1>
-        <h2 className="challenge-details-page__sub-title">God of War No Hit</h2>
-        <div className="challenge-details-page__content">
-          <aside className="challenge-details-page__aside">
-            <img
-              className="challenge-details-page__aside__image"
-              src={altImg240}
-              alt="illustration du défi God of War no hit"
-              srcSet={`${altImg240} 240w`}
-              loading="lazy"
+        {!isLoading ? (
+          <>
+            <h1 className="challenge-details-page__title">Challenge</h1>
+            <h2 className="challenge-details-page__sub-title">
+              {currentChallenge.name}
+            </h2>
+            <div className="challenge-details-page__content">
+              <aside className="challenge-details-page__aside">
+                <img
+                  className="challenge-details-page__aside__image"
+                  src={altImg240}
+                  alt="illustration du défi God of War no hit"
+                  srcSet={`${altImg240} 240w`}
+                  loading="lazy"
+                />
+                <div className="challenge-details-page__aside__infos">
+                  <p className="challenge-details-page__aside__infos-game">
+                    jeu : {currentChallenge.game.name}
+                  </p>
+                  <p className="challenge-details-page__aside__infos-category">
+                    catégorie : {currentChallenge.category.name}
+                  </p>
+                  <p className="challenge-details-page__aside__infos-level">
+                    niveau : {currentChallenge.level.name}
+                  </p>
+                </div>
+                <div className="challenge-details-page__aside__rating-container">
+                  <p
+                    className="challenge-details-page__aside__rating"
+                    aria-label="note en pourcentage du challenge"
+                  >
+                    45%
+                  </p>
+                  <ProgressBar rating={45} />
+                </div>
+                <p className="challenge-details-page__aside__participations">
+                  42 participations
+                </p>
+                <StatusLabel status={true} />
+              </aside>
+              <div className="challenge-details-page__articles">
+                <article className="challenge-details-page__article">
+                  <h3 className="challenge-details-page__article__title">
+                    description
+                  </h3>
+                  <p className="challenge-details-page__article__description">
+                    {currentChallenge.description}
+                  </p>
+                </article>
+                <article className="challenge-details-page__article">
+                  <h3 className="challenge-details-page__article__title">
+                    règles
+                  </h3>
+                  <p className="challenge-details-page__article__description">
+                    {currentChallenge.rules}
+                  </p>
+                </article>
+              </div>
+            </div>
+            <HandleParticipation
+              isOwner={isOwner}
+              isAuthenticated={isAuthenticated}
             />
-            <div className="challenge-details-page__aside__infos">
-              <p className="challenge-details-page__aside__infos-game">
-                jeu : god of war
-              </p>
-              <p className="challenge-details-page__aside__infos-category">
-                catégorie : performance
-              </p>
-              <p className="challenge-details-page__aside__infos-level">
-                niveau : difficile
-              </p>
-            </div>
-            <div className="challenge-details-page__aside__rating-container">
-              <p
-                className="challenge-details-page__aside__rating"
-                aria-label="note en pourcentage du challenge"
-              >
-                45%
-              </p>
-              <ProgressBar rating={45} />
-            </div>
-            <p className="challenge-details-page__aside__participations">
-              42 participations
-            </p>
-            <StatusLabel status={true} />
-          </aside>
-          <div className="challenge-details-page__articles">
-            <article className="challenge-details-page__article">
-              <h3 className="challenge-details-page__article__title">
-                description
-              </h3>
-              <p className="challenge-details-page__article__description">
-                Le défi "No Hit" dans God of War est une épreuve de maîtrise et
-                de patience. Le but est simple : terminer le jeu sans encaisser
-                un seul coup de la part des ennemis. Ce challenge mettra à
-                l'épreuve vos réflexes, votre stratégie, et votre connaissance
-                du jeu. Seuls les plus habiles parviendront à traverser les
-                batailles et les environnements les plus ardus sans jamais être
-                touchés. En outre, ce challenge vous permet de découvrir le jeu
-                sous un autre angle, en choisissant le chemin de la prudence et
-                de la précision. Serez-vous capable de prouver que vous êtes le
-                maître absolu de la guerre sans subir de blessures ?
-              </p>
-            </article>
-            <article className="challenge-details-page__article">
-              <h3 className="challenge-details-page__article__title">règles</h3>
-              <p className="challenge-details-page__article__description">
-                1 - Aucun dégât : Ne pas subir de dégâts de la part des ennemis.
-                Si Kratos prend des dégâts, le défi est échoué. 2 - Difficulté :
-                Choisissez la difficulté souhaitée, mais il est recommandé de
-                jouer en mode normal ou supérieur. 3 - Objets de soin : Vous
-                pouvez utiliser des objets de soin, mais ne soyez pas touché
-                après leur utilisation. 4 - Sauvegarde : Vous pouvez
-                sauvegarder, mais chargez uniquement avant un combat difficile.
-                5 - Preuve : Une vidéo ou une capture d'écran montrant l'absence
-                de dégâts est requise pour valider le défi. 6 - Pas de triche :
-                Aucun mod, cheat code ou outil de triche autorisé. 7 - Mode New
-                Game+ : Ne pas utiliser de New Game+.
-              </p>
-            </article>
-          </div>
-        </div>
-        <HandleParticipation
-          isOwner={isOwner}
-          isAlreadyParticipating={isAlreadyParticipating}
-          isAuthenticated={isAuthenticated}
-        />
-        {!isVoted && isAuthenticated && !isOwner && (
-          <VoteChallenge
-            rating={rating}
-            setRating={setRating}
-            setIsVoted={setIsVoted}
-          />
+            <VoteChallenge
+              isAuthenticated={isAuthenticated}
+              isOwner={isOwner}
+            />
+          </>
+        ) : (
+          <Loader />
         )}
       </section>
     </>
