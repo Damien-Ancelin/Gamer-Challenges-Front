@@ -15,8 +15,8 @@ export default function App() {
       <main className="main-content">{routing}</main>
       <ToastContainer
         position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
+        autoClose={2000}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}

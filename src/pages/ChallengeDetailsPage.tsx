@@ -9,9 +9,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
 
 import altImg240 from '@/assets/images/alt-240px.webp';
+import ChallengeDetailsParticipation from '../components/ChallengeDetailsPage/ChallengeDetailsParticipation';
+import ChallengeDetailsRating from '../components/ChallengeDetailsPage/ChallengeDetailsRating';
 import HandleParticipation from '../components/ChallengeDetailsPage/HandleParticipation';
 import VoteChallenge from '../components/ChallengeDetailsPage/VoteChallenge';
-import ProgressBar from '../components/ProgressBar';
 import Loader from '../ui/Loader';
 import StatusLabel from '../ui/StatusLabel';
 
@@ -25,6 +26,11 @@ export default function ChallengesDetailsPage() {
   const [challenge, setChallenge] = useState<TChallengeCard | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOwner, setIsOwner] = useState<boolean>(false);
+
+  // Update State
+  const [ratingUpdated, setRatingUpdated] = useState<boolean>(false);
+  const [participationUpdated, setParticipationUpdated] =
+    useState<boolean>(false);
 
   // ! Mockdata
   const defaultChallenge = {
@@ -140,13 +146,28 @@ export default function ChallengesDetailsPage() {
             </h2>
             <div className="challenge-details-page__content">
               <aside className="challenge-details-page__aside">
-                <img
-                  className="challenge-details-page__aside__image"
-                  src={altImg240}
-                  alt="illustration du défi God of War no hit"
-                  srcSet={`${altImg240} 240w`}
-                  loading="lazy"
-                />
+                {currentChallenge.challengeImage ? (
+                  <img
+                    className="challenge-details-page__aside__image"
+                    src={currentChallenge.challengeImage as string}
+                    alt={`illustration du défi ${currentChallenge.name}`}
+                    srcSet={`${currentChallenge.challengeImage} 240w`}
+                    width="240"
+                    height="240"
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    className="challenge-details-page__aside__image"
+                    src={altImg240}
+                    alt="illustration du défi alternatif"
+                    srcSet={`${altImg240} 240w`}
+                    width="240"
+                    height="240"
+                    loading="lazy"
+                  />
+                )}
+
                 <div className="challenge-details-page__aside__infos">
                   <p className="challenge-details-page__aside__infos-game">
                     jeu : {currentChallenge.game.name}
@@ -158,19 +179,17 @@ export default function ChallengesDetailsPage() {
                     niveau : {currentChallenge.level.name}
                   </p>
                 </div>
-                <div className="challenge-details-page__aside__rating-container">
-                  <p
-                    className="challenge-details-page__aside__rating"
-                    aria-label="note en pourcentage du challenge"
-                  >
-                    45%
-                  </p>
-                  <ProgressBar rating={45} />
-                </div>
-                <p className="challenge-details-page__aside__participations">
-                  42 participations
-                </p>
-                <StatusLabel status={true} />
+                <ChallengeDetailsRating
+                  challenge_id={currentChallenge.id}
+                  ratingUpdated={ratingUpdated}
+                  setRatingUpdated={setRatingUpdated}
+                />
+                <ChallengeDetailsParticipation
+                  challenge_id={currentChallenge.id}
+                  participationUpdated={participationUpdated}
+                  setParticipationUpdated={setParticipationUpdated}
+                />
+                <StatusLabel status={currentChallenge.isOpen} />
               </aside>
               <div className="challenge-details-page__articles">
                 <article className="challenge-details-page__article">
@@ -195,10 +214,15 @@ export default function ChallengesDetailsPage() {
               isOwner={isOwner}
               isAuthenticated={isAuthenticated}
               challenge_id={currentChallenge.id}
+              isOpen={currentChallenge.isOpen}
+              setParticipationUpdated={setParticipationUpdated}
             />
             <VoteChallenge
               isAuthenticated={isAuthenticated}
               isOwner={isOwner}
+              challenge_id={currentChallenge.id}
+              isOpen={currentChallenge.isOpen}
+              setRatingUpdated={setRatingUpdated}
             />
           </>
         ) : (

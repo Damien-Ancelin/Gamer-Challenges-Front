@@ -173,7 +173,7 @@ export const api = {
       const status = response.status;
       const errorMessage = errorHandler({
         status,
-        errorData: { sucess: true, message: 'Account deleted successfully' },
+        errorData: { sucess: false, message: 'Suppression du compte échouée' },
       });
 
       if (!isProduction) {
@@ -338,6 +338,59 @@ export const api = {
     return data;
   },
 
+  // * Review Challenge
+  async voteChallenge(challenge_id: number, rating: number) {
+    const response = await fetch(`${API_URL}/api/challenge-reviews/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ challenge_id, rating }),
+    });
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
+  // * Check User Challenge Review
+  async checkUserIsVoteChallenge(challenge_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/challenge-reviews/check/user`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ challenge_id }),
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Participation Count by Challenge ID
   async getParticipationCountByChallengeId(challenge_id: number) {
     const response = await fetch(
@@ -384,6 +437,46 @@ export const api = {
       throw new Error(errorMessage);
     }
     const data = await response.json();
+    return data;
+  },
+
+  // * Delete User Participation
+  async deleteUserParticipation(challenge_id: number) {
+    const response = await fetch(`${API_URL}/api/participations/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ challenge_id }),
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorMessage = errorHandler({
+        status,
+        errorData: {
+          sucess: false,
+          message: 'Suppression de la participation échouée',
+        },
+      });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = {
+      success: true,
+      message: 'Votre participation à été supprimé avec succès.',
+    };
+
+    if (!isProduction) {
+      console.error('Success: Participation utilisateur supprimé avec succès');
+    }
+
     return data;
   },
 

@@ -5,13 +5,17 @@ import { api } from '../../services/api';
 import Loader from '../../ui/Loader';
 import { useErrorHandler } from '../ErrorHandlerComponent';
 
-interface ChallengeCardParticipationProps {
-  challengeId: number;
+interface ChallengeDetailsParticipationProps {
+  challenge_id: number;
+  participationUpdated: boolean;
+  setParticipationUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ChallengeCardParticipation({
-  challengeId,
-}: ChallengeCardParticipationProps) {
+export default function ChallengeDetailsParticipation({
+  challenge_id,
+  participationUpdated,
+  setParticipationUpdated,
+}: ChallengeDetailsParticipationProps) {
   // Hooks
   const handleError = useErrorHandler();
 
@@ -24,7 +28,7 @@ export default function ChallengeCardParticipation({
     setParticipationIsLoading(true);
     const fetchParticipationCount = async () => {
       try {
-        const data = await api.getParticipationCountByChallengeId(challengeId);
+        const data = await api.getParticipationCountByChallengeId(challenge_id);
         if (data) {
           setNbParticipation(data.participationReview);
         }
@@ -34,16 +38,24 @@ export default function ChallengeCardParticipation({
         }
       } finally {
         setParticipationIsLoading(false);
+        if (participationUpdated) {
+          setParticipationUpdated(false);
+        }
       }
     };
     fetchParticipationCount();
-  }, [handleError, challengeId]);
+  }, [
+    handleError,
+    challenge_id,
+    participationUpdated,
+    setParticipationUpdated,
+  ]);
 
   return (
     <>
       {participationIsLoading && <Loader />}
       {!participationIsLoading && (
-        <p className="challenge-card__content__details__participations">
+        <p className="challenge-details-page__aside__participations">
           {nbParticipation.participationCounts} participations
         </p>
       )}

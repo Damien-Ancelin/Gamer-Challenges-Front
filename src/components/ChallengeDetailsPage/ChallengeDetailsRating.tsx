@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
 import type { ChallengeReview as TChallengeReview } from '../../@types';
 
-import { getBorderClassByRating } from '../../../utils/borderClass';
-import { api } from '../../services/api';
 import { useErrorHandler } from '../ErrorHandlerComponent';
 
+import { api } from '../../services/api';
 import Loader from '../../ui/Loader';
 import ProgressBar from '../ProgressBar';
 
-interface ChallengeCardRatingProps {
-  challengeId: number;
-  setBorderClassArticle: React.Dispatch<React.SetStateAction<string>>;
+interface ChallengeDetailsRatingProps {
+  challenge_id: number;
+  ratingUpdated: boolean;
+  setRatingUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ChallengeCardRating({
-  challengeId,
-  setBorderClassArticle,
-}: ChallengeCardRatingProps) {
+export default function ChallengeDetailsRating({
+  challenge_id,
+  ratingUpdated,
+  setRatingUpdated,
+}: ChallengeDetailsRatingProps) {
   // Hooks
   const handleError = useErrorHandler();
 
@@ -35,7 +36,7 @@ export default function ChallengeCardRating({
     setRatingIsLoading(true);
     const fetchChallengeReviews = async () => {
       try {
-        const data = await api.getChallengeReviewsById(challengeId);
+        const data = await api.getChallengeReviewsById(challenge_id);
         if (data.challengeReview) {
           setChallengeReview(data.challengeReview);
         }
@@ -45,23 +46,21 @@ export default function ChallengeCardRating({
         }
       } finally {
         setRatingIsLoading(false);
+        if (ratingUpdated) {
+          setRatingUpdated(false);
+        }
       }
     };
     fetchChallengeReviews();
-  }, [handleError, challengeId]);
-
-  useEffect(() => {
-    const borderClass = getBorderClassByRating(ChallengeRatingPercent);
-    setBorderClassArticle(borderClass);
-  }, [ChallengeRatingPercent, setBorderClassArticle]);
+  }, [handleError, challenge_id, ratingUpdated, setRatingUpdated]);
 
   return (
     <>
       {ratingIsLoading && <Loader />}
       {!ratingIsLoading && (
-        <div className="challenge-card__content__details__rating-container">
+        <div className="challenge-details-page__aside__rating-container">
           <p
-            className="challenge-card__content__details__rating"
+            className="challenge-details-page__aside__rating"
             aria-label="note en pourcentage du challenge"
           >
             {ChallengeRatingPercent}%
