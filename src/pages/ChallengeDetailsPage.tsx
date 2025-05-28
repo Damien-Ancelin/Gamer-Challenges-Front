@@ -194,6 +194,7 @@ export default function ChallengesDetailsPage() {
             <HandleParticipation
               isOwner={isOwner}
               isAuthenticated={isAuthenticated}
+              challenge_id={currentChallenge.id}
             />
             <VoteChallenge
               isAuthenticated={isAuthenticated}
