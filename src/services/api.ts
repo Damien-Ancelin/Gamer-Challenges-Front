@@ -189,7 +189,7 @@ export const api = {
     };
 
     if (!isProduction) {
-      console.log('Success: Compte utilisateur supprimé avec succès');
+      console.error('Success: Compte utilisateur supprimé avec succès');
     }
 
     return data;
@@ -250,7 +250,7 @@ export const api = {
     direction: string,
   ) {
     const response = await fetch(
-      `${API_URL}/api/challenges?limit=${limit}&page=${currentPage}&order=${order}&direction=${direction}`,
+      `${API_URL}/api/challenges?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
         method: 'GET',
         credentials: 'include',

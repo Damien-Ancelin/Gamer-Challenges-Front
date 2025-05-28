@@ -71,8 +71,6 @@ export default function CreateChallengePage() {
   ) => {
     event.preventDefault();
     setIsLoading(true);
-    console.log(formChallengeData);
-    console.log(fileChallengeImage);
 
     const formData = new FormData(event.currentTarget);
     const name = formData.get('name') as string;

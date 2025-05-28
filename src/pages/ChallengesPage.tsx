@@ -6,6 +6,7 @@ import { useErrorHandler } from '../components/ErrorHandlerComponent';
 import { api } from '../services/api';
 
 import ChallengeCard from '../components/ChallengeCard/ChallengeCard';
+import ChallengesPagination from '../components/ChallengePage/ChallengePagination';
 import Loader from '../ui/Loader';
 
 export default function ChallengesPage() {
@@ -20,8 +21,6 @@ export default function ChallengesPage() {
     totalPages: 0,
     limit: 10,
   });
-
-  console.log(pagination);
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -111,6 +110,12 @@ export default function ChallengesPage() {
           <Loader />
         )}
       </section>
+
+      <ChallengesPagination
+        pagination={pagination}
+        setPagination={setPagination}
+        setChallenges={setChallenges}
+      />
     </>
   );
 }
