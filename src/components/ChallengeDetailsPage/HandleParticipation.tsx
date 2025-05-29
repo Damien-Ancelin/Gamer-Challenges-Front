@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -24,6 +24,7 @@ export default function HandleParticipation({
   // Hooks
   const handleError = useErrorHandler();
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   // States
   const [isAlreadyParticipating, setIsAlreadyParticipating] =
@@ -62,6 +63,7 @@ export default function HandleParticipation({
       if (data) {
         setIsAlreadyParticipating(data.isParticipated);
         setParticipationUpdated(true);
+        navigate(`participations/${data.participation.id}`);
         toast.success(data.message);
       }
     } catch (error) {

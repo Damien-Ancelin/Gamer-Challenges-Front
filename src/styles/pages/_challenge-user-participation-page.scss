@@ -17,6 +17,9 @@
     justify-content: center;
     align-items: center;
     gap: v.$m;
+    &__not-video-description {
+      margin-bottom: v.$l;
+    }
   }
   &__video-container {
     @include m.flex-column;

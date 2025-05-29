@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import type { ParticipationCard as TParticipationCard } from '../@types';
 
 import { useParams } from 'react-router';
+import { parseEmbedYoutubeUrl } from '../../utils/parseEmbedYoutubeUrl';
 import { useErrorHandler } from '../components/ErrorHandlerComponent';
 import { useAuth } from '../contexts/AuthContext';
 import { api } from '../services/api';
@@ -45,6 +46,7 @@ export default function ChallengeUserParticipationPage() {
         if (data) {
           setParticipation(data.participation);
           setIsValidated(data.participation.isValidated);
+          console.log(data);
         }
         if (Authenticated) {
           const dataOwner = await api.getParticipationOwner(
@@ -84,9 +86,9 @@ export default function ChallengeUserParticipationPage() {
 
   const currentParticipation = participation || defaultParticipation;
 
-  const youtubeURL = currentParticipation.videoLink;
-  const youtubeVideoId = youtubeURL.split('v=')[1];
-  const youtubeEmbedURL = `https://www.youtube.com/embed/${youtubeVideoId}`;
+  const youtubeEmbedURL: string | null = parseEmbedYoutubeUrl(
+    currentParticipation.videoLink,
+  );
 
   return (
     <>
@@ -102,7 +104,7 @@ export default function ChallengeUserParticipationPage() {
           content={`Participation au défi ${currentParticipation.challenge.name} sur GamerChallenges.`}
         />
         <meta property="og:type" content="video.other" />
-        <meta property="og:video" content={youtubeEmbedURL} />
+        <meta property="og:video" content={youtubeEmbedURL || ''} />
       </Helmet>
       {/* Partie Section de la page */}
       <section className="challenge-user-participation-page">
@@ -115,7 +117,7 @@ export default function ChallengeUserParticipationPage() {
               de {currentParticipation.user.username}
             </h2>
 
-            {isValidated ? (
+            {isValidated && youtubeEmbedURL ? (
               <div className="challenge-user-participation-page__content">
                 <article className="challenge-user-participation-page__video-container">
                   <iframe
@@ -140,7 +142,7 @@ export default function ChallengeUserParticipationPage() {
               </div>
             ) : (
               <div className="challenge-user-participation-page__content">
-                <p className="challenge-user-participation-page__content__video-description secondary">
+                <p className="challenge-user-participation-page__content__not-video-description secondary">
                   La vidéo de participation n'est pas encore validée.
                 </p>
               </div>
