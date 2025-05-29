@@ -101,6 +101,11 @@ export default function VoteChallenge({
           )}
         </div>
       )}
+      {isVoted && (
+        <div className="rating-bar__already-voted">
+          <h4>Vous avez déjà voté pour ce challenge.</h4>
+        </div>
+      )}
     </>
   );
 }

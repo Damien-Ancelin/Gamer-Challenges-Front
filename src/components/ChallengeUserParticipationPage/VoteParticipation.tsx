@@ -100,6 +100,11 @@ export default function VoteParticipation({
           )}
         </div>
       )}
+      {isVoted && (
+        <div className="rating-bar__already-voted">
+          <h4>Vous avez déjà voté pour cette participation.</h4>
+        </div>
+      )}
     </>
   );
 }
