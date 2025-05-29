@@ -417,6 +417,30 @@ export const api = {
     return data;
   },
 
+  // * Get Popular Challenges
+  async getPopularChallenges(limit: number, currentPage: number) {
+    const response = await fetch(
+      `${API_URL}/api/participations/popular?limit=${limit}&currentPage=${currentPage}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
   // * Create User Participation
   async createUserParticipation(challenge_id: number) {
     const response = await fetch(`${API_URL}/api/participations/create`, {
