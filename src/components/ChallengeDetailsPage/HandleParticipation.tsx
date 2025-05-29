@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-
 import { toast } from 'react-toastify';
+
+import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
-import Loader from '../../ui/Loader';
 import { useErrorHandler } from '../ErrorHandlerComponent';
+
+import Loader from '../../ui/Loader';
 
 interface HandleParticipationProps {
   isOwner: boolean;
-  isAuthenticated: boolean;
   challenge_id: number;
   isOpen: boolean;
   setParticipationUpdated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,13 +17,13 @@ interface HandleParticipationProps {
 
 export default function HandleParticipation({
   isOwner,
-  isAuthenticated,
   challenge_id,
   isOpen,
   setParticipationUpdated,
 }: HandleParticipationProps) {
   // Hooks
   const handleError = useErrorHandler();
+  const { isAuthenticated } = useAuth();
 
   // States
   const [isAlreadyParticipating, setIsAlreadyParticipating] =

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 import { useErrorHandler } from '../ErrorHandlerComponent';
 
@@ -8,7 +9,6 @@ import Loader from '../../ui/Loader';
 import RatingBar from '../RatingBar';
 
 interface VoteChallengeProps {
-  isAuthenticated: boolean;
   isOwner: boolean;
   challenge_id: number;
   isOpen: boolean;
@@ -16,7 +16,6 @@ interface VoteChallengeProps {
 }
 
 export default function VoteChallenge({
-  isAuthenticated,
   isOwner,
   challenge_id,
   isOpen,
@@ -24,6 +23,7 @@ export default function VoteChallenge({
 }: VoteChallengeProps) {
   // Hooks
   const handleError = useErrorHandler();
+  const { isAuthenticated } = useAuth();
 
   // States
   const [rating, setRating] = useState<number>(1);

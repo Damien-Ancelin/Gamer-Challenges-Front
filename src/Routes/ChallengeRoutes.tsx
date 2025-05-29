@@ -17,12 +17,11 @@ export const challengeRoutes: RouteObject[] = [
             path: 'participations',
             children: [
               { index: true, element: <ChallengeParticipationsPage /> },
-              { path: ':id', element: <ChallengeUserParticipationPage /> },
+              {
+                path: ':participationId',
+                element: <ChallengeUserParticipationPage />,
+              },
             ],
-          },
-          {
-            path: 'participer',
-            element: <h1>Déclenche la participation sur l'API</h1>,
           },
         ],
       },

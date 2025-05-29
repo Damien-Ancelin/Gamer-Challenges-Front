@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { ParticipationReview as TParticipationReview } from '../../@types';
+import type { ParticipationReviewCount as TParticipationReviewCount } from '../../@types';
 
 import { api } from '../../services/api';
 import Loader from '../../ui/Loader';
@@ -20,9 +20,10 @@ export default function ChallengeDetailsParticipation({
   const handleError = useErrorHandler();
 
   const [participationIsLoading, setParticipationIsLoading] = useState(false);
-  const [nbParticipation, setNbParticipation] = useState<TParticipationReview>({
-    participationCounts: 0,
-  });
+  const [nbParticipation, setNbParticipation] =
+    useState<TParticipationReviewCount>({
+      participationCounts: 0,
+    });
 
   useEffect(() => {
     setParticipationIsLoading(true);

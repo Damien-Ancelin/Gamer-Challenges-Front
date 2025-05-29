@@ -316,11 +316,14 @@ export const api = {
   },
 
   // * Get Challenge reviews by challenge_id
-  async getChallengeReviewsById(id: number) {
-    const response = await fetch(`${API_URL}/api/challenges/${id}/review`, {
-      method: 'GET',
-      credentials: 'include',
-    });
+  async getChallengeReviewsById(challenge_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/challenge-reviews/challenge/${challenge_id}/review`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
 
     if (!response.ok) {
       const status = response.status;
@@ -338,7 +341,29 @@ export const api = {
     return data;
   },
 
-  // * Review Challenge
+  // * Get Participation reviews by participation_id
+  async getParticipationReviewsById(participation_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/participation-reviews/participation/${participation_id}/review`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
+  // * Challenge Review
   async voteChallenge(challenge_id: number, rating: number) {
     const response = await fetch(`${API_URL}/api/challenge-reviews/create`, {
       method: 'POST',
@@ -361,7 +386,33 @@ export const api = {
     return data;
   },
 
-  // * Check User Challenge Review
+  // * Participation Review
+  async voteParticipation(participation_id: number, rating: number) {
+    const response = await fetch(
+      `${API_URL}/api/participation-reviews/create`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ participation_id, rating }),
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
+  // * Check User has alreadyt voted Challenge Review
   async checkUserIsVoteChallenge(challenge_id: number) {
     const response = await fetch(
       `${API_URL}/api/challenge-reviews/check/user`,
@@ -372,6 +423,36 @@ export const api = {
         },
         credentials: 'include',
         body: JSON.stringify({ challenge_id }),
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  // * Check User has already voted Participation Review
+  async checkUserIsVoteParticipation(participation_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/participation-reviews/check/user`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ participation_id }),
       },
     );
 
@@ -422,10 +503,29 @@ export const api = {
     return data;
   },
 
+  // * Get Participation by ID
+  async getParticipationById(id: string) {
+    const response = await fetch(`${API_URL}/api/participations/${id}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Participation Count by Challenge ID
   async getParticipationCountByChallengeId(challenge_id: number) {
     const response = await fetch(
-      `${API_URL}/api/participations/${challenge_id}/review`,
+      `${API_URL}/api/participations/challenge/${challenge_id}/count`,
       {
         method: 'GET',
         credentials: 'include',
@@ -528,10 +628,6 @@ export const api = {
       message: 'Votre participation à été supprimé avec succès.',
     };
 
-    if (!isProduction) {
-      console.error('Success: Participation utilisateur supprimé avec succès');
-    }
-
     return data;
   },
 
@@ -544,6 +640,32 @@ export const api = {
       },
       credentials: 'include',
       body: JSON.stringify({ challenge_id }),
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  async getParticipationOwner(participation_id: number) {
+    const response = await fetch(`${API_URL}/api/participations/owner`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ participation_id }),
     });
 
     if (!response.ok) {

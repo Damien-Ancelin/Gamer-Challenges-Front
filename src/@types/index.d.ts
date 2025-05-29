@@ -60,6 +60,11 @@ export interface ChallengeReview {
 }
 
 export interface ParticipationReview {
+  ratingCounts: number;
+  averageRating: number;
+}
+
+export interface ParticipationReviewCount {
   participationCounts: number;
 }
 

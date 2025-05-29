@@ -212,13 +212,11 @@ export default function ChallengesDetailsPage() {
             </div>
             <HandleParticipation
               isOwner={isOwner}
-              isAuthenticated={isAuthenticated}
               challenge_id={currentChallenge.id}
               isOpen={currentChallenge.isOpen}
               setParticipationUpdated={setParticipationUpdated}
             />
             <VoteChallenge
-              isAuthenticated={isAuthenticated}
               isOwner={isOwner}
               challenge_id={currentChallenge.id}
               isOpen={currentChallenge.isOpen}
