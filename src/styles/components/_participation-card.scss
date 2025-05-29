@@ -2,17 +2,23 @@
 @use "../abstracts/mixins" as m;
 
 .participation-card {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   padding: v.$m;
   &__content {
-    @include m.flex-row;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
     align-items: center;
+    gap: v.$s;
     &__image {
-      @include m.flex-column;
+      @include m.flex-row;
       justify-content: center;
       align-items: center;
       gap: v.$s;
+      order: 2;
       &-main {
         width: 125px;
         height: 70px;
@@ -25,14 +31,18 @@
       }
     }
     &__details {
+      order: 1;
+      flex: 1;
       &__header {
         @include m.flex-column;
+        justify-content: center;
+        align-items: center;
         gap: v.$s;
         &-container {
           @include m.flex-column;
-          gap: v.$s;
           justify-content: center;
           align-items: center;
+          gap: v.$s;
         }
         &-title {
           font-size: 0.938rem;
@@ -50,6 +60,7 @@
         @include m.flex-column;
         justify-content: center;
         align-items: center;
+        width: 75%;
         p {
           font-family: Roboto;
           font-size: 0.938rem;
@@ -93,12 +104,18 @@
   }
   @media screen and (min-width: 1024px) {
     &__content {
+      grid-template-columns: repeat(2, 1fr);
       &__image {
+        @include m.flex-column;
+        order: 1;
         &-main {
           width: 320px;
           height: 180px;
           object-fit: scale-down;
         }
+      }
+      &__details {
+        order: 2;
       }
     }
   }

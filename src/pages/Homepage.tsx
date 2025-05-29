@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../contexts/AuthContext';
+
 import Explain from '../components/HomePage/Explain';
 import HeroBanner from '../components/HomePage/HeroBanner';
 import LastParticipatons from '../components/HomePage/LastParticipations';
 import PopularChallenges from '../components/HomePage/PopularChallenges';
+
 export default function Homepage() {
+  const { isAuthenticated } = useAuth();
   return (
     <>
       <Helmet>
@@ -39,7 +43,7 @@ export default function Homepage() {
           type="image/webp"
         />
       </Helmet>
-      <HeroBanner />
+      {!isAuthenticated && <HeroBanner />}
       <PopularChallenges />
       <Explain />
       <LastParticipatons />

@@ -391,6 +391,37 @@ export const api = {
     return data;
   },
 
+  // * Get Participations
+  async getParticipations(
+    limit: number,
+    currentPage: number,
+    order: string,
+    direction: string,
+  ) {
+    const response = await fetch(
+      `${API_URL}/api/participations?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Participation Count by Challenge ID
   async getParticipationCountByChallengeId(challenge_id: number) {
     const response = await fetch(

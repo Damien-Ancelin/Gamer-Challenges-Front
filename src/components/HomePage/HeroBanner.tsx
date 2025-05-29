@@ -1,5 +1,6 @@
 import heroBannerImg250 from '@/assets/images/hero-banner_250px.webp';
 import heroBannerImg300 from '@/assets/images/hero-banner_300px.webp';
+import { Link } from 'react-router';
 
 export default function HeroBanner() {
   return (
@@ -24,20 +25,24 @@ export default function HeroBanner() {
             d'élite ou un stratège en or, il y a un challenge pour toi.
           </p>
           <div className="hero-banner__button-container">
-            <button
-              className="hero-banner__button button button--yellow-border"
-              type="button"
-              aria-label="S'inscrire à GamerChallenges"
-            >
-              s'inscrire
-            </button>
-            <button
-              className="hero-banner__button button button--orange-border"
-              type="button"
-              aria-label="Voir les challenges"
-            >
-              voir les challenges
-            </button>
+            <Link to="/authentification/inscription">
+              <button
+                className="hero-banner__button button button--yellow-border"
+                type="button"
+                aria-label="S'inscrire à GamerChallenges"
+              >
+                s'inscrire
+              </button>
+            </Link>
+            <Link to="/challenges">
+              <button
+                className="hero-banner__button button button--orange-border"
+                type="button"
+                aria-label="Voir les challenges"
+              >
+                voir les challenges
+              </button>
+            </Link>
           </div>
         </div>
       </div>

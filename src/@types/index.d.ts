@@ -6,6 +6,16 @@ export interface User {
   username: string;
 }
 
+export interface Participation {
+  id: number;
+  videoLink: string;
+  isValidated: boolean;
+  userId: number;
+  challengeId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Challenge {
   id: number;
   name: string;
@@ -44,12 +54,6 @@ export interface Level {
   levelColor: string;
 }
 
-export interface ChallengeCard extends Challenge {
-  category: Category;
-  game: Game;
-  level: Level;
-}
-
 export interface ChallengeReview {
   ratingCounts: number;
   averageRating: number;
@@ -57,4 +61,18 @@ export interface ChallengeReview {
 
 export interface ParticipationReview {
   participationCounts: number;
+}
+
+// Extended interfaces for cards used in the application
+export interface ChallengeCard extends Challenge {
+  category: Category;
+  game: Game;
+  level: Level;
+}
+
+export interface ParticipationCard extends Participation {
+  challenge: ChallengeCard;
+  user: {
+    username: string;
+  };
 }
