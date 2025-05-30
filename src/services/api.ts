@@ -9,6 +9,7 @@ if (!API_URL) {
 }
 
 export const api = {
+  // ? 1 - Authentication
   // * Login
   async authLogin(email: string, password: string) {
     const response = await fetch(`${API_URL}/api/auth/login`, {
@@ -115,6 +116,7 @@ export const api = {
     return data;
   },
 
+  // ? 2 - User Account
   // * Get User Data
   async getUserData() {
     const response = await fetch(`${API_URL}/api/account/user`, {
@@ -195,6 +197,7 @@ export const api = {
     return data;
   },
 
+  // ? 3 - Challenges
   // * Get Create Challenge Data
   async getCreateChallengeData() {
     const response = await fetch(`${API_URL}/api/challenges/create`, {
@@ -315,6 +318,7 @@ export const api = {
     return data;
   },
 
+  // ? 4 - Challenge Reviews
   // * Get Challenge reviews by challenge_id
   async getChallengeReviewsById(challenge_id: number) {
     const response = await fetch(
@@ -341,28 +345,6 @@ export const api = {
     return data;
   },
 
-  // * Get Participation reviews by participation_id
-  async getParticipationReviewsById(participation_id: number) {
-    const response = await fetch(
-      `${API_URL}/api/participation-reviews/participation/${participation_id}/review`,
-      {
-        method: 'GET',
-        credentials: 'include',
-      },
-    );
-    if (!response.ok) {
-      const status = response.status;
-      const errorData = await response.json();
-      const errorMessage = errorHandler({ status, errorData });
-      if (!isProduction) {
-        console.error('Error:', errorMessage);
-      }
-      throw new Error(errorMessage);
-    }
-    const data = await response.json();
-    return data;
-  },
-
   // * Challenge Review
   async voteChallenge(challenge_id: number, rating: number) {
     const response = await fetch(`${API_URL}/api/challenge-reviews/create`, {
@@ -373,32 +355,6 @@ export const api = {
       credentials: 'include',
       body: JSON.stringify({ challenge_id, rating }),
     });
-    if (!response.ok) {
-      const status = response.status;
-      const errorData = await response.json();
-      const errorMessage = errorHandler({ status, errorData });
-      if (!isProduction) {
-        console.error('Error:', errorMessage);
-      }
-      throw new Error(errorMessage);
-    }
-    const data = await response.json();
-    return data;
-  },
-
-  // * Participation Review
-  async voteParticipation(participation_id: number, rating: number) {
-    const response = await fetch(
-      `${API_URL}/api/participation-reviews/create`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ participation_id, rating }),
-      },
-    );
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
@@ -442,6 +398,55 @@ export const api = {
     return data;
   },
 
+  // ? 5 - Participation Reviews
+  // * Get Participation reviews by participation_id
+  async getParticipationReviewsById(participation_id: number) {
+    const response = await fetch(
+      `${API_URL}/api/participation-reviews/participation/${participation_id}/review`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
+  // * Participation Review
+  async voteParticipation(participation_id: number, rating: number) {
+    const response = await fetch(
+      `${API_URL}/api/participation-reviews/create`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ participation_id, rating }),
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
   // * Check User has already voted Participation Review
   async checkUserIsVoteParticipation(participation_id: number) {
     const response = await fetch(
@@ -472,6 +477,7 @@ export const api = {
     return data;
   },
 
+  // ? 6 - Participations
   // * Get Participations
   async getParticipations(
     limit: number,
@@ -666,6 +672,32 @@ export const api = {
       },
       credentials: 'include',
       body: JSON.stringify({ participation_id }),
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
+  async updateUserParticipation(id: number, videoLink: string) {
+    const response = await fetch(`${API_URL}/api/participations/update`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ id, videoLink }),
     });
 
     if (!response.ok) {

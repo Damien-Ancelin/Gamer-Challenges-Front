@@ -29,8 +29,8 @@ export default function ChallengeUserParticipationPage() {
 
   // Update State
   const [ratingUpdated, setRatingUpdated] = useState<boolean>(false);
-  // const [participationUpdated, setParticipationUpdated] =
-  //   useState<boolean>(false);
+  const [participationUpdated, setParticipationUpdated] =
+    useState<boolean>(false);
 
   // ! to move to a context or a local state
 
@@ -46,7 +46,6 @@ export default function ChallengeUserParticipationPage() {
         if (data) {
           setParticipation(data.participation);
           setIsValidated(data.participation.isValidated);
-          console.log(data);
         }
         if (Authenticated) {
           const dataOwner = await api.getParticipationOwner(
@@ -62,11 +61,14 @@ export default function ChallengeUserParticipationPage() {
         }
       } finally {
         setIsLoading(false);
+        if (participationUpdated) {
+          setParticipationUpdated(false);
+        }
       }
     };
 
     fetchParticipation();
-  }, [handleError, participationId, isAuthenticated]);
+  }, [handleError, participationId, isAuthenticated, participationUpdated]);
 
   const defaultParticipation = {
     id: 0,
@@ -148,7 +150,14 @@ export default function ChallengeUserParticipationPage() {
               </div>
             )}
 
-            <HandleActions isOwner={isOwner} />
+            <HandleActions
+              isOwner={isOwner}
+              isValidated={isValidated}
+              setIsValidated={setIsValidated}
+              setParticipationUpdated={setParticipationUpdated}
+              participation_id={currentParticipation.id}
+              challengeId={currentParticipation.challengeId}
+            />
             <VoteParticipation
               isOwner={isOwner}
               isValidated={isValidated}
