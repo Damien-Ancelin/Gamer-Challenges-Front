@@ -276,6 +276,37 @@ export const api = {
     return data;
   },
 
+  // * POST - Get User Challenges
+  async getUserChallenges(
+    limit: number,
+    currentPage: number,
+    order: string,
+    direction: string,
+  ) {
+    const response = await fetch(
+      `${API_URL}/api/challenges/user?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+      },
+    );
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Challenge by ID
   async getChallengeById(id: string) {
     const response = await fetch(`${API_URL}/api/challenges/${id}`, {

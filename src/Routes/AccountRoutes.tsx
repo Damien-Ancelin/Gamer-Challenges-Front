@@ -25,10 +25,6 @@ export const accountRoutes: RouteObject[] = [
         path: 'mes-participations',
         children: [
           { index: true, element: <h1>Mes participations</h1> },
-          {
-            path: 'annuler-participation',
-            element: <h1>Supprimer participation</h1>,
-          },
           { path: ':id', element: <ChallengeUserParticipationPage /> },
         ],
       },

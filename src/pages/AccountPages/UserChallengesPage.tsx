@@ -1,8 +1,53 @@
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import type { ChallengeCard as TChallengeCard } from '../../@types';
+import UserChallengePagination from '../../components/Account/UserChallengePage/UserChallengePagination';
 import ChallengeCard from '../../components/ChallengeCard/ChallengeCard';
+import { useErrorHandler } from '../../components/ErrorHandlerComponent';
+import { api } from '../../services/api';
+import Loader from '../../ui/Loader';
 
 export default function UserChallengesPage() {
-  const username = 'JoeMaker';
+  // Hooks
+  const handleError = useErrorHandler();
+
+  // State
+  const [userChallenges, setUserChallenges] = useState<TChallengeCard[]>([]);
+  const [username, setUsername] = useState<string>('?');
+  const [isLoading, setIsLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 0,
+    limit: 10,
+  });
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const data = await api.getUserChallenges(10, 1, 'createdAt', 'desc');
+        if (data) {
+          setUserChallenges(data.challenges);
+          setPagination({
+            currentPage: data.pagination.currentPage,
+            totalPages: data.pagination.totalPages,
+            limit: data.pagination.limit,
+          });
+          const userData = await api.getUserData();
+          if (userData) {
+            setUsername(userData.user.username);
+          }
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchChallenges();
+  }, [handleError]);
+
   return (
     <>
       <Helmet>
@@ -62,16 +107,24 @@ export default function UserChallengesPage() {
         />
       </Helmet>
       <section className="challenges-page">
-        <h1 className="challenges-page__title">mes challenges</h1>
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
-        <ChallengeCard />
+        <h1 className="challenges-page__title">Mes challenges</h1>
+        {!isLoading &&
+          userChallenges?.map((challenge) => (
+            <ChallengeCard key={challenge.id} challenge={challenge} />
+          ))}
+        {isLoading && <Loader />}
+        {!isLoading && userChallenges.length === 0 && (
+          <h4 className="challenges-page__no-challenges">
+            Vous n'avez pas encore créer de challenge.
+          </h4>
+        )}
       </section>
+
+      <UserChallengePagination
+        pagination={pagination}
+        setPagination={setPagination}
+        setUserChallenges={setUserChallenges}
+      />
     </>
   );
 }
