@@ -158,11 +158,13 @@ export default function DashBoard() {
             </h4>
           )}
           <div className="dashboard__challenges__button-container">
-            <Link to="mes-participations">
-              <button type="button" className="button button--yellow-border">
-                voir toutes mes participations
-              </button>
-            </Link>
+            {!isParticipationsLoading && userParticipations.length > 0 && (
+              <Link to="mes-participations">
+                <button type="button" className="button button--yellow-border">
+                  voir toutes mes participations
+                </button>
+              </Link>
+            )}
           </div>
         </section>
       </section>

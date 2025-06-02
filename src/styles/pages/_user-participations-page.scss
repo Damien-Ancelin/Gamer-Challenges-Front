@@ -1,0 +1,28 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.user-participations-pages {
+  &__no-challenges {
+    color: v.$neon-blue;
+  }
+  &__title {
+    margin: 0;
+  }
+  &__sub-title {
+    margin-bottom: v.$xl;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: v.$s;
+  }
+
+  @media screen and (min-width: 768px) {
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+      gap: v.$m;
+    }
+  }
+}

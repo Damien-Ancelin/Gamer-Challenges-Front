@@ -1,8 +1,9 @@
 import { Link } from 'react-router';
+import { parseYoutubeId } from '../../utils/parseYoutubeId';
 import type { ParticipationCard as TParticipationCard } from '../@types';
 
 interface ParticipationCardProps {
-  participation?: TParticipationCard;
+  participation: TParticipationCard;
 }
 
 export default function ParticipationCard({
@@ -26,8 +27,8 @@ export default function ParticipationCard({
 
   const currentParticipation = participation || defaultParticipation;
 
-  const youtubeURL = currentParticipation.videoLink;
-  const youtubeVideoId = youtubeURL.split('v=')[1];
+  const youtubeVideoId = parseYoutubeId(currentParticipation.videoLink);
+
   const youtubeThumbnailURL120x90 = `https://img.youtube.com/vi/${youtubeVideoId}/default.jpg`;
   const youtubeThumbnailURL320x180 = `https://img.youtube.com/vi/${youtubeVideoId}/mqdefault.jpg`;
 
@@ -35,24 +36,36 @@ export default function ParticipationCard({
     <article className="participation-card yellow-border">
       <div className="participation-card__content">
         <div className="participation-card__content__image">
-          <img
-            className="participation-card__content__image-main"
-            src={youtubeThumbnailURL120x90}
-            srcSet={`${youtubeThumbnailURL120x90} 125w, ${youtubeThumbnailURL320x180} 320w`}
-            sizes="(max-width: 768px) 125px, (max-width: 1440px) 320px"
-            alt={`Illustration du défi ${currentParticipation.challenge.name}`}
-            loading="lazy"
-          />
+          {currentParticipation.isValidated && (
+            <img
+              className="participation-card__content__image-main"
+              src={youtubeThumbnailURL120x90}
+              srcSet={`${youtubeThumbnailURL120x90} 125w, ${youtubeThumbnailURL320x180} 320w`}
+              sizes="(max-width: 768px) 125px, (max-width: 1440px) 320px"
+              alt={`Illustration du défi ${currentParticipation.challenge.name}`}
+              loading="lazy"
+            />
+          )}
 
           <Link
-            to={`/challenges/${currentParticipation.challengeId}/participations/${currentParticipation.id}`}
+            to={`/challenges/${participation.challengeId}/participations/${participation.id}`}
           >
-            <button
-              className="participation-card__content__image-button button button--purple-border"
-              type="button"
-            >
-              voir la vidéo
-            </button>
+            {participation.isValidated && (
+              <button
+                className="dashboard-participation-card__content__button button button--purple-border"
+                type="button"
+              >
+                voir la vidéo
+              </button>
+            )}
+            {!participation.isValidated && (
+              <button
+                className="dashboard-participation-card__content__button button button--blue-border"
+                type="button"
+              >
+                envoyer vidéo
+              </button>
+            )}
           </Link>
         </div>
         <div className="participation-card__content__details-container">
@@ -61,9 +74,11 @@ export default function ParticipationCard({
               <h3 className="participation-card__content__details__header-title">
                 {currentParticipation.challenge.name}
               </h3>
-              <span className="label participation-card__content__details__header-owner">
-                {currentParticipation.user.username}
-              </span>
+              {currentParticipation.user && (
+                <span className="label participation-card__content__details__header-owner">
+                  {currentParticipation.user.username}
+                </span>
+              )}
             </header>
             <div className="participation-card__content__details__infos">
               <p className="participation-card__content__details__infos-game">
