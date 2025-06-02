@@ -1,0 +1,128 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
+.challenge-participation-card {
+  @include m.flex-column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: v.$m;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$s;
+    &__image {
+      @include m.flex-row;
+      justify-content: center;
+      align-items: center;
+      gap: v.$s;
+      order: 2;
+      &-main {
+        width: 125px;
+        height: 70px;
+        object-fit: scale-down;
+        aspect-ratio: 16/9;
+        border-radius: 8px;
+      }
+      &-button {
+        padding: 0.2rem 0.5rem;
+      }
+    }
+    &__details {
+      order: 1;
+      flex: 1;
+      &__header {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        gap: v.$s;
+        &-container {
+          @include m.flex-column;
+          justify-content: center;
+          align-items: center;
+          gap: v.$s;
+        }
+        &-title {
+          font-size: 0.938rem;
+          font-family: "Orbitron", sans-serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          text-align: center;
+          margin: 0;
+        }
+        &-owner {
+          font-weight: 600;
+        }
+      }
+      &__infos {
+        @include m.flex-column;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        p {
+          font-family: Roboto;
+          font-size: 0.938rem;
+          font-style: normal;
+          font-weight: 400;
+          text-transform: capitalize;
+          text-align: center;
+        }
+        &-game {
+          color: v.$neon-blue;
+        }
+        &-category {
+          color: v.$yellow;
+        }
+        &-level {
+          color: v.$flame-orange;
+        }
+        &-no-participation {
+          margin: 0;
+          margin-top: 1rem;
+          color: v.$blue;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    &__content {
+      gap: v.$m;
+      &__image {
+        gap: v.$m;
+      }
+      &__details {
+        &__header {
+          &-title {
+            font-size: 1.5rem;
+          }
+        }
+        &__infos {
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    &__content {
+      flex-direction: row;
+      &__image {
+        @include m.flex-column;
+        order: 1;
+        &-main {
+          width: 320px;
+          height: 180px;
+          object-fit: scale-down;
+        }
+      }
+      &__details {
+        order: 2;
+      }
+    }
+  }
+}

@@ -4,9 +4,8 @@ import { toast } from 'react-toastify';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
-import { useErrorHandler } from '../ErrorHandlerComponent';
-
 import Loader from '../../ui/Loader';
+import { useErrorHandler } from '../ErrorHandlerComponent';
 
 interface HandleParticipationProps {
   isOwner: boolean;
@@ -133,7 +132,7 @@ export default function HandleParticipation({
                 </button>
               )}
 
-            <Link to="/challenges/1/participations">
+            <Link to={`/challenges/${challenge_id}/participations`}>
               <button type="button" className="button button--orange-border">
                 voir les participations
               </button>

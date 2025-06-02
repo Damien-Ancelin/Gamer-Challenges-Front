@@ -612,6 +612,34 @@ export const api = {
     return data;
   },
 
+  // * Get Participation by Challenge ID
+  async getChallengeParticipations(
+    challenge_id: number,
+    limit: number,
+    currentPage: number,
+    order: string,
+    direction: string,
+  ) {
+    const response = await fetch(
+      `${API_URL}/api/participations/challenge/${challenge_id}?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      },
+    );
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+      throw new Error(errorMessage);
+    }
+    const data = await response.json();
+    return data;
+  },
+
   // * Get Popular Challenges
   async getPopularChallenges(limit: number, currentPage: number) {
     const response = await fetch(
@@ -722,6 +750,7 @@ export const api = {
     return data;
   },
 
+  // * Get Participation Owner
   async getParticipationOwner(participation_id: number) {
     const response = await fetch(`${API_URL}/api/participations/owner`, {
       method: 'POST',
@@ -748,6 +777,7 @@ export const api = {
     return data;
   },
 
+  // * Update User Participation
   async updateUserParticipation(id: number, videoLink: string) {
     const response = await fetch(`${API_URL}/api/participations/update`, {
       method: 'PATCH',

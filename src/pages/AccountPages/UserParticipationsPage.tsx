@@ -87,7 +87,7 @@ export default function UserParticipationsPage() {
             ))}
           {isLoading && <Loader />}
           {!isLoading && userParticipations.length === 0 && (
-            <h4 className="challenges-page__no-challenges">
+            <h4 className="user-participations-pages__no-participations">
               Vous n'avez pas encore de participations.
             </h4>
           )}

@@ -2,8 +2,9 @@
 @use "../abstracts/mixins" as m;
 
 .user-participations-pages {
-  &__no-challenges {
+  &__no-participations {
     color: v.$neon-blue;
+    width: 100%;
   }
   &__title {
     margin: 0;
