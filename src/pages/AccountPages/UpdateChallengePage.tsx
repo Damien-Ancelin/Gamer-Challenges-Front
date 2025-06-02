@@ -1,14 +1,14 @@
-import DOMPurify from "dompurify";
-import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useNavigate, useParams } from "react-router";
-import { toast } from "react-toastify";
-import type { ChallengeCard as TChallengeCard } from "../../@types";
+import DOMPurify from 'dompurify';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
+import type { ChallengeCard as TChallengeCard } from '../../@types';
 
-import { useErrorHandler } from "../../components/ErrorHandlerComponent";
-import { api } from "../../services/api";
+import { useErrorHandler } from '../../components/ErrorHandlerComponent';
+import { api } from '../../services/api';
 
-import Loader from "../../ui/Loader";
+import Loader from '../../ui/Loader';
 
 export default function UpdateChallengePage() {
   // Hook
@@ -20,7 +20,7 @@ export default function UpdateChallengePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [challenDataIsLoading, setChallenDataIsLoading] = useState(true);
   const [fileChallengeImage, setFileChallengeImage] = useState<File | null>(
-    null
+    null,
   );
 
   // State for fetching data for the form
@@ -34,12 +34,12 @@ export default function UpdateChallengePage() {
 
   // State for form data
   const [formChallengeData, setFormChallengeData] = useState({
-    name: "",
-    gameId: "",
-    categoryId: "",
-    levelId: "",
-    description: "",
-    rules: "",
+    name: '',
+    gameId: '',
+    categoryId: '',
+    levelId: '',
+    description: '',
+    rules: '',
     isOpen: false,
   });
 
@@ -59,9 +59,9 @@ export default function UpdateChallengePage() {
             if (!challengeId) {
               setFormChallengeData((prev) => ({
                 ...prev,
-                gameId: dataValues.games[0]?.id.toString() || "",
-                categoryId: dataValues.categories[0]?.id.toString() || "",
-                levelId: dataValues.levels[0]?.id.toString() || "",
+                gameId: dataValues.games[0]?.id.toString() || '',
+                categoryId: dataValues.categories[0]?.id.toString() || '',
+                levelId: dataValues.levels[0]?.id.toString() || '',
               }));
             }
           }
@@ -112,31 +112,31 @@ export default function UpdateChallengePage() {
   }, [handleError, challengeId]);
 
   const handleUpdatedChallenge = async (
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    const name = formData.get("name") as string;
-    const gameId = formData.get("gameId") as string;
-    const categoryId = formData.get("categoryId") as string;
-    const levelId = formData.get("levelId") as string;
-    const description = formData.get("description") as string;
-    const rules = formData.get("rules") as string;
-    const isOpen = formData.get("isOpen");
+    const name = formData.get('name') as string;
+    const gameId = formData.get('gameId') as string;
+    const categoryId = formData.get('categoryId') as string;
+    const levelId = formData.get('levelId') as string;
+    const description = formData.get('description') as string;
+    const rules = formData.get('rules') as string;
+    const isOpen = formData.get('isOpen');
     const challengeImage = fileChallengeImage || null;
 
     if (
-      typeof name !== "string" ||
-      typeof gameId !== "string" ||
-      typeof categoryId !== "string" ||
-      typeof levelId !== "string" ||
-      typeof description !== "string" ||
-      typeof rules !== "string" ||
+      typeof name !== 'string' ||
+      typeof gameId !== 'string' ||
+      typeof categoryId !== 'string' ||
+      typeof levelId !== 'string' ||
+      typeof description !== 'string' ||
+      typeof rules !== 'string' ||
       (challengeImage !== null && !(challengeImage instanceof File))
     ) {
-      await handleError(new Error("Les données du formulaire sont invalides."));
+      await handleError(new Error('Les données du formulaire sont invalides.'));
       setIsLoading(false);
       return;
     }
@@ -147,24 +147,24 @@ export default function UpdateChallengePage() {
     const sanitizedGameId = DOMPurify.sanitize(gameId);
     const sanitizedCategoryId = DOMPurify.sanitize(categoryId);
     const sanitizedLevelId = DOMPurify.sanitize(levelId);
-    const sanitizedIsOpen = isOpen === "on" || isOpen === "true";
+    const sanitizedIsOpen = isOpen === 'on' || isOpen === 'true';
 
     const verifiedFormData = new FormData();
-    verifiedFormData.append("name", sanitizedName);
-    verifiedFormData.append("gameId", sanitizedGameId);
-    verifiedFormData.append("categoryId", sanitizedCategoryId);
-    verifiedFormData.append("levelId", sanitizedLevelId);
-    verifiedFormData.append("description", sanitizedDescription);
-    verifiedFormData.append("rules", sanitizedRules);
-    verifiedFormData.append("isOpen", String(sanitizedIsOpen));
+    verifiedFormData.append('name', sanitizedName);
+    verifiedFormData.append('gameId', sanitizedGameId);
+    verifiedFormData.append('categoryId', sanitizedCategoryId);
+    verifiedFormData.append('levelId', sanitizedLevelId);
+    verifiedFormData.append('description', sanitizedDescription);
+    verifiedFormData.append('rules', sanitizedRules);
+    verifiedFormData.append('isOpen', String(sanitizedIsOpen));
     if (challengeImage) {
-      verifiedFormData.append("challengeImage", challengeImage);
+      verifiedFormData.append('challengeImage', challengeImage);
     }
 
     try {
       const data = await api.updateChallenge(
         Number(challengeId),
-        verifiedFormData
+        verifiedFormData,
       );
       if (data) {
         navigate(`/challenges/${data.challengeId}`);
@@ -182,7 +182,7 @@ export default function UpdateChallengePage() {
     setIsLoading(true);
     if (!challengeId) {
       await handleError(
-        new Error("Aucun ID de défi fourni pour la suppression.")
+        new Error('Aucun ID de défi fourni pour la suppression.'),
       );
       setIsLoading(false);
       return;
@@ -192,7 +192,7 @@ export default function UpdateChallengePage() {
       const data = await api.deleteChallenge(Number(challengeId));
       if (data) {
         toast.success(data.message);
-        navigate("/compte/challenges-by-me");
+        navigate('/compte/challenges-by-me');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -391,8 +391,8 @@ export default function UpdateChallengePage() {
                   <div className="form__entry">
                     <label className="form--label" htmlFor="challengeImage">
                       {fileChallengeImage
-                        ? "modifier image du challenge ?"
-                        : "image du challenge"}
+                        ? 'modifier image du challenge ?'
+                        : 'image du challenge'}
                     </label>
                     <input
                       id="challengeImage"

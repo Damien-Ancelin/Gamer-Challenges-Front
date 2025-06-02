@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
-import { useAuth } from "../../contexts/AuthContext";
-import { api } from "../../services/api";
-import Loader from "../../ui/Loader";
-import { useErrorHandler } from "../ErrorHandlerComponent";
+import { useAuth } from '../../contexts/AuthContext';
+import { api } from '../../services/api';
+import Loader from '../../ui/Loader';
+import { useErrorHandler } from '../ErrorHandlerComponent';
 
 interface HandleParticipationProps {
   isOwner: boolean;

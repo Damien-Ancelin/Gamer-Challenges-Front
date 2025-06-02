@@ -1,10 +1,10 @@
-import DOMPurify from "dompurify";
-import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router";
-import { useErrorHandler } from "../../components/ErrorHandlerComponent";
-import { api } from "../../services/api";
-import Loader from "../../ui/Loader";
+import DOMPurify from 'dompurify';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router';
+import { useErrorHandler } from '../../components/ErrorHandlerComponent';
+import { api } from '../../services/api';
+import Loader from '../../ui/Loader';
 
 export default function CreateChallengePage() {
   // Hook
@@ -15,7 +15,7 @@ export default function CreateChallengePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [challenDataIsLoading, setChallenDataIsLoading] = useState(true);
   const [fileChallengeImage, setFileChallengeImage] = useState<File | null>(
-    null
+    null,
   );
 
   // State for fetching data for the form
@@ -27,12 +27,12 @@ export default function CreateChallengePage() {
 
   // State for form data
   const [formChallengeData, setFormChallengeData] = useState({
-    name: "",
-    gameId: "",
-    categoryId: "",
-    levelId: "",
-    description: "",
-    rules: "",
+    name: '',
+    gameId: '',
+    categoryId: '',
+    levelId: '',
+    description: '',
+    rules: '',
   });
 
   // * Get Challenge Data for select inputs
@@ -67,30 +67,30 @@ export default function CreateChallengePage() {
 
   // * Handle form submission
   const handleCreateChallenge = async (
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    const name = formData.get("name") as string;
-    const gameId = formData.get("gameId") as string;
-    const categoryId = formData.get("categoryId") as string;
-    const levelId = formData.get("levelId") as string;
-    const description = formData.get("description") as string;
-    const rules = formData.get("rules") as string;
+    const name = formData.get('name') as string;
+    const gameId = formData.get('gameId') as string;
+    const categoryId = formData.get('categoryId') as string;
+    const levelId = formData.get('levelId') as string;
+    const description = formData.get('description') as string;
+    const rules = formData.get('rules') as string;
     const challengeImage = fileChallengeImage || null;
 
     if (
-      typeof name !== "string" ||
-      typeof gameId !== "string" ||
-      typeof categoryId !== "string" ||
-      typeof levelId !== "string" ||
-      typeof description !== "string" ||
-      typeof rules !== "string" ||
+      typeof name !== 'string' ||
+      typeof gameId !== 'string' ||
+      typeof categoryId !== 'string' ||
+      typeof levelId !== 'string' ||
+      typeof description !== 'string' ||
+      typeof rules !== 'string' ||
       (challengeImage !== null && !(challengeImage instanceof File))
     ) {
-      await handleError(new Error("Les données du formulaire sont invalides."));
+      await handleError(new Error('Les données du formulaire sont invalides.'));
       setIsLoading(false);
       return;
     }
@@ -103,14 +103,14 @@ export default function CreateChallengePage() {
     const sanitizedLevelId = DOMPurify.sanitize(levelId);
 
     const verifiedFormData = new FormData();
-    verifiedFormData.append("name", sanitizedName);
-    verifiedFormData.append("gameId", sanitizedGameId);
-    verifiedFormData.append("categoryId", sanitizedCategoryId);
-    verifiedFormData.append("levelId", sanitizedLevelId);
-    verifiedFormData.append("description", sanitizedDescription);
-    verifiedFormData.append("rules", sanitizedRules);
+    verifiedFormData.append('name', sanitizedName);
+    verifiedFormData.append('gameId', sanitizedGameId);
+    verifiedFormData.append('categoryId', sanitizedCategoryId);
+    verifiedFormData.append('levelId', sanitizedLevelId);
+    verifiedFormData.append('description', sanitizedDescription);
+    verifiedFormData.append('rules', sanitizedRules);
     if (challengeImage) {
-      verifiedFormData.append("challengeImage", challengeImage);
+      verifiedFormData.append('challengeImage', challengeImage);
     }
 
     try {

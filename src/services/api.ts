@@ -1,11 +1,11 @@
-import { errorHandler } from "./errorHandler";
+import { errorHandler } from './errorHandler';
 
 const API_URL = import.meta.env.VITE_API_URL;
-const isProduction = import.meta.env.VITE_ENV === "production";
+const isProduction = import.meta.env.VITE_ENV === 'production';
 
 // Check if the API_URL is defined
 if (!API_URL) {
-  throw new Error("VITE_API_URL is not defined in the environment variables");
+  throw new Error('VITE_API_URL is not defined in the environment variables');
 }
 
 export const api = {
@@ -13,11 +13,11 @@ export const api = {
   // * Login
   async authLogin(email: string, password: string) {
     const response = await fetch(`${API_URL}/api/auth/login`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     });
 
@@ -27,7 +27,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -43,14 +43,14 @@ export const api = {
     firstname: string,
     email: string,
     username: string,
-    password: string
+    password: string,
   ) {
     const response = await fetch(`${API_URL}/api/auth/register`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ lastname, firstname, email, username, password }),
     });
 
@@ -60,7 +60,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -73,8 +73,8 @@ export const api = {
   // * Logout
   async authLogout() {
     const response = await fetch(`${API_URL}/api/auth/logout`, {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -83,7 +83,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -96,8 +96,8 @@ export const api = {
   // * Refresh Token
   async authRefreshToken() {
     const response = await fetch(`${API_URL}/api/auth/refresh-token`, {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -106,7 +106,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -120,8 +120,8 @@ export const api = {
   // * Get User Data
   async getUserData() {
     const response = await fetch(`${API_URL}/api/account/user`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -130,7 +130,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -143,8 +143,8 @@ export const api = {
   // * Update User Data
   async updateUserData(formData: FormData) {
     const response = await fetch(`${API_URL}/api/account/update`, {
-      method: "PATCH",
-      credentials: "include",
+      method: 'PATCH',
+      credentials: 'include',
       body: formData,
     });
 
@@ -154,7 +154,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -167,19 +167,19 @@ export const api = {
   // * Delete User Account
   async deleteUserAccount() {
     const response = await fetch(`${API_URL}/api/account/delete`, {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
     });
 
     if (!response.ok) {
       const status = response.status;
       const errorMessage = errorHandler({
         status,
-        errorData: { sucess: false, message: "Suppression du compte échouée" },
+        errorData: { sucess: false, message: 'Suppression du compte échouée' },
       });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -187,11 +187,11 @@ export const api = {
 
     const data = {
       success: true,
-      message: "Votre compte à été supprimé avec succès.",
+      message: 'Votre compte à été supprimé avec succès.',
     };
 
     if (!isProduction) {
-      console.error("Success: Compte utilisateur supprimé avec succès");
+      console.error('Success: Compte utilisateur supprimé avec succès');
     }
 
     return data;
@@ -201,8 +201,8 @@ export const api = {
   // * Get Create Challenge Data
   async getCreateChallengeData() {
     const response = await fetch(`${API_URL}/api/challenges/create`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -211,7 +211,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -224,8 +224,8 @@ export const api = {
   // * Post Create Challenge
   async createChallenge(formData: FormData) {
     const response = await fetch(`${API_URL}/api/challenges/create`, {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       body: formData,
     });
 
@@ -235,7 +235,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -248,11 +248,11 @@ export const api = {
   // * Patch Update Challenge
   async updateChallenge(
     id: number,
-    formData: FormData
+    formData: FormData,
   ): Promise<{ success: string; message: string; challengeId: number }> {
     const response = await fetch(`${API_URL}/api/challenges/${id}/update`, {
-      method: "PATCH",
-      credentials: "include",
+      method: 'PATCH',
+      credentials: 'include',
       body: formData,
     });
     if (!response.ok) {
@@ -260,7 +260,7 @@ export const api = {
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -273,14 +273,14 @@ export const api = {
     limit: number,
     currentPage: number,
     order: string,
-    direction: string
+    direction: string,
   ) {
     const response = await fetch(
       `${API_URL}/api/challenges?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
 
     if (!response.ok) {
@@ -289,7 +289,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -302,10 +302,10 @@ export const api = {
   // * Delete Challenge
   async deleteChallenge(id: number) {
     const response = await fetch(`${API_URL}/api/challenges/delete`, {
-      method: "DELETE",
-      credentials: "include",
+      method: 'DELETE',
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id }),
     });
@@ -315,12 +315,12 @@ export const api = {
         status,
         errorData: {
           sucess: false,
-          message: "Suppression du challenge échoué",
+          message: 'Suppression du challenge échoué',
         },
       });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -328,7 +328,7 @@ export const api = {
 
     const data = {
       success: true,
-      message: "Votre challenge à été supprimé avec succès.",
+      message: 'Votre challenge à été supprimé avec succès.',
     };
 
     return data;
@@ -339,14 +339,14 @@ export const api = {
     limit: number,
     currentPage: number,
     order: string,
-    direction: string
+    direction: string,
   ) {
     const response = await fetch(
       `${API_URL}/api/challenges/user?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
-        method: "POST",
-        credentials: "include",
-      }
+        method: 'POST',
+        credentials: 'include',
+      },
     );
 
     if (!response.ok) {
@@ -355,7 +355,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -368,15 +368,15 @@ export const api = {
   // * Get Challenge by ID
   async getChallengeById(id: string) {
     const response = await fetch(`${API_URL}/api/challenges/${id}`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
     });
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -387,11 +387,11 @@ export const api = {
   // * Post Challenge Owner by ID
   async getChallengeOwner(challenge_id: number) {
     const response = await fetch(`${API_URL}/api/challenges/owner`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ challenge_id }),
     });
     if (!response.ok) {
@@ -399,7 +399,7 @@ export const api = {
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -413,9 +413,9 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/challenge-reviews/challenge/${challenge_id}/review`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
 
     if (!response.ok) {
@@ -424,7 +424,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -437,11 +437,11 @@ export const api = {
   // * Challenge Review
   async voteChallenge(challenge_id: number, rating: number) {
     const response = await fetch(`${API_URL}/api/challenge-reviews/create`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ challenge_id, rating }),
     });
     if (!response.ok) {
@@ -449,7 +449,7 @@ export const api = {
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -462,13 +462,13 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/challenge-reviews/check/user`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({ challenge_id }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -477,7 +477,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -493,16 +493,16 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/participation-reviews/participation/${participation_id}/review`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -515,20 +515,20 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/participation-reviews/create`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({ participation_id, rating }),
-      }
+      },
     );
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -541,13 +541,13 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/participation-reviews/check/user`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({ participation_id }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -556,7 +556,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -572,14 +572,14 @@ export const api = {
     limit: number,
     currentPage: number,
     order: string,
-    direction: string
+    direction: string,
   ) {
     const response = await fetch(
       `${API_URL}/api/participations?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
 
     if (!response.ok) {
@@ -588,7 +588,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -601,8 +601,8 @@ export const api = {
   // * Get Leaderboard Participation
   async getLeaderboardParticipations() {
     const response = await fetch(`${API_URL}/api/participations/leaderboard`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -611,7 +611,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -626,21 +626,21 @@ export const api = {
     limit: number,
     currentPage: number,
     order: string,
-    direction: string
+    direction: string,
   ) {
     const response = await fetch(
       `${API_URL}/api/participations/user?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
-        method: "POST",
-        credentials: "include",
-      }
+        method: 'POST',
+        credentials: 'include',
+      },
     );
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -651,15 +651,15 @@ export const api = {
   // * Get Participation by ID
   async getParticipationById(id: string) {
     const response = await fetch(`${API_URL}/api/participations/${id}`, {
-      method: "GET",
-      credentials: "include",
+      method: 'GET',
+      credentials: 'include',
     });
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -672,9 +672,9 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/participations/challenge/${challenge_id}/count`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
 
     if (!response.ok) {
@@ -683,7 +683,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -699,21 +699,21 @@ export const api = {
     limit: number,
     currentPage: number,
     order: string,
-    direction: string
+    direction: string,
   ) {
     const response = await fetch(
       `${API_URL}/api/participations/challenge/${challenge_id}?limit=${limit}&currentPage=${currentPage}&order=${order}&direction=${direction}`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
     if (!response.ok) {
       const status = response.status;
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -726,9 +726,9 @@ export const api = {
     const response = await fetch(
       `${API_URL}/api/participations/popular?limit=${limit}&currentPage=${currentPage}`,
       {
-        method: "GET",
-        credentials: "include",
-      }
+        method: 'GET',
+        credentials: 'include',
+      },
     );
     if (!response.ok) {
       const status = response.status;
@@ -736,7 +736,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -748,11 +748,11 @@ export const api = {
   // * Create User Participation
   async createUserParticipation(challenge_id: number) {
     const response = await fetch(`${API_URL}/api/participations/create`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ challenge_id }),
     });
     if (!response.ok) {
@@ -760,7 +760,7 @@ export const api = {
       const errorData = await response.json();
       const errorMessage = errorHandler({ status, errorData });
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
       throw new Error(errorMessage);
     }
@@ -771,11 +771,11 @@ export const api = {
   // * Delete User Participation
   async deleteUserParticipation(challenge_id: number) {
     const response = await fetch(`${API_URL}/api/participations/delete`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ challenge_id }),
     });
 
@@ -785,12 +785,12 @@ export const api = {
         status,
         errorData: {
           sucess: false,
-          message: "Suppression de la participation échouée",
+          message: 'Suppression de la participation échouée',
         },
       });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -798,7 +798,7 @@ export const api = {
 
     const data = {
       success: true,
-      message: "Votre participation à été supprimé avec succès.",
+      message: 'Votre participation à été supprimé avec succès.',
     };
 
     return data;
@@ -807,11 +807,11 @@ export const api = {
   // * Check User Participation
   async checkUserParticipation(challenge_id: number) {
     const response = await fetch(`${API_URL}/api/participations/check/user`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ challenge_id }),
     });
 
@@ -821,7 +821,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -834,11 +834,11 @@ export const api = {
   // * Get Participation Owner
   async getParticipationOwner(participation_id: number) {
     const response = await fetch(`${API_URL}/api/participations/owner`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ participation_id }),
     });
 
@@ -848,7 +848,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
@@ -861,11 +861,11 @@ export const api = {
   // * Update User Participation
   async updateUserParticipation(id: number, videoLink: string) {
     const response = await fetch(`${API_URL}/api/participations/update`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
       body: JSON.stringify({ id, videoLink }),
     });
 
@@ -875,7 +875,7 @@ export const api = {
       const errorMessage = errorHandler({ status, errorData });
 
       if (!isProduction) {
-        console.error("Error:", errorMessage);
+        console.error('Error:', errorMessage);
       }
 
       throw new Error(errorMessage);
