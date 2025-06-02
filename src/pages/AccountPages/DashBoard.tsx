@@ -1,20 +1,50 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router';
+import type { ChallengeCard as TChallengeCard } from '../../@types';
 
+import { useErrorHandler } from '../../components/ErrorHandlerComponent';
+import { useAuth } from '../../contexts/AuthContext';
+import { api } from '../../services/api';
+import Loader from '../../ui/Loader';
+
+import DashboardChallengeCard from '../../components/DashBoard/DashBoardChallengeCard/DashboardChallengeCard';
 import DashBoardParticipationCard from '../../components/DashBoard/DashBoardParticipationCard';
 import DashBoardProfileCard from '../../components/DashBoard/DashBoardProfileCard';
-import DashboardChallengeCard from '../../components/DashBoard/DashboardChallengeCard';
-import { useAuth } from '../../contexts/AuthContext';
+
 export default function DashBoard() {
+  // Hooks
+  const handleError = useErrorHandler();
   const { isAuthenticated } = useAuth();
+
+  // State
   const navigate = useNavigate();
+  const [userChallenges, setUserChallenges] = useState<TChallengeCard[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const data = await api.getUserChallenges(5, 1, 'updatedAt', 'desc');
+        if (data) {
+          setUserChallenges(data.challenges);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchChallenges();
+  }, [handleError]);
 
   return (
     <>
@@ -49,22 +79,32 @@ export default function DashBoard() {
         </section>
         <section className="dashboard__challenges">
           <h2 className="dashboard__challenges__title">Mes challenges</h2>
-          <DashboardChallengeCard />
-          <DashboardChallengeCard />
-          <DashboardChallengeCard />
-          <DashboardChallengeCard />
-          <DashboardChallengeCard />
+          {!isLoading &&
+            userChallenges?.map((challenge) => (
+              <DashboardChallengeCard
+                key={challenge.id}
+                challenge={challenge}
+              />
+            ))}
+          {isLoading && <Loader />}
+          {!isLoading && userChallenges.length === 0 && (
+            <h4 className="challenges-page__no-challenges">
+              Vous n'avez pas encore créer de challenge.
+            </h4>
+          )}
           <div className="dashboard__challenges__button-container">
             <Link to="/compte/challenges-by-me/creer-challenge">
               <button type="button" className="button button--blue-border">
                 créer un challenge
               </button>
             </Link>
-            <Link to="/compte/challenges-by-me">
-              <button type="button" className="button button--blue-border">
-                voir tous mes challenges
-              </button>
-            </Link>
+            {!isLoading && userChallenges.length !== 0 && (
+              <Link to="/compte/challenges-by-me">
+                <button type="button" className="button button--blue-border">
+                  voir tous mes challenges
+                </button>
+              </Link>
+            )}
           </div>
         </section>
         <section className="dashboard__participations">

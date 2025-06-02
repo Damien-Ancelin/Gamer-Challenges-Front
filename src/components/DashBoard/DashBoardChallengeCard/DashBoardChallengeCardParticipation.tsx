@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import type { ParticipationReviewCount as TParticipationReviewCount } from '../../@types';
+import type { ParticipationReviewCount as TParticipationReviewCount } from '../../../@types';
 
-import { api } from '../../services/api';
-import Loader from '../../ui/Loader';
-import { useErrorHandler } from '../ErrorHandlerComponent';
+import { api } from '../../../services/api';
+import Loader from '../../../ui/Loader';
+import { useErrorHandler } from '../../ErrorHandlerComponent';
 
-interface ChallengeCardParticipationProps {
+interface DashBoardChallengeCardParticipationProps {
   challengeId: number;
 }
 
-export default function ChallengeCardParticipation({
+export default function DashBoardChallengeCardParticipation({
   challengeId,
-}: ChallengeCardParticipationProps) {
+}: DashBoardChallengeCardParticipationProps) {
   // Hooks
   const handleError = useErrorHandler();
 
@@ -44,7 +44,7 @@ export default function ChallengeCardParticipation({
     <>
       {participationIsLoading && <Loader />}
       {!participationIsLoading && (
-        <p className="challenge-card__content__details__participations">
+        <p className="dashboard-challenge-card__content__details__participations">
           {nbParticipation.participationCounts} participations
         </p>
       )}
