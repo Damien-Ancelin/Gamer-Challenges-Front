@@ -1,15 +1,20 @@
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+import type { ChallengeCard as TChallengeCard } from "../../@types";
+
 import { useErrorHandler } from "../../components/ErrorHandlerComponent";
 import { api } from "../../services/api";
+
 import Loader from "../../ui/Loader";
 
-export default function CreateChallengePage() {
+export default function UpdateChallengePage() {
   // Hook
   const navigate = useNavigate();
   const handleError = useErrorHandler();
+  const { challengeId } = useParams();
 
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +24,8 @@ export default function CreateChallengePage() {
   );
 
   // State for fetching data for the form
+  const [currentChallenge, setCurrentChallenge] =
+    useState<TChallengeCard | null>(null);
   const [games, setGames] = useState<Array<{ id: number; name: string }>>([]);
   const [categories, setCategories] = useState<
     Array<{ id: number; name: string }>
@@ -33,6 +40,7 @@ export default function CreateChallengePage() {
     levelId: "",
     description: "",
     rules: "",
+    isOpen: false,
   });
 
   // * Get Challenge Data for select inputs
@@ -46,12 +54,16 @@ export default function CreateChallengePage() {
             setGames(dataValues.games);
             setCategories(dataValues.categories);
             setLevels(dataValues.levels);
-            setFormChallengeData((prev) => ({
-              ...prev,
-              gameId: dataValues.games[0].id.toString(),
-              categoryId: dataValues.categories[0].id.toString(),
-              levelId: dataValues.levels[0].id.toString(),
-            }));
+
+            // If challengeId is provided, set the gameId, categoryId, and levelId
+            if (!challengeId) {
+              setFormChallengeData((prev) => ({
+                ...prev,
+                gameId: dataValues.games[0]?.id.toString() || "",
+                categoryId: dataValues.categories[0]?.id.toString() || "",
+                levelId: dataValues.levels[0]?.id.toString() || "",
+              }));
+            }
           }
         }
       } catch (error) {
@@ -63,10 +75,43 @@ export default function CreateChallengePage() {
       }
     };
     getChallengeData();
-  }, [handleError]);
+  }, [handleError, challengeId]);
 
-  // * Handle form submission
-  const handleCreateChallenge = async (
+  // * Get current challenge data
+  useEffect(() => {
+    setIsLoading(true);
+    if (!challengeId) {
+      return;
+    }
+
+    const fetchChallenge = async () => {
+      try {
+        const data = await api.getChallengeById(challengeId);
+        if (data) {
+          setFormChallengeData({
+            name: data.challenge.name,
+            gameId: data.challenge.gameId.toString(),
+            categoryId: data.challenge.categoryId.toString(),
+            levelId: data.challenge.levelId.toString(),
+            description: data.challenge.description,
+            rules: data.challenge.rules,
+            isOpen: data.challenge.isOpen,
+          });
+          setCurrentChallenge(data.challenge);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchChallenge();
+  }, [handleError, challengeId]);
+
+  const handleUpdatedChallenge = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
@@ -79,6 +124,7 @@ export default function CreateChallengePage() {
     const levelId = formData.get("levelId") as string;
     const description = formData.get("description") as string;
     const rules = formData.get("rules") as string;
+    const isOpen = formData.get("isOpen");
     const challengeImage = fileChallengeImage || null;
 
     if (
@@ -101,6 +147,7 @@ export default function CreateChallengePage() {
     const sanitizedGameId = DOMPurify.sanitize(gameId);
     const sanitizedCategoryId = DOMPurify.sanitize(categoryId);
     const sanitizedLevelId = DOMPurify.sanitize(levelId);
+    const sanitizedIsOpen = isOpen === "on" || isOpen === "true";
 
     const verifiedFormData = new FormData();
     verifiedFormData.append("name", sanitizedName);
@@ -109,14 +156,43 @@ export default function CreateChallengePage() {
     verifiedFormData.append("levelId", sanitizedLevelId);
     verifiedFormData.append("description", sanitizedDescription);
     verifiedFormData.append("rules", sanitizedRules);
+    verifiedFormData.append("isOpen", String(sanitizedIsOpen));
     if (challengeImage) {
       verifiedFormData.append("challengeImage", challengeImage);
     }
 
     try {
-      const data = await api.createChallenge(verifiedFormData);
+      const data = await api.updateChallenge(
+        Number(challengeId),
+        verifiedFormData
+      );
       if (data) {
         navigate(`/challenges/${data.challengeId}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        await handleError(error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteChallenge = async () => {
+    setIsLoading(true);
+    if (!challengeId) {
+      await handleError(
+        new Error("Aucun ID de défi fourni pour la suppression.")
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const data = await api.deleteChallenge(Number(challengeId));
+      if (data) {
+        toast.success(data.message);
+        navigate("/compte/challenges-by-me");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -130,28 +206,42 @@ export default function CreateChallengePage() {
   return (
     <>
       <Helmet>
-        <title>Créer un challenge | Gamer Challenges</title>
+        <title>Modifier un challenge | Gamer Challenges</title>
+        <meta name="description" content="Modifier votre défi" />
         <meta
-          name="description"
-          content="Propose un nouveau défi à la communauté GamerChallenges et mets tes compétences à l’épreuve."
+          property="og:title"
+          content="Modifier un défi | Gamer Challenges"
         />
-        <meta property="og:title" content="Créer un défi | Gamer Challenges" />
-        <meta
-          property="og:description"
-          content="Propose un nouveau défi à la communauté GamerChallenges et mets tes compétences à l’épreuve."
-        />
+        <meta property="og:description" content="Modifier votre défi" />
       </Helmet>
-      <section className="create-challenge-page">
-        <h1 className="create-challenge-page__title">créer un challenge</h1>
+      <section className="update-challenge-page">
+        <h1 className="update-challenge-page__title">modifier un challenge</h1>
+        <h2>{formChallengeData.name}</h2>
         {!challenDataIsLoading ? (
-          <article className="create-challenge-page__content">
+          <article className="update-challenge-page__content">
             <form
-              onSubmit={handleCreateChallenge}
-              className="create-challenge-page__form form"
+              onSubmit={handleUpdatedChallenge}
+              className="update-challenge-page__form form"
             >
-              <div className="create-challenge-page__form__input-container">
-                <div className="create-challenge-page__form__game-infos">
+              <div className="update-challenge-page__form__input-container">
+                <div className="update-challenge-page__form__game-infos">
                   <div className="form__entry">
+                    {currentChallenge?.challengeImage && (
+                      <img
+                        className="update-challenge-page__image"
+                        src={
+                          currentChallenge.challengeImage.toString() as string
+                        }
+                        alt={`illustration du défi ${formChallengeData.name}`}
+                        srcSet={`${
+                          currentChallenge.challengeImage.toString() as string
+                        } 240w`}
+                        width="240"
+                        height="240"
+                        loading="lazy"
+                      />
+                    )}
+
                     <label className="form--label" htmlFor="name">
                       nom du challenge
                     </label>
@@ -169,8 +259,6 @@ export default function CreateChallengePage() {
                           name: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     />
                   </div>
 
@@ -190,8 +278,6 @@ export default function CreateChallengePage() {
                           gameId: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     >
                       <option
                         className="select__option select__option--disabled label"
@@ -234,8 +320,6 @@ export default function CreateChallengePage() {
                           categoryId: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     >
                       <option
                         className="select__option select__option--disabled label"
@@ -278,8 +362,6 @@ export default function CreateChallengePage() {
                           levelId: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     >
                       <option
                         className="select__option select__option--disabled label"
@@ -308,7 +390,9 @@ export default function CreateChallengePage() {
 
                   <div className="form__entry">
                     <label className="form--label" htmlFor="challengeImage">
-                      image du challenge
+                      {fileChallengeImage
+                        ? "modifier image du challenge ?"
+                        : "image du challenge"}
                     </label>
                     <input
                       id="challengeImage"
@@ -323,8 +407,29 @@ export default function CreateChallengePage() {
                       }}
                     />
                   </div>
+
+                  <div className="form__entry form--checkbox">
+                    <label className="form--label" htmlFor="isOpen">
+                      Ouvrir le challenge ?
+                    </label>
+                    <input
+                      id="isOpen"
+                      name="isOpen"
+                      title="Challenge état ouvert ou fermé"
+                      className="input--border input--checkbox"
+                      type="checkbox"
+                      checked={formChallengeData.isOpen}
+                      onChange={(e) =>
+                        setFormChallengeData({
+                          ...formChallengeData,
+                          isOpen: e.target.checked,
+                        })
+                      }
+                    />
+                  </div>
                 </div>
-                <div className="create-challenge-page__form__challenge-infos">
+
+                <div className="update-challenge-page__form__challenge-infos">
                   <div className="form__entry">
                     <label className="form--label" htmlFor="description">
                       description
@@ -342,8 +447,6 @@ export default function CreateChallengePage() {
                           description: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     />
                   </div>
                   <div className="form__entry">
@@ -363,13 +466,11 @@ export default function CreateChallengePage() {
                           rules: e.target.value,
                         })
                       }
-                      required
-                      aria-required="true"
                     />
                   </div>
                 </div>
               </div>
-              <div className="create-challenge-page__form__button-container">
+              <div className="update-challenge-page__form__button-container">
                 {!isLoading ? (
                   <>
                     <button
@@ -389,7 +490,16 @@ export default function CreateChallengePage() {
                       title="Créer le challenge"
                       aria-label="Créer le challenge"
                     >
-                      créer le challenge
+                      modifier le challenge
+                    </button>
+                    <button
+                      type="button"
+                      className="button button--alert-border"
+                      title="Créer le challenge"
+                      aria-label="Créer le challenge"
+                      onClick={handleDeleteChallenge}
+                    >
+                      supprimer le challenge
                     </button>
                   </>
                 ) : (

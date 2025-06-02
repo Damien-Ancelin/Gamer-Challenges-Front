@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import type { ChallengeCard as TChallengeCard } from '../@types';
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import type { ChallengeCard as TChallengeCard } from "../@types";
 
-import { useParams } from 'react-router';
-import { useErrorHandler } from '../components/ErrorHandlerComponent';
-import { useAuth } from '../contexts/AuthContext';
+import { useParams } from "react-router";
+import { useErrorHandler } from "../components/ErrorHandlerComponent";
+import { useAuth } from "../contexts/AuthContext";
 
-import { api } from '../services/api';
+import { api } from "../services/api";
 
-import altImg240 from '@/assets/images/alt-240px.webp';
-import ChallengeDetailsParticipation from '../components/ChallengeDetailsPage/ChallengeDetailsParticipation';
-import ChallengeDetailsRating from '../components/ChallengeDetailsPage/ChallengeDetailsRating';
-import HandleParticipation from '../components/ChallengeDetailsPage/HandleParticipation';
-import VoteChallenge from '../components/ChallengeDetailsPage/VoteChallenge';
-import Loader from '../ui/Loader';
-import StatusLabel from '../ui/StatusLabel';
+import altImg240 from "@/assets/images/alt-240px.webp";
+import ChallengeDetailsParticipation from "../components/ChallengeDetailsPage/ChallengeDetailsParticipation";
+import ChallengeDetailsRating from "../components/ChallengeDetailsPage/ChallengeDetailsRating";
+import HandleParticipation from "../components/ChallengeDetailsPage/HandleParticipation";
+import VoteChallenge from "../components/ChallengeDetailsPage/VoteChallenge";
+import Loader from "../ui/Loader";
+import StatusLabel from "../ui/StatusLabel";
 
 export default function ChallengesDetailsPage() {
   // Hooks
@@ -35,14 +35,14 @@ export default function ChallengesDetailsPage() {
   // ! Mockdata
   const defaultChallenge = {
     id: 0,
-    name: 'Défi en cours de création',
-    description: 'Description du défi en cours de création.',
-    rules: 'Règles du défi en cours de création.',
+    name: "Défi en cours de création",
+    description: "Description du défi en cours de création.",
+    rules: "Règles du défi en cours de création.",
     challengeImage: altImg240,
     isOpen: false,
-    game: { name: 'Jeu inconnu' },
-    category: { name: 'Catégorie inconnue' },
-    level: { name: 'Niveau inconnu' },
+    game: { name: "Jeu inconnu" },
+    category: { name: "Catégorie inconnue" },
+    level: { name: "Niveau inconnu" },
   };
 
   const currentChallenge = challenge || defaultChallenge;
@@ -50,7 +50,7 @@ export default function ChallengesDetailsPage() {
   useEffect(() => {
     setIsLoading(true);
     const Authenticated = isAuthenticated || false;
-    const challenge_id = challengeId || '0';
+    const challenge_id = challengeId || "0";
 
     const fetchChallenge = async () => {
       try {

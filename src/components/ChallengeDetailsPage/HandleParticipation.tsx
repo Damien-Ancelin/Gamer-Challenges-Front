@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
-import { useAuth } from '../../contexts/AuthContext';
-import { api } from '../../services/api';
-import Loader from '../../ui/Loader';
-import { useErrorHandler } from '../ErrorHandlerComponent';
+import { useAuth } from "../../contexts/AuthContext";
+import { api } from "../../services/api";
+import Loader from "../../ui/Loader";
+import { useErrorHandler } from "../ErrorHandlerComponent";
 
 interface HandleParticipationProps {
   isOwner: boolean;
@@ -101,9 +101,13 @@ export default function HandleParticipation({
         <div className="challenge-details-page__participations">
           <div className="challenge-details-page__button-container">
             {isOwner && isAuthenticated && (
-              <button type="button" className="button button--blue-border">
-                modifier le challenge
-              </button>
+              <Link
+                to={`/compte/challenges-by-me/${challenge_id}/modifier-challenge`}
+              >
+                <button type="button" className="button button--blue-border">
+                  modifier le challenge
+                </button>
+              </Link>
             )}
 
             {!isOwner &&
