@@ -540,6 +540,29 @@ export const api = {
     return data;
   },
 
+  // * Get Leaderboard Participation
+  async getLeaderboardParticipations() {
+    const response = await fetch(`${API_URL}/api/participations/leaderboard`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const status = response.status;
+      const errorData = await response.json();
+      const errorMessage = errorHandler({ status, errorData });
+
+      if (!isProduction) {
+        console.error('Error:', errorMessage);
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    return data;
+  },
+
   // * Get User Participations
   async getUserParticipations(
     limit: number,

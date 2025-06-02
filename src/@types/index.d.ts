@@ -54,6 +54,11 @@ export interface Level {
   levelColor: string;
 }
 
+export interface LeaderBoard {
+  username: string;
+  participation_count: string;
+}
+
 export interface ChallengeReview {
   ratingCounts: number;
   averageRating: number;
