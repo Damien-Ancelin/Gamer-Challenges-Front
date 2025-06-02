@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router';
-import type { ChallengeCard as TChallengeCard } from '../../@types';
+import type {
+  ChallengeCard as TChallengeCard,
+  ParticipationCard as TParticipationCard,
+} from '../../@types';
 
 import { useErrorHandler } from '../../components/ErrorHandlerComponent';
 import { useAuth } from '../../contexts/AuthContext';
@@ -20,7 +23,13 @@ export default function DashBoard() {
   // State
   const navigate = useNavigate();
   const [userChallenges, setUserChallenges] = useState<TChallengeCard[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [userParticipations, setUserParticipations] = useState<
+    TParticipationCard[]
+  >([]);
+  const [isChallengesLoading, setIsChallengesLoading] = useState(false);
+  const [isParticipationsLoading, setIsParticipationsLoading] = useState(false);
+  const [participationUpdated, setParticipationUpdated] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -29,6 +38,7 @@ export default function DashBoard() {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
+    setIsChallengesLoading(true);
     const fetchChallenges = async () => {
       try {
         const data = await api.getUserChallenges(5, 1, 'updatedAt', 'desc');
@@ -40,11 +50,33 @@ export default function DashBoard() {
           await handleError(error);
         }
       } finally {
-        setIsLoading(false);
+        setIsChallengesLoading(false);
       }
     };
     fetchChallenges();
   }, [handleError]);
+
+  useEffect(() => {
+    setIsParticipationsLoading(true);
+    const fetchParticipations = async () => {
+      try {
+        const data = await api.getUserParticipations(3, 1, 'updatedAt', 'desc');
+        if (data) {
+          setUserParticipations(data.participations);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          await handleError(error);
+        }
+      } finally {
+        setIsParticipationsLoading(false);
+        if (participationUpdated) {
+          setParticipationUpdated(false);
+        }
+      }
+    };
+    fetchParticipations();
+  }, [handleError, participationUpdated]);
 
   return (
     <>
@@ -79,15 +111,15 @@ export default function DashBoard() {
         </section>
         <section className="dashboard__challenges">
           <h2 className="dashboard__challenges__title">Mes challenges</h2>
-          {!isLoading &&
+          {!isChallengesLoading &&
             userChallenges?.map((challenge) => (
               <DashboardChallengeCard
                 key={challenge.id}
                 challenge={challenge}
               />
             ))}
-          {isLoading && <Loader />}
-          {!isLoading && userChallenges.length === 0 && (
+          {isChallengesLoading && <Loader />}
+          {!isChallengesLoading && userChallenges.length === 0 && (
             <h4 className="challenges-page__no-challenges">
               Vous n'avez pas encore créer de challenge.
             </h4>
@@ -98,7 +130,7 @@ export default function DashBoard() {
                 créer un challenge
               </button>
             </Link>
-            {!isLoading && userChallenges.length !== 0 && (
+            {!isChallengesLoading && userChallenges.length !== 0 && (
               <Link to="/compte/challenges-by-me">
                 <button type="button" className="button button--blue-border">
                   voir tous mes challenges
@@ -111,13 +143,26 @@ export default function DashBoard() {
           <h2 className="dashboard__participations__title">
             Mes participations
           </h2>
-          <DashBoardParticipationCard />
-          <DashBoardParticipationCard />
-          <DashBoardParticipationCard />
+          {!isParticipationsLoading &&
+            userParticipations?.map((participation) => (
+              <DashBoardParticipationCard
+                key={participation.id}
+                participation={participation}
+                setParticipationUpdated={setParticipationUpdated}
+              />
+            ))}
+          {isParticipationsLoading && <Loader />}
+          {!isParticipationsLoading && userParticipations.length === 0 && (
+            <h4 className="user-participations-page__no-participations">
+              Vous n'avez pas encore participer à un challenge.
+            </h4>
+          )}
           <div className="dashboard__challenges__button-container">
-            <button type="button" className="button button--yellow-border">
-              voir toutes mes participations
-            </button>
+            <Link to="mes-participations">
+              <button type="button" className="button button--yellow-border">
+                voir toutes mes participations
+              </button>
+            </Link>
           </div>
         </section>
       </section>

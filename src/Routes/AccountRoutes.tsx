@@ -4,6 +4,7 @@ import CreateChallengePage from '../pages/AccountPages/CreateChallengePage';
 import DashBoard from '../pages/AccountPages/DashBoard';
 import UpdateUserPage from '../pages/AccountPages/UpdateUserPage';
 import UserChallengesPage from '../pages/AccountPages/UserChallengesPage';
+import UserParticipationsPage from '../pages/AccountPages/UserParticipationsPage';
 import ChallengeUserParticipationPage from '../pages/ChallengeUserParticipationPage';
 
 export const accountRoutes: RouteObject[] = [
@@ -24,7 +25,7 @@ export const accountRoutes: RouteObject[] = [
       {
         path: 'mes-participations',
         children: [
-          { index: true, element: <h1>Mes participations</h1> },
+          { index: true, element: <UserParticipationsPage /> },
           { path: ':id', element: <ChallengeUserParticipationPage /> },
         ],
       },

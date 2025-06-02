@@ -1,8 +1,43 @@
 import { Link } from 'react-router';
+import type { ParticipationCard as TParticipationCard } from '../../@types';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { api } from '../../services/api';
+import { useErrorHandler } from '../ErrorHandlerComponent';
+
+import { toast } from 'react-toastify';
 import StatusLabel from '../../ui/StatusLabel';
 
-export default function DashBoardParticipationCard() {
-  const isValidated = false;
+interface DashBoardParticipationCardProps {
+  participation: TParticipationCard;
+  setParticipationUpdated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function DashBoardParticipationCard({
+  participation,
+  setParticipationUpdated,
+}: DashBoardParticipationCardProps) {
+  // Hooks
+  const { isAuthenticated } = useAuth();
+  const handleError = useErrorHandler();
+
+  const handleDeleteParticipation = async () => {
+    if (!isAuthenticated) {
+      return;
+    }
+    setParticipationUpdated(true);
+    try {
+      const data = await api.deleteUserParticipation(participation.challengeId);
+      if (data.success) {
+        toast.success(data.message);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        await handleError(error);
+      }
+    }
+  };
+
   return (
     <article className="dashboard-participation-card yellow-border">
       <div className="dashboard-participation-card__content">
@@ -10,26 +45,28 @@ export default function DashBoardParticipationCard() {
           <div className="dashboard-participation-card__content__details__header">
             <header className="dashboard-participation-card__content__details__header-container">
               <h3 className="dashboard-participation-card__content__details__header-title">
-                celest any %
+                {participation.challenge.name}
               </h3>
-              <StatusLabel status={true} />
+              <StatusLabel status={participation.challenge.isOpen} />
             </header>
             <div className="dashboard-participation-card__content__details__infos">
               <p className="dashboard-participation-card__content__details__infos-game">
-                jeu : celeste
+                jeu : {participation.challenge.game.name}
               </p>
               <p className="dashboard-participation-card__content__details__infos-category">
-                catégorie : speedrun
+                catégorie : {participation.challenge.category.name}
               </p>
               <p className="dashboard-participation-card__content__details__infos-level">
-                niveau : très difficile
+                niveau : {participation.challenge.level.name}
               </p>
             </div>
           </div>
         </div>
         <div className="dashboard-participation-card__content__button-container">
-          <Link to="/challenges/1/participations/12">
-            {isValidated && (
+          <Link
+            to={`/challenges/${participation.challengeId}/participations/${participation.id}`}
+          >
+            {participation.isValidated && (
               <button
                 className="dashboard-participation-card__content__button button button--purple-border"
                 type="button"
@@ -37,7 +74,7 @@ export default function DashBoardParticipationCard() {
                 voir la vidéo
               </button>
             )}
-            {!isValidated && (
+            {!participation.isValidated && (
               <button
                 className="dashboard-participation-card__content__button button button--blue-border"
                 type="button"
@@ -49,6 +86,7 @@ export default function DashBoardParticipationCard() {
           <button
             className="dashboard-participation-card__content__button button button--alert-border"
             type="button"
+            onClick={handleDeleteParticipation}
           >
             annuler
           </button>
