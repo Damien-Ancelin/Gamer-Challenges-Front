@@ -46,3 +46,30 @@ describe('DeleteAccountButton', () => {
     });
   });
 });
+
+describe('Delete account delete reverse', () => {
+  it('renders InitialButton when not activated', () => {
+    renderWithAuthProvider(<DeleteAccountButton />);
+    expect(screen.getByText('supprimer mon compte')).toBeInTheDocument();
+  });
+  it('renders ConfirmButton when activated', () => {
+    renderWithAuthProvider(<DeleteAccountButton />);
+    fireEvent.click(screen.getByText('supprimer mon compte'));
+    expect(screen.getByText('supprimer mon compte ?')).toBeInTheDocument();
+  });
+  it('renders FinalButton when confirmed', async() => {
+    renderWithAuthProvider(<DeleteAccountButton />);
+    fireEvent.click(screen.getByText('supprimer mon compte'));
+    fireEvent.click(screen.getByText('supprimer mon compte ?'));
+    await waitFor(() => {
+      expect(screen.getByText('supprimer mon compte')).toBeInTheDocument();
+    }, { timeout: 4000 });
+  });
+  it('simulate hover and unhover on the button', () => {
+    renderWithAuthProvider(<DeleteAccountButton />);
+    const bouton = screen.getByText('supprimer mon compte');
+    fireEvent.mouseOver(bouton);
+    fireEvent.mouseOut(bouton);
+    expect(bouton).toHaveClass('button--blue-border');
+  });
+});
