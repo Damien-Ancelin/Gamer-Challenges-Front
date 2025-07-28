@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 export default function HeroBanner() {
   return (
-    <section className="hero-banner">
+    <section id="hero-banner" className="hero-banner">
       <h2 id="hero-banner-title">Prêt à prouver ton skill au monde entier ?</h2>
       <div className="hero-banner__content">
         <img
