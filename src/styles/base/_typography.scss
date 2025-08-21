@@ -7,6 +7,10 @@
   color: v.$main-font-color;
 }
 
+body {
+  background-color: v.$main-background;
+}
+
 h1 {
   font-size: 1.875rem;
   font-family: "Orbitron", sans-serif;

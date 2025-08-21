@@ -55,7 +55,6 @@ export default function UpdateChallengePage() {
             setCategories(dataValues.categories);
             setLevels(dataValues.levels);
 
-            // If challengeId is provided, set the gameId, categoryId, and levelId
             if (!challengeId) {
               setFormChallengeData((prev) => ({
                 ...prev,
@@ -136,7 +135,7 @@ export default function UpdateChallengePage() {
       typeof rules !== 'string' ||
       (challengeImage !== null && !(challengeImage instanceof File))
     ) {
-      await handleError(new Error('Les données du formulaire sont invalides.'));
+      await handleError(new Error('Les données du formulaire sont invalides. Vérifiez vos informations.'));
       setIsLoading(false);
       return;
     }

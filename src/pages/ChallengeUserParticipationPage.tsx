@@ -32,8 +32,6 @@ export default function ChallengeUserParticipationPage() {
   const [participationUpdated, setParticipationUpdated] =
     useState<boolean>(false);
 
-  // ! to move to a context or a local state
-
   useEffect(() => {
     setIsLoading(true);
     const Authenticated = isAuthenticated || false;
@@ -108,7 +106,8 @@ export default function ChallengeUserParticipationPage() {
         <meta property="og:type" content="video.other" />
         <meta property="og:video" content={youtubeEmbedURL || ''} />
       </Helmet>
-      {/* Partie Section de la page */}
+      
+      {/* Section part  */}
       <section className="challenge-user-participation-page">
         {!isLoading ? (
           <>

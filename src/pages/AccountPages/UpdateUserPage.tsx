@@ -87,7 +87,7 @@ export default function UpdateUserPage() {
       (avatar !== null && !(avatar instanceof File))
     ) {
       await handleError(
-        new Error('Invalid form data. Please check your input values.'),
+        new Error('Format de données invalide. Vérifiez vos informations.'),
       );
       setisLoading(false);
       return;
